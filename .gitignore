@@ -1,5 +1,3 @@
-data/*.jsonl
-
 data/raw/**
 !data/raw/*.py
 
