@@ -8,7 +8,9 @@ from bs4 import BeautifulSoup
 def convertToPureText(text):
     res = re.sub(
         r'\s+', ' ', text.strip())  # 替换空格和换行符
-    res = re.sub(r'<.*?>', '', res)  # 替换a标签
+    # 删除指定标签（仅保留内容），保留模版符号<T>
+    res = re.sub(
+        r'<a.*?>|</a>|<code.*?>|</code>|<wbr>|<span.*?>|</span>', '', res)
     res = re.sub(r'\s+', ' ', res)  # 替换空格和换行符
 
     return res
@@ -17,13 +19,14 @@ def convertToPureText(text):
 if __name__ == '__main__':
     cur_path = os.path.abspath('.')
 
-    classes = []
+    classes_and_interfaces = []
+    idx = 0
 
     for dirname in tqdm(os.listdir(cur_path)):
         if not dirname.endswith('-javadoc'):
             continue
 
-        project_name = dirname[:-8]
+        repo_name = dirname[:-8]
 
         allclasses_soup = BeautifulSoup(
             open(dirname + '/allclasses-index.html', encoding='utf-8'), 'html.parser')
@@ -42,8 +45,9 @@ if __name__ == '__main__':
             des = class_des_div.find('div', class_='block')
             if des is None:
                 continue
+            class_des = convertToPureText(des.text)
 
-            class_name = class_div.find('a').text
+            class_name = convertToPureText(class_div.text)
             class_a = os.path.join(
                 cur_path, dirname, class_div.find('a').get('href'))
 
@@ -51,12 +55,16 @@ if __name__ == '__main__':
             class_soup = BeautifulSoup(
                 open(class_a, encoding='utf-8'), 'html.parser')
 
-            # 获取class的概要说明
-            class_description_section = class_soup.find(
-                'section', class_='class-description')
-            class_description_block_div = class_description_section.find(
-                'div', class_='block')
-            class_des = convertToPureText(class_description_block_div.text)
+            # 获取class的签名
+            class_signature = convertToPureText(class_soup.find(
+                'div', class_='type-signature').text)
+
+            # 获取class的概要说明（详细）
+            # class_description_section = class_soup.find(
+            #     'section', class_='class-description')
+            # class_description_block_div = class_description_section.find(
+            #     'div', class_='block')
+            # class_des = convertToPureText(class_description_block_div.text)
 
             # 获取class中的方法以及对应的描述
             methods_des = []
@@ -88,16 +96,20 @@ if __name__ == '__main__':
                     'method_des': method_des,
                 })
 
-            classes.append({
-                'class_name': class_name,
-                'class_des': class_des,
+            classes_and_interfaces.append({
+                'index': idx,
+                'name': class_name,
+                'signature': class_signature,
+                'des': class_des,
                 'methods_des': methods_des,
-                'project_name': project_name,
+                'repo': repo_name,
             })
 
+            idx += 1
+
     # 将classes_des写入jsonl文件
-    with open('../classes.jsonl', 'w', encoding='utf-8') as f:
-        for item in classes:
+    with open('../classes_and_interfaces.jsonl', 'w', encoding='utf-8') as f:
+        for item in classes_and_interfaces:
             f.write(json.dumps(item, ensure_ascii=False) + '\n')
 
-    print('total_num:', len(classes))
+    print('total_num:', len(classes_and_interfaces))
