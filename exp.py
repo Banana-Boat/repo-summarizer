@@ -2,6 +2,7 @@ import datetime
 from bleu import computeMaps, bleuFromMaps
 from tqdm import tqdm
 from transformers import RobertaTokenizer, T5ForConditionalGeneration
+import json
 
 if __name__ == '__main__':
     model_name = 'codet5-base-multi-sum'
@@ -9,49 +10,25 @@ if __name__ == '__main__':
     tokenizer = RobertaTokenizer.from_pretrained('Salesforce/' + model_name)
     model = T5ForConditionalGeneration.from_pretrained('Salesforce/' + model_name)
 
-    code1 = """public class ListenerContainerIdleEvent extends KafkaEvent {
-        // Retrieve the consumer.
-        org.apache.kafka.clients.consumer.Consumer<?,?> getConsumer();
-        // How long the container has been idle.
-        long getIdleTime();
-        // The id of the listener (if @KafkaListener) or the container bean name.
-        String getListenerId();
-        // The TopicPartitions the container is listening to.
-        Collection<org.apache.kafka.common.TopicPartition> getTopicPartitions();
-        // Return true if the consumer was paused at the time the idle event was published.
-        boolean isPaused();
-        String toString();
-    }"""
-    code2 = """public class AnnotationJmxAttributeSource extends Object implements JmxAttributeSource, org.springframework.beans.factory.BeanFactoryAware {
-        // Implementations should return an instance of ManagedAttribute if the supplied Method has the corresponding metadata.
-        ManagedAttribute getManagedAttribute(Method method);
-        // Implementations should return an instance of ManagedMetric if the supplied Method has the corresponding metadata.
-        ManagedMetric getManagedMetric(Method method);
-        // Implementations should return an array of ManagedNotifications if the supplied Class has the corresponding metadata.
-        ManagedNotification[] getManagedNotifications(Class<?> clazz);
-        // Implementations should return an instance of ManagedOperation if the supplied Method has the corresponding metadata.
-        ManagedOperation getManagedOperation(Method method);
-        // Implementations should return an array of ManagedOperationParameter if the supplied Method has the corresponding metadata.
-        ManagedOperationParameter[] getManagedOperationParameters(Method method);
-        // Implementations should return an instance of ManagedResource if the supplied Class has the appropriate metadata.
-        ManagedResource getManagedResource(Class<?> beanClass);
-        void setBeanFactory(org.springframework.beans.factory.BeanFactory beanFactory);
-    }"""
-
-    codes = [code1, code2]
-
     predictions = []
-    idx = 0
 
-    for code in tqdm(codes):
-        input_ids = tokenizer(code, return_tensors="pt").input_ids
-        generated_ids = model.generate(input_ids, max_length=30)
-        res = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
+    with open('./data/valid.jsonl', "r") as valid_file, open('./log/valid.out', "w", encoding="utf-8") as out_file, open('./log/valid.gold', "w", encoding="utf-8") as gold_file:
+        for line in tqdm(valid_file):
+            obj = json.loads(line)
 
-        predictions.append(str(idx) + '\t' + res)
-        idx += 1
+            if obj['index'] == 1000:
+                break
 
-    (goldMap, predictionMap) = computeMaps(predictions, "./test.gold")
+            input_ids = tokenizer(obj['code'], max_length=510, truncation=True, return_tensors="pt").input_ids
+            generated_ids = model.generate(input_ids, max_length=20)
+            res = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
+
+            predictions.append(str(obj['index']) + '\t' + res)
+            out_file.write(str(obj['index']) + '\t' + res + '\n')
+            gold_file.write(str(obj['index']) + '\t' + obj['des'] + '\n')
+
+
+    (goldMap, predictionMap) = computeMaps(predictions, "./log/valid.gold")
     this_bleu = round(bleuFromMaps(goldMap, predictionMap)[0], 2)
 
     print(this_bleu)
