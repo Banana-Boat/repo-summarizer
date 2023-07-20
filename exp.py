@@ -18,12 +18,12 @@ if __name__ == '__main__':
     with open('./data/valid.jsonl', "r") as valid_file, open('./log/valid.out', "w", encoding="utf-8") as out_file, open('./log/valid.gold', "w", encoding="utf-8") as gold_file:
         lines = valid_file.readlines()
         random.shuffle(lines)
-        for line in tqdm(lines[:2000]):
+        for line in tqdm(lines):
             obj = json.loads(line)
 
             input_ids = tokenizer(
-                obj['code'], max_length=510, truncation=True, return_tensors="pt").input_ids
-            generated_ids = model.generate(input_ids, max_length=20)
+                obj['code'], max_length=512, truncation=True, return_tensors="pt").input_ids
+            generated_ids = model.generate(input_ids, max_length=30)
             res = tokenizer.decode(generated_ids[0], skip_special_tokens=True)
 
             predictions.append(str(obj['index']) + '\t' + res)

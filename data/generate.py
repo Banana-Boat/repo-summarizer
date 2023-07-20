@@ -15,6 +15,10 @@ with open('./classes_and_interfaces.jsonl', encoding='utf-8') as f:
             code += '\t' + method['method_name'] + ';\n'
         code += '}'
 
+        # 根据模型输入token个数上限而定
+        if len(code) > 512:
+            continue
+
         obj['index'] = jsonl['index']
         obj['code'] = code
         obj['des'] = jsonl['des']
