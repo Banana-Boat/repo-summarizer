@@ -3,6 +3,8 @@ from tqdm import tqdm
 
 with open('./classes_and_interfaces.jsonl', encoding='utf-8') as f:
     res = []
+    index = 0
+
     for line in tqdm(f):
         jsonl = json.loads(line)
 
@@ -19,11 +21,12 @@ with open('./classes_and_interfaces.jsonl', encoding='utf-8') as f:
         if len(code) > 512:
             continue
 
-        obj['index'] = jsonl['index']
+        obj['index'] = index
         obj['code'] = code
         obj['des'] = jsonl['des']
 
         res.append(obj)
+        index += 1
 
     with open('valid.jsonl', 'w', encoding='utf-8') as f:
         for item in res:
