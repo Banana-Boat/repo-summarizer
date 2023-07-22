@@ -52,8 +52,8 @@ if __name__ == '__main__':
                 open(class_a, "r", encoding='utf-8'), 'html.parser')
 
             # 获取class的签名
-            class_signature = class_soup.find(
-                'div', class_='type-signature').get_text()
+            class_signature = formatText(class_soup.find(
+                'div', class_='type-signature').get_text())
 
             # 获取class的概要说明（详细）
             # class_description_section = class_soup.find(
