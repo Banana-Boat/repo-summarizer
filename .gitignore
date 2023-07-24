@@ -6,6 +6,10 @@ data/javadocs/**
 
 repo/
 
+model/**
+!model/*.gold
+!model/*.output
+
 ################################################
 .vscode
 .idea

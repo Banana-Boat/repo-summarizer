@@ -70,12 +70,12 @@ def read_arguments():
     parser.add_argument("--add_task_prefix", default=False, action='store_true',
                         help="Whether to add task prefix for T5 and codeT5")
 
-    parser.add_argument("--num_train_epochs", default=20, type=int,
+    parser.add_argument("--num_train_epochs", default=24, type=int,
                         help="Total number of training epochs to perform.")
 
-    parser.add_argument("--train_batch_size", default=128, type=int,
+    parser.add_argument("--train_batch_size", default=32, type=int,
                         help="Batch size per GPU/CPU for training.")
-    parser.add_argument("--eval_batch_size", default=32, type=int,
+    parser.add_argument("--eval_batch_size", default=16, type=int,
                         help="Batch size per GPU/CPU for evaluation.")
     parser.add_argument('--gradient_accumulation_steps', type=int, default=2,
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
@@ -109,7 +109,7 @@ def read_arguments():
                         help="For distributed training: local_rank")
     parser.add_argument('--seed', type=int, default=42,
                         help="random seed for initialization")
-    parser.add_argument('--early_stop_threshold', type=int, default=10)
+    parser.add_argument('--early_stop_threshold', type=int, default=8)
 
     # print arguments
     args = parser.parse_args()
