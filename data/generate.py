@@ -28,6 +28,7 @@ def get_processed_data(filename, start_idx):
                 continue
 
             obj['index'] = index
+            obj['repo'] = jsonl['repo']
             obj['code'] = code
             obj['des'] = jsonl['des']
 
