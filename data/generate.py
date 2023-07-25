@@ -46,7 +46,7 @@ if __name__ == '__main__':
         print('Processing ' + filename)
         res.extend(get_processed_data(filename, len(res)))
 
-    random.shuffle(res)
+    # random.shuffle(res)
 
     # 将res拆分为train, valid, test，比例为6:2:2
     train_num = int(len(res) * 0.6)

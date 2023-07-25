@@ -31,7 +31,7 @@ class Example(object):
 def read_examples(filename, args):
     """Read examples from filename."""
     if args.add_task_prefix:
-        task_prefix = f"Generating comments for {args.lang}: "
+        task_prefix = f"Generating comments for the code below: "
     else:
         task_prefix = ""
 
