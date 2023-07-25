@@ -21,7 +21,7 @@ def get_processed_data(filename, start_idx):
                     valid_num += 1
                 code += '\t' + method['method_name'] + ';\n'
             code += '}'
-            if valid_num < 1:
+            if valid_num < 2:
                 continue
 
             # 根据模型输入token个数上限而定
