@@ -1,4 +1,5 @@
 import json
+import random
 from tqdm import tqdm
 
 
@@ -20,7 +21,7 @@ def get_processed_data(filename, start_idx):
                     valid_num += 1
                 code += '\t' + method['method_name'] + ';\n'
             code += '}'
-            if valid_num < 2:
+            if valid_num < 1:
                 continue
 
             # 根据模型输入token个数上限而定
@@ -44,6 +45,8 @@ if __name__ == '__main__':
         filename = './classes_and_interfaces_v{}.jsonl'.format(i)
         print('Processing ' + filename)
         res.extend(get_processed_data(filename, len(res)))
+
+    random.shuffle(res)
 
     # 将res拆分为train, valid, test，比例为6:2:2
     train_num = int(len(res) * 0.6)
