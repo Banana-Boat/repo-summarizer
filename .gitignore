@@ -6,6 +6,7 @@ data/javadocs/**
 
 repo/
 
+model_*
 model/**
 !model/*.gold
 !model/*.output
