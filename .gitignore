@@ -1,8 +1,11 @@
-data/javadocs/class/**
-!data/javadocs/class/*.py
+data/javadocs/
 
-data/javadocs/package/**
-!data/javadocs/package/*.py
+data/class/**
+!data/class/*.py
+
+data/package/**
+!data/package/*.py
+
 
 repo/
 

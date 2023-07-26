@@ -12,7 +12,7 @@ def formatText(text):
 
 
 if __name__ == '__main__':
-    root_path = os.path.abspath('./v1')
+    root_path = os.path.abspath('../javadocs/v4')
 
     classes_and_interfaces = []
 
@@ -23,11 +23,11 @@ if __name__ == '__main__':
         repo_name = dirname[:-8]
 
         allclasses_soup = BeautifulSoup(
-            open(os.path.join(root_path, dirname, 'allclasses-noframe.html'), "r", encoding='utf-8'), 'html.parser')
+            open(os.path.join(root_path, dirname, 'allclasses.html'), "r", encoding='utf-8'), 'html.parser')
 
         # 获取包含summary-table样式类的div
         index_container_div = allclasses_soup.find(
-            'div', class_='indexContainer')
+            'main', class_='indexContainer')
 
         for li in index_container_div.find_all('li'):
             class_name = li.find('a').get_text()
@@ -80,38 +80,26 @@ if __name__ == '__main__':
 
             # 获取class中的方法以及对应的描述
             methods = []
-            table_a = class_soup.find('a', {'name': 'method.summary'})
-            if table_a is None:
-                continue
-
-            method_summary_table = table_a.find_next_sibling('table')
+            method_summary_table = class_soup.find('table', class_='memberSummary')
             if method_summary_table is None:
                 continue
 
             for method_tr in method_summary_table.find_all('tr')[1:]:
                 return_div = method_tr.find('td', class_='colFirst')
-                method_div = method_tr.find('td', class_='colLast')
+                method_div = method_tr.find('th', class_='colSecond')
+                method_des_div = method_tr.find('td', class_='colLast')
 
-                # 忽略已弃用的方法
-                method_deprecated_div = method_div.find(
-                    'span', class_='deprecatedLabel')
-                if method_deprecated_div is not None:
+                if return_div is None or method_div is None or method_des_div is None:
                     continue
-
-                method_des_div = method_div.find('div', class_='block')
-                if method_des_div is None:
-                    method_des = ''
-                else:
-                    method_des = formatText(method_des_div.get_text())
-                    method_des_div.decompose()
-
-                method_name = formatText(
-                    return_div.get_text() + ' ' + method_div.get_text())
 
                 # 忽略通用方法的重写
                 temp_str = formatText(method_div.get_text())
                 if temp_str == 'toString()' or temp_str == 'equals()' or temp_str == 'hashCode()':
                     continue
+
+                method_name = formatText(
+                    return_div.get_text() + ' ' + method_div.get_text())
+                method_des = formatText(method_des_div.get_text())
 
                 methods.append({
                     'name': method_name,
@@ -130,6 +118,6 @@ if __name__ == '__main__':
             })
 
     # 将classes_des写入jsonl文件
-    with open('./classes_v1.jsonl', 'w', encoding='utf-8') as f:
+    with open('./classes_v4.jsonl', 'w', encoding='utf-8') as f:
         for item in classes_and_interfaces:
             f.write(json.dumps(item, ensure_ascii=False) + '\n')

@@ -12,7 +12,7 @@ def formatText(text):
 
 
 if __name__ == '__main__':
-    root_path = os.path.abspath('./v2')
+    root_path = os.path.abspath('../javadocs/v2')
 
     packages = []
 

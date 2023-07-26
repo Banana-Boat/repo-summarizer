@@ -23,13 +23,16 @@ def get_processed_data(filename, start_idx):
                     valid_num += 1
                 tmp_str += '\t' + method['name'] + ';\n'
 
-                if len(code + tmp_str) > 511:
-                    break
+                # if len(code + tmp_str) > 511:
+                #     break
 
                 code += tmp_str
 
             code += '}'
             if valid_num < 2:
+                continue
+
+            if len(code) > 512:
                 continue
 
             obj['index'] = index
@@ -45,7 +48,7 @@ def get_processed_data(filename, start_idx):
 
 if __name__ == '__main__':
     res = []
-    for i in range(1, 4):
+    for i in range(1, 5):
         filename = './classes_v{}.jsonl'.format(i)
         print('Processing ' + filename)
         res.extend(get_processed_data(filename, len(res)))
@@ -57,14 +60,14 @@ if __name__ == '__main__':
     valid_num = int(len(res) * 0.2)
     test_num = len(res) - train_num - valid_num
 
-    with open('../../train_classes.jsonl', 'w', encoding='utf-8') as f:
+    with open('../train_classes.jsonl', 'w', encoding='utf-8') as f:
         for item in res[:train_num]:
             f.write(json.dumps(item, ensure_ascii=False) + '\n')
 
-    with open('../../valid_classes.jsonl', 'w', encoding='utf-8') as f:
+    with open('../valid_classes.jsonl', 'w', encoding='utf-8') as f:
         for item in res[train_num:train_num+valid_num]:
             f.write(json.dumps(item, ensure_ascii=False) + '\n')
 
-    with open('../../test_classes.jsonl', 'w', encoding='utf-8') as f:
+    with open('../test_classes.jsonl', 'w', encoding='utf-8') as f:
         for item in res[train_num+valid_num:]:
             f.write(json.dumps(item, ensure_ascii=False) + '\n')
