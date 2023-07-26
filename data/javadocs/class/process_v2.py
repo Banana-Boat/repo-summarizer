@@ -55,31 +55,8 @@ if __name__ == '__main__':
             class_signature = formatText(class_soup.find(
                 'div', class_='type-signature').get_text())
 
-            # 获取class的概要说明（详细）
-            # class_description_section = class_soup.find(
-            #     'section', class_='class-description')
-            # class_description_block_div = class_description_section.find(
-            #     'div', class_='block')
-
-            # # 若存在pre标签或p标签，则删除第一个p或pre标签之后的内容
-            # p_index = class_description_block_div.decode().find('<p>')
-            # pre_index = class_description_block_div.decode().find('<pre>')
-
-            # if p_index == -1 and pre_index != -1:
-            #     class_des = class_description_block_div.decode()[:pre_index]
-            # elif p_index != -1 and pre_index == -1:
-            #     class_des = class_description_block_div.decode()[:p_index]
-            # elif p_index != -1 and pre_index != -1:
-            #     class_des = class_description_block_div.decode()[
-            #         :min(p_index, pre_index)]
-            # else:
-            #     class_des = class_description_block_div.get_text()
-
-            # class_des = formatText(BeautifulSoup(
-            #     class_des, 'html.parser').get_text())
-
             # 获取class中的方法以及对应的描述
-            methods_des = []
+            methods = []
             method_summary_section = class_soup.find(
                 'section', class_='method-summary')
             if method_summary_section is None:
@@ -109,23 +86,23 @@ if __name__ == '__main__':
                     return_div.get_text() + ' ' + method_div.get_text())
                 method_des = formatText(method_des_div.get_text())
 
-                methods_des.append({
-                    'method_name': method_name,
-                    'method_des': method_des,
+                methods.append({
+                    'name': method_name,
+                    'des': method_des,
                 })
 
-            if len(methods_des) == 0:
+            if len(methods) == 0:
                 continue
 
             classes_and_interfaces.append({
                 'name': class_name,
                 'signature': class_signature,
                 'des': class_des,
-                'methods_des': methods_des,
+                'methods': methods,
                 'repo': repo_name,
             })
 
     # 将classes_des写入jsonl文件
-    with open('../classes_v2.jsonl', 'w', encoding='utf-8') as f:
+    with open('./classes_v2.jsonl', 'w', encoding='utf-8') as f:
         for item in classes_and_interfaces:
             f.write(json.dumps(item, ensure_ascii=False) + '\n')

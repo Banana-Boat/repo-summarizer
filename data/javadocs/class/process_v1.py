@@ -79,7 +79,7 @@ if __name__ == '__main__':
                 class_des, 'html.parser').get_text())
 
             # 获取class中的方法以及对应的描述
-            methods_des = []
+            methods = []
             table_a = class_soup.find('a', {'name': 'method.summary'})
             if table_a is None:
                 continue
@@ -113,23 +113,23 @@ if __name__ == '__main__':
                 if temp_str == 'toString()' or temp_str == 'equals()' or temp_str == 'hashCode()':
                     continue
 
-                methods_des.append({
-                    'method_name': method_name,
-                    'method_des': method_des,
+                methods.append({
+                    'name': method_name,
+                    'des': method_des,
                 })
 
-            if len(methods_des) == 0:
+            if len(methods) == 0:
                 continue
 
             classes_and_interfaces.append({
                 'name': class_name,
                 'signature': class_signature,
                 'des': class_des,
-                'methods_des': methods_des,
+                'methods': methods,
                 'repo': repo_name,
             })
 
     # 将classes_des写入jsonl文件
-    with open('../classes_v1.jsonl', 'w', encoding='utf-8') as f:
+    with open('./classes_v1.jsonl', 'w', encoding='utf-8') as f:
         for item in classes_and_interfaces:
             f.write(json.dumps(item, ensure_ascii=False) + '\n')

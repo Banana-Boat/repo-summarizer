@@ -4,8 +4,9 @@ from tqdm import tqdm
 
 
 def get_processed_data(filename, start_idx):
+    res = []
+
     with open(filename, "r", encoding='utf-8') as f:
-        res = []
         index = start_idx
 
         for line in tqdm(f):
@@ -15,17 +16,20 @@ def get_processed_data(filename, start_idx):
 
             valid_num = 0
             code = jsonl['signature'] + ' {\n'
-            for method in jsonl['methods_des']:
-                if method['method_des'] != '':
-                    code += '\t// ' + method['method_des'] + '\n'
+            for method in jsonl['methods']:
+                tmp_str = ''
+                if method['des'] != '':
+                    tmp_str += '\t// ' + method['des'] + '\n'
                     valid_num += 1
-                code += '\t' + method['method_name'] + ';\n'
+                tmp_str += '\t' + method['name'] + ';\n'
+
+                if len(code + tmp_str) > 511:
+                    break
+
+                code += tmp_str
+
             code += '}'
             if valid_num < 2:
-                continue
-
-            # 根据模型输入token个数上限而定
-            if len(code) > 512:
                 continue
 
             obj['index'] = index
@@ -36,7 +40,7 @@ def get_processed_data(filename, start_idx):
             res.append(obj)
             index += 1
 
-        return res
+    return res
 
 
 if __name__ == '__main__':
@@ -46,7 +50,7 @@ if __name__ == '__main__':
         print('Processing ' + filename)
         res.extend(get_processed_data(filename, len(res)))
 
-    # random.shuffle(res)
+    print('Total num: ' + str(len(res)))
 
     # 将res拆分为train, valid, test，比例为6:2:2
     train_num = int(len(res) * 0.6)
