@@ -92,7 +92,7 @@ def read_arguments():
     parser.add_argument("--warm_up_ratio", default=0.1, type=float)
 
     # controlling arguments
-    parser.add_argument("--do_train", action='store_true', default=False,
+    parser.add_argument("--do_train", action='store_true', default=True,
                         help="Whether to run training.")
     parser.add_argument("--do_eval", action='store_true', default=True,
                         help="Whether to run eval on the dev set.")
