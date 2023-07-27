@@ -81,7 +81,7 @@ def read_arguments():
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
 
     # other arguments
-    parser.add_argument("--load_model_path", default="model_0725_1000/checkpoint-last", type=str,
+    parser.add_argument("--load_model_path", default="", type=str,
                         help="Path to trained model: Should contain the .bin files")
     parser.add_argument("--max_source_length", default=512, type=int,
                         help="The maximum total source sequence length after tokenization. Sequences longer "
