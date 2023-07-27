@@ -1,0 +1,2432 @@
+7296	The context in which a specific MongoJsonSchemaCreator.JsonSchemaPropertyContext.getProperty() is encountered during schema creation.
+7297	Implementation of IndexDefinition holding additional (property)path information used for creating the index.
+7298	Match modes for treatment of String values.
+7299	MongoDB specific transaction object, representing a MongoResourceHolder.
+7300	Mongo-specific TypeMapper exposing that Documents contain a type key.
+7301	Gateway to object expression operators.
+7302	The mode for merging the output of an operation.
+7303	IndexFilter implementation for usage with MongoDB partial index expressions.
+7304	An ProjectionOperation.ProjectionOperationBuilder that is used for ProjectionOperation.ELLIPSIS.
+7305	Base class for repository implementations that use Querydsl.
+7306	Collection override (optional).
+7307	Result restrictions.
+7308	Provide a Query override (optional).
+7309	Compose insert execution by calling one of the terminating methods.
+7310	Input document filter query (Optional).
+7311	ReactiveMongoContext utilizes and enriches the Reactor Context with information common to all Reactor implementations.
+7312	Component that inspects MongoPersistentEntity instances contained in the given MongoMappingContext for indexing information and ensures the indexes to be available in the given Mongo
+7313	MongoDB specific transaction object, representing a MongoResourceHolder.
+7314	Provide a Query override (optional).
+7315	Compose remove execution by calling one of the terminating methods.
+7316	ReactiveSessionScoped is a utility interface used to define custom execution hooks for the ClientSession.
+7317	Define a filter query for the Update.
+7318	Define the Update to apply.
+7319	Strategy interface for resolving ReferenceQuery objects.
+7320	A reference collection to a database and collection name.
+7321	Common utility class for mapping MongoDB specific regex flags to flags used in MongoDB.
+7322	Encapsulates the replace-with-operation.
+7323	Encapsulates the aggregation framework $sample-operation.
+7324	This class contains all the JavaScript script operators that can be used to process values stored in JavaScript.
+7325	Static utilities for serialization.
+7326	Defines a SessionCallback that will be executed within a ClientSession.
+7327	Represents a session synchronization policy for use with the Spring Data SyncManager.
+7328	Gateway to set aggregation operations.
+7329	A Field representing a ComputedField.
+7330	SetWindowFieldsOperation.DocumentWindow.
+7331	SetWindowFieldsOperation.RangeWindow.
+7332	SetWindowFieldsOperation.Window.
+7333	The output of the SetWindowFieldsOperation.
+7334	The window unit of the operation.
+7335	Window units.
+7336	Simple implementation of the MongoDatabaseFactory interface, creating a MongoDatabase from the client's MongoDB database name.
+7337	Encapsulates the $skip-operation.
+7338	Encapsulates the aggregation framework $sortByCount-operation.
+7339	Encapsulates the $sort-operation.
+7340	Represents a sphere.
+7341	SpringDataMongoDB is a utility class that exposes various MongoDB specific information common to all Spring-specific classes.
+7342	Gateway to string expression operators.
+7343	SubscriptionRequest represents a batch of subscription messages that can be published to a Kafka topic.
+7344	An enumeration of well-known system variables.
+7345	Builder for TailableCursorRequest.TailableCursorRequestOptions.
+7346	The actual Task to run within the lifecycle phase of a Runnable.
+7347	The Task.State defining the lifecycle phase the actual Task.
+7348	A term that is a boolean number.
+7349	An aggregation that returns a typed result set.
+7350	An enum for callback when the callback is not called.
+7351	Enumeration of various write result checking algorithms.
+7352	Abstract implementation of a FileListFilter, providing an implementation for filtering out files.
+7353	Abstract class for FileListFilter that accepts files based on a regular expression pattern.
+7354	An option supported for the outbound gateway.
+7355	Abstract base class for FileListFilter implementations that only accept files whose names match a particular pattern.
+7356	A FileListFilter that combines a list of files and returns a new list.
+7357	Simple ClientCallback implementation that allows for a client to be passed along without the result.
+7358	A DefaultFileNameGenerator implementation that uses the Message-based FileNameGenerator to generate a file name based on an expression.
+7359	Default implementation of the SessionFactoryLocator interface.
+7360	Interface for files in a directory.
+7361	Enumeration that represents the mode in which a file exists exists.
+7362	Interface for dealing with a file system locks.
+7363	A FileTransformer that converts a File to a String.
+7364	Strategy interface used to synchronize files from remote nodes.
+7365	A FileLocker that uses a NIO io.FileLocker to lock a file, and unlocks a file if the lock is
+7366	A DirectoryScanner that traverses a given directory, recursively calling the corresponding File.visit(File, List) method.
+7367	A filter to filter a list of files using a regular expression.
+7368	Interface to define the key rotation policy.
+7369	Simple interface providing a session callback that can be used without a result.
+7370	A SimplePatternFileListFilter that matches a file pattern in a directory.
+7371	AspectJ advisors may use different types of annotation.
+7372	Abstract base class for pointcuts that use an expression.
+7373	Base class for generic advisor implementations.
+7374	Listener for the advice of a proxy.
+7375	Interface for aspect advice implementations.
+7376	Interface to be implemented by AOP-based Advisors.
+7377	Interface to be implemented by specific Advisor instances, including a list of AOP Alliance MethodInterceptors.
+7378	AopProxy is a simple proxy interface that can be used to create Aop objects.
+7379	Factory interface for factories that create instances of an aspect class.
+7380	AspectJAfterAdvice encapsulates logic for the "after" advice.
+7381	AspectJAfterReturningAdvice.
+7382	AspectJAfterThrowingAdvice.
+7383	Static utilities for aspectJAop.
+7384	AspectJMethodBeforeAdvice for methods that are invoked before a method is invoked.
+7385	Aspect implementation for a PointcutAdvisor.
+7386	Interface used to represent information about the precedence of an advice.
+7387	AspectJProxyFactory implementation for the AspectJ2 proxy factory.
+7388	Advisor retrieval helper class.
+7389	AspectJ-annotated advisors builder.
+7390	A base class for TargetSource that exposes a fresh bean object, for use by the BeanFactoryRefreshableInterceptor.
+7391	A SimpleTraceInterceptor that logs calls a given number of times.
+7392	Default implementation of the AdvisorAdapterRegistry interface.
+7393	Default implementation of the PointcutAdvisor interface, used to achieve simple pointcuts.
+7394	Default PointcutAdvisor implementation.
+7395	Default implementation of the ScopedObject interface, exposing the target object through a ScopedProxy.
+7396	IntroductionInterceptor that delegates to the target object when it is introduced.
+7397	IntroductionInterceptor that delegates to the target MethodInterceptor.
+7398	A MethodMatcher that matches a dynamic method.
+7399	Dynamic implementation of MethodMatcherPointcut, used for matching methods using DynamicTypes.
+7400	A MethodInterceptor that exposes the ability to handle the return value of an invocation.
+7401	Advisor that describes how to instantiate an instance of a class based on an implementation-specific pointcut.
+7402	Advice used to add classes that need to introduce introduction.
+7403	A joinpoint interface that can be implemented by any method in a JoinpointInterceptor.
+7404	A TargetSource that is responsible for initializing a target object when it is first loaded.
+7405	Aspect instance factory that encapsulates metadata aware information for methods that are aware of aspect metadata.
+7406	A pointcut interface for methods that are tagged with a superclass, no special handling for methods annotated with a superclass or no special handling for a superclass
+7407	Base class for pointcuts.
+7408	A configuration object for a pooling mechanism.
+7409	A base class for TargetSource that provides a prototype for every request to the target of a method.
+7410	Interface to be implemented by objects that need to refresh their data.
+7411	Advisor driven by a RegexpMethodPointcut, used to match methods using a regular expression.
+7412	A simple interface for objects that are scoped on a session.
+7413	Simple implementation of the TraceInterceptor interface, logging calls to trace methods.
+7414	A MethodMatcher that matches statically.
+7415	Static implementation of a MethodMatcher Pointcut, supporting static methods.
+7416	Advisor drives a static Pointcut for a method.
+7417	Interface that encapsulates the actual target object returned by a TargetSource.
+7418	Interface that defines statistics about thread-bound source instances that are available to the engine.
+7419	An advice that detects method invocations that are thrown by a Handler.
+7420	Class filter to filter types based on a pointcut.
+7421	A MailInboundChannelAdapterSpec for IMAP.
+7422	Utility methods for dealing with JavaMail's MailTransport.
+7423	Pop3-based MailReceiver implementation that uses Pop3's internal API to expungeImplementation of the standard mail receiver, exposing the
+7424	Default implementation of a SettingsReader.
+7425	A result for the SettingsBuilding.
+7426	A settings decrypt request is a part of a settings interface.
+7427	A result for settings decryption.
+7428	Exception thrown when parsing a settings file.
+7429	The severity of a problem.
+7430	Interface for reading Settings from a character stream or file.
+7431	Interface for validating project and environment settings.
+7432	Interface that specifies the writer that can write settings to a file.
+7433	Factory for OAuth2 Authentication implementations.
+7434	ClientNXIdleState states.
+7435	Schema implementation for Avro Struct schemas.
+7436	JSONSchema is a specialized version of the Avro JSON SchemaInfo class.
+7437	Pulsar serviceName resolver implementation.
+7438	Interface to resolve host.
+7439	Utility methods for working with AOP proxies.
+7440	Interface for application events that are being recorded during test execution.
+7441	A holder class for the ApplicationEvents information for the current thread.
+7442	Listener for ApplicationEventsTestExecutionListener.
+7443	A basic interface for a bootstrap context.
+7444	Strategy interface used to load Spring Framework contexts.
+7445	Default implementation of a BootstrapContext.
+7446	A SmartContextLoader that delegates to a given class.
+7447	Mode for class parsing.
+7448	The hierarchy mode how to use the hierarchy of a given path.
+7449	Specifies how method is handled.
+7450	A Collector that collects all exceptions that are thrown by the Executable.
+7451	A collection of ResultMatcher instances for flash attributes.
+7452	ExchangeResult implementation that wraps a consumer/consumer flux<T> from a Java Flux<T> API.
+7453	Mock implementation of org.springframework.env.AbstractEnvironment that exposes a property on a PropertySource and calls setProperty(String,
+7454	Mock implementation of HttpOutputMessage that exposes the body content as bytes, as a UTF-8 string, and optionally headers.
+7455	A mock implementation of the Spring Web Server's MVC.
+7456	Static utility methods for building MockMvc instances.
+7457	A PropertySource implementation that supports mocking.
+7458	Mock server configurer can be added and removed after the server is created.
+7459	A builder for MockServerWebExchange.
+7460	An expectation for a request.
+7461	Define the response actions with a request matcher.
+7462	Interface for result actions.
+7463	Strategy interface used to match a set of matched request results.
+7464	The phase in which the SQL query is executed.
+7465	Error mode.
+7466	Transaction mode.
+7467	Enumeration of merge modes.
+7468	A ValueSource implementation for a profile property value.
+7469	Utility class for working with @Timed and @Repeat annotations.
+7470	The AutowireMode for TestConstructor.
+7471	AOTGenerator for test contexts.
+7472	Base class for events that are triggered on a TestContext.
+7473	The mode how to merge two execution listeners and their states.
+7474	Objects for providing the selected view and its HamcrestMatcher.
+7475	A SmartContextLoader that delegates to a given WebDelegatingSmartContextLoader.
+7476	A body spec for a list.
+7477	Helper class for XML expectation evaluation.
+7478	A UserDetailsService that returns the GrantedAuthority value for every principal attribute of a CAS assertion.
+7479	An enum to define when a PayloadExchange is a request.
+7480	Abstract implementation of the SessionManager interface, exposing global session timeouts, and global session timeout values.
+7481	Base class for handlers for Spring's @Annotation.
+7482	A description of the AuthenticationInfo interface that is available to all AuthenticationHandlers in the Subject.
+7483	Interface that encapsulates the callback triggered by an AuthenticationListener.
+7484	A token returned by an AuthenticationRequest that is valid for the user to communicate with the server.
+7485	Representation of the authorization information that is available to the SecurityManager.
+7486	Abstract base class for AnnotationMethodInterceptor that ensures that the calling Subject is authorized to execute the specified MethodInvocation.
+7487	Abstract base class for MethodInterceptor that checks that the specified method is allowed to proceed to perform any necessary authorization checks (access control) checks first
+7488	Default implementation of the SessionContext interface, encapsulating a set of properties that will be set when the Session is started.
+7489	Interface for PasswordService implementations that use password hashing.
+7490	Exception indicating that a given host is unauthorized.
+7491	A Shiro configuration realm that uses a Shiro INI instance.
+7492	Salt style for use in queries.
+7493	Utility class for working with JDBC connections.
+7494	Factory interface that can be used to create (or retrieve) connection bound using principal and credentials.
+7495	Utilities for working with LDAP contexts.
+7496	Logical operators.
+7497	A method invocation of a method on a class.
+7498	This interface is used to manage a mutable collection of principal collections.
+7499	Interface for passwords submission and encryption.
+7500	AuthorizingAnnotationHandler is a handler for AuthorizingAnnotation instances.
+7501	Interface defining the basic interface for Realms that wish to authenticate the Subject.
+7502	PatternMatcher implementation that matches using a regular expression.
+7503	Common utility methods for dealing with Security
+7504	SessionContext is a Map of parameters that can be set in the Session request or response payload.
+7505	A listener interface for managing Session instances.
+7506	A SessionListener adapter that provides default implementations of onStart, onStop and onExpiration methods.
+7507	A utility interface for managing Session instances.
+7508	A Scheduler that can be used to enable and enable session validation at the appropriate time.
+7509	Interface that encapsulates the logic for subject storage.
+7510	SubjectRunnable exposes a Runnable to a Subject thread.
+7511	A basic interface for holding thread state.
+7512	A PermissionResolver that resolves wildcard permissions.
+7513	Enumeration of the modes in which Artemis is running.
+7514	An event that is emitted when a configuration is auto-generated.
+7515	Represents the type of cache.
+7516	Cassandra specific ConnectionDetails interface.
+7517	Cassandra connection details node information.
+7518	Compression level.
+7519	A Configurer that configures the specified KafkaListenerContainerFactory with a concurrent, threadsafe consumer factory.
+7520	The Range of the ConditionalOnJava expression.
+7521	Type of ConditionalOnWebApplication.
+7522	Common style to be applied on a ConditionMessage.
+7523	Interface to represent the details of a Couchbase connection.
+7524	Configures date-time and time-format using the given patterns.
+7525	ConnectionDetails encapsulates details for connection details used for Elasticsearch.
+7526	The protocol that can be used for connecting.
+7527	Helper class to scan for annotated entities.
+7528	The include attribute options.
+7529	Specifies whether stacktrace should be included in the message.
+7530	A description of the ConnectionDetails interface that is provided to Flyway.
+7531	JDBC connection details interface that encapsulates the details of a JDBC connection.
+7532	The mode for acknowledgement of JMS messages.
+7533	Enumeration of the type of job store.
+7534	Interface to create ConnectionDetails from a Liquibase-specific configuration.
+7535	MongoDB specific ConnectionDetails interface.
+7536	Interface for creating MongoConnectionDetails.GridFs.
+7537	A MustacheResourceTemplateLoader that reads from a ResourceLoader.
+7538	A ConnectionDetails interface that exposes various details common to all Neo4j nodes.
+7539	A request that can be used to obtain a path from a path on a FileSystem.
+7540	MongoDBConnectionDetails implementation that exposes properties related information to MongoClient.
+7541	Represents the address used for connecting to the Rabbit server.
+7542	Target for the customizer.
+7543	ConnectionDetails encapsulates details about Redis server.
+7544	Node information to be used with RedisConnectionDetails.
+7545	Redis sentinel (for use with the HttpsURLConnection).
+7546	Connection standalone information.
+7547	Type of Redis client.
+7548	The action to do when configuring the Redis instance.
+7549	Repository type.
+7550	Enumeration of all supported repository types.
+7551	Customize the RestClientBuilder to use customization rules.
+7552	Search strategies supported by the SolrClient.
+7553	Specifies the strategy to use when forwarding headers to the server.
+7554	Format that will be used for parsing access logs.
+7555	Standard implementation of the MongoClientSettingsBuilderCustomizer interface, encapsulating a MongoClientSettings.Builder as well.
+7556	Static resource locations.
+7557	Interface for customize the WebClient with the SSL configuration.
+7558	Strategy that determines if a URL matches the request URL.
+7559	A WSInboundGatewaySpec implementation for the JAXB2 marshaller and unmarshalling API.
+7560	A description of a file changed on a FileSystem.
+7561	The different types of ChangedFile.
+7562	A collection of files that have been changed.
+7563	A class loader file representing a class loader file.
+7564	The class loaders kind.
+7565	A directory containing ClassLoaderFiles for a source file.
+7566	An event that is emitted when a class path of a Spring application has changed.
+7567	The outcome of the execution.
+7568	A utility class that allows to restart a running application server from a given set of class loaders files.
+7569	A repository of snapshot state to be used by the SnapshotManager.
+7570	A simple TunnelClient that uses a single thread per server.
+7571	A listener for listening to tunnel events.
+7572	Abstract implementation of AsyncHandlerMethodReturnValueHandler.
+7573	Abstract base class for message conditions.
+7574	A base class for ReactorNettyCodec that uses a NettyByteBuffer as input and output buffers.
+7575	Abstract base class for a SubscribableChannel.
+7576	Message converter for converting from binary format to Object.
+7577	CachingDestinationResolverProxy is used to cache DestinationResolver implementations for a given ServiceRegistration.
+7578	A MethodReturnValueHandler that can adapt a asynchronous return value to a CompletableFuture.
+7579	A StompConnectionHandler is a handler for incoming connections.
+7580	A HandlerMethodArgumentResolver that supports resolving method parameters that are continuationable.
+7581	DestinationResolvingMessageReceivingOperations allows for customizing the destination name when receiving messages.
+7582	Generic message implementation used for both normal and non-normal messages.
+7583	Message converter implementation that uses Gson to convert JSON to JSON using the specified Type.
+7584	Strategy interface used to resolve method parameters into an argument value.
+7585	Strategy interface used to resolve method parameters into an argument value.
+7586	Strategy interface used to handle method return values.
+7587	Strategy interface used to handle method return values.
+7588	Header mapper that can be used to map from and to abstracted class.
+7589	A MethodArgumentResolver that supports resolving header parameters synchronously.
+7590	A MethodArgumentResolver that supports resolving method parameters using HTTP header values.
+7591	Jsonb message converter implementation for handling Jsonb messages.
+7592	A generic message that can be sent over a WebSocket connection.
+7593	Strategy interface used to send messages through a WebSocket connection.
+7594	A generic message condition which can be accepted by a Redis message.
+7595	Strategy interface for converting a payload of a Message to a typed Object.
+7596	A runnable that is used to handle a message.
+7597	An advice bean that can be used to add a messaging messaging bean to an ApplicationMessage.
+7598	A MessageChannel that supports polling.
+7599	A HandlerMethodArgumentResolver that supports resolving method parameters using the Principal protocol.
+7600	A Netty2TCPConnection implementation that uses a reactor to send messages via Netty.
+7601	Codec that uses netty to encode and decode Messages.
+7602	A simple reactor netty connection implementation that uses Spring's built-in reactor.
+7603	A HandlerMethodArgumentResolver that supports RSocketRequester's method arguments.
+7604	A MessageConverter that just returns the payload of a Message.
+7605	Represents the different types of p2p messages.
+7606	SimpUser represents a session that is created during a request to the SimpServer.
+7607	Represents a subscription on a SimpChannel.
+7608	A user that can be accessed in a SimpServer.
+7609	Interface that encapsulates information about connected users.
+7610	Contract for access to session counters.
+7611	Representation of the command that is supported by the remote node.
+7612	Encodes a STOMP message into a byte[].
+7613	StompFrameHandler is the interface for handling a frame of the given type.
+7614	A subscription accepted by the client.
+7615	A connection handler that encapsulates the information needed to handle a STOMP CONNECT frame.
+7616	A Stomp TCPMessageCodec for handling Message instances.
+7617	A MessageConverter that converts a string to a different message type.
+7618	SubscribableChannel is a Channel that can be used to receive events on a particular channel.
+7619	A HandlerMethodArgumentResolver that synchronously resolves method parameters into an argument value from a given message.
+7620	A handler that can be used to handle incoming messages on a TCP connection.
+7621	A Codec that encodes and deserializes a TcpMessage into a List of Messages.
+7622	A result for a user destination translation, e.g.
+7623	An archive entry.
+7624	The class that is responsible for launching Jar archives, and for reading XML files, processing any nested entries that need to be added to the
+7625	An interface for managing the mode of a jar.
+7626	Interface that encapsulates the data read/write access to a RandomAccessInputStream.
+7627	Launcher for WAR archives.
+7628	Abstract implementation of a CallbackHandler.
+7629	Utility methods for dealing with KeyStore objects.
+7630	Simple callback handler that validates passwords against a Properties object.
+7631	Base class for exceptions thrown by WsSecurityExtension.
+7632	Abstract base class for LocaleContextResolver implementations that want to return a default time zone when asked to fall back to, if any.
+7633	Abstract implementation of a LocaleResolver, exposing common default Locale instances.
+7634	Abstract base class for request conditions.
+7635	Abstract base class for VersionStrategy implementations that use a versioned version number.
+7636	A VersionPathStrategy that extracts and adds a version number from a file name request path.
+7637	A VersionPathStrategy that prefixes the resource path with a version number.
+7638	Abstract base class for the SheetStreamingView implementations that use the SXSSFWorkbook annotation to streaming the XLSX format.
+7639	A ServerResponse that is returned by an operation performed asynchronously.
+7640	A ViewResolver bean that can resolve a view by its fully qualified view name.
+7641	A Tag that checks a Errors instance and returns the name of the bean it is bound to.
+7642	CachingResourceTransformer is a ResourceTransformer that caches the result of the transformation.
+7643	Tag for checkboxes.
+7644	A Tag for a checkbox or radio.
+7645	A utility class to manage a map of path patterns to CorsConfiguration objects.
+7646	A servlet handler configurer that configures and configures the default Servlet.
+7647	The response that contains an entity.
+7648	This interface provides an API to manage FlashMaps.
+7649	A ViewResolver that resolves a FreeMarkerView.
+7650	A MarkupViewResolver that renders a given view using the Groovy default implementation.
+7651	Interface that describes the ability to support a given handler.
+7652	Interface defining the ability to map an HttpServletRequest to a Handler.
+7653	An HTML 'input' tag with the no data to hide.
+7654	A Tag implementation that can be used for HTML escaping.
+7655	A HandlerAdapter that supports a servlet request.
+7656	A simple interceptor registry implementation that automatically registers the provided HandlerInterceptor and WebRequestInterceptor.
+7657	This class defines a view that exposes a JSTL LocalizationContext for Spring's locale and MessageSource.
+7658	LocaleResolver is a service interface for resolving the current locale via a servlet request.
+7659	Subclass of AbstractJackson2View that exposes a mapping of key-value pairs in the model to an XML string.
+7660	Interface that encapsulates a matchable implementation of the HandlerMapping interface.
+7661	A method invocation info structure for a controller method.
+7662	A TagSupport implementation that exposes a nestedPath attribute as a path.
+7663	Exception thrown when no handler could be found for the current request.
+7664	A single parameter with its name and value.
+7665	A tag that holds a list of parameters.
+7666	Tag for a RadioButton.
+7667	A context that holds the HTML template and its content when it is rendered.
+7668	Response that contains a rendering template.
+7669	A request condition is a specific request condition that can be applied to a particular request object.
+7670	Abstract base class for WebServiceTemplateTags that exposes RequestContext as a context context attribute.
+7671	Class to manage a chain of ResourceResolvers and ResourceTransformers.
+7672	Strategy interface used to transform a Resource instance using a ResourceResolverChain.
+7673	A ViewResolver that renders a script template to a JavaScript object.
+7674	A FlashMapManager that stores FlashMap instances in the HTTP session.
+7675	Simple implementation of the HandlerAdapter interface, exposing a ModelAndView and LastModified timestamp for the request.
+7676	Simple servlet handler adapter.
+7677	Tag that transforms a value using a PropertyEditor.
+7678	Strategy interface that describes the versioning of a resource at a path.
+7679	A simple view that can be used to render a view given a model.
+7680	Register a ViewController as a ViewController for the current request.
+7681	Strategy of configuration values used for specifying a URI multiple times.
+7682	Abstract base class for VersionStrategy implementations that store/extract versions from a file request path.
+7683	Abstract base class for VersionStrategy implementations that prefix resource paths with a version.
+7684	Abstract base class for request conditions.
+7685	Abstract base class for views that wraps a resource and checks whether the resource exists for the configured URL.
+7686	A context that can be used to customize the body extraction behavior.
+7687	Context used to process response body to be represented by the body processor.
+7688	Form body inclusion helper.
+7689	A ResourceTransformer that caches the result of the transformation.
+7690	Documentation for ClientHttpObservation.
+7691	A HandlerMethodArgumentResolver that supports resolving continuation parameters.
+7692	A utility class to manage a map of path patterns to CorsConfiguration objects.
+7693	A MethodArgumentResolver that supports resolving method parameters for errors.
+7694	Strategy interface used to exchange a request and return a ClientResponse.
+7695	Static factory for the ExchangeFunctions.
+7696	Builder for the ExchangeStrategies.
+7697	A RequestedContentTypeResolver that provides a fixed set of content types.
+7698	A view resolver that uses the FreeMarkerView as the parent view when it is used.
+7699	Strategy interface used to adapt a request handler to a Mono<HandlerResult> that is returned by handle(Object, Object) method.
+7700	A HandlerFunctionAdapter that just calls handle(Object) with the given HandlerFunction.
+7701	Strategy interface used to resolve method parameters for a Handler.
+7702	A HandlerResultHandler can handle the result of a request.
+7703	A MethodArgumentResolver that supports HTTP entity arguments.
+7704	A HandlerMethodArgumentResolver that supports a model method argument.
+7705	A ContentTypeResolver that resolves the content types of a request parameter.
+7706	A MethodArgumentResolver that supports the Principal-specific parameter.
+7707	A builder for a redirect URL.
+7708	A context that holds the HTML template and its content when it is rendered.
+7709	Response that contains a rendering template.
+7710	A MethodArgumentResolver that supports the body parameter of a request.
+7711	Class to manage a chain of ResourceResolvers and ResourceTransformers.
+7712	A ResourceTransformerChain is used to transform a Resource on the exchange.
+7713	A HandlerResultHandler that writes the response body to the response.
+7714	A ResponseEntityResultHandler that can handle the result of an operation on a response entity.
+7715	A ViewResolver that renders a script template to a JavaScript object.
+7716	A context that can be used to customize the response body conversion and view resolution.
+7717	A MethodArgumentResolver that supports the SESSION_STATUS_KEY parameter, which is used to resolve the session status code from the request.
+7718	A HandlerAdapter that just delegates to the standard HandlerAdapter.
+7719	A WebSocketSession that implements the Tomcat protocol.
+7720	Strategy interface that determines the version for a given resource and request path.
+7721	A view is a JSON response that can be rendered to a response body.
+7722	A representation of an exception thrown when a web client failed to execute a request.
+7723	A HandlerMethodArgumentResolverSupport implementation that supports WebSessionMethodParameterResolver.
+7724	A WebSocketClient is a simple web-service.
+7725	A WebSocketHandler is a session that is created and ready to be handled by a WebSocketProtocol.
+7726	The message type.
+7727	A MethodResolver that looks for methods on an Annotation type.
+7728	Back-off policy implemented by a RetryPolicy.
+7729	A basic classifier that uses a BackToBackPatternMatcher.
+7730	Retry policy that tries to find a binary exception.
+7731	Simple adapter for Classifier implementations.
+7732	Retry policy implementation based on expressions.
+7733	Strategy interface for resolving methods based on a set of criteria.
+7734	RetryPolicy that always throws an exception.
+7735	A classifier that uses a map of pattern names to objects to classify by using the value of the corresponding class.
+7736	Retry policy encapsulates logic that can be used to control retry logic.
+7737	A simplified simulation that retries a given number of times.
+7738	Interface representing the retry state that can be obtained from a failed attempt.
+7739	A utility class to manage the context at the end of a batch of a RetryTransaction.
+7740	A BackOffPolicy that delegates to a StatelessRetryContext.
+7741	Base class for all BootRun implementations.
+7742	A LayeredSpec implementation for the "into" layer specification that defines the project dependencies.
+7743	A Swagger2Spec implementation for a layered spec that can be either included or excluded from a layer.
+7744	Aot that processes test classes using the configured classpath roots.
+7745	SpringBootExtension implementation that encapsulates the creation of Spring's built-in BuildInfo tasks.
+7746	An enumeration of the possible compression algorithms to be used with the ZipOutputStream.write(java.io.InputStream, java.util.List
+7747	Abstract base class for CacheManagers that support transaction-aware cache objects.
+7748	A JobFactory implementation that returns a Job instance based on a given TriggerFiredBundle.
+7749	Advisor driven by a JCacheOperationSource, used to include a JCacheOperationSource annotation for methods that are cacheable.
+7750	A Job that delegates to a Runnable.
+7751	Cache specific operations supported by the JCache.
+7752	Simple mail sender interface.
+7753	Exception thrown when sending a mail.
+7754	QuartzJobBean that represents a MethodInvokingJob.
+7755	A Quartz-based Job bean, encapsulating a set of properties that will be used to control execution behavior.
+7756	A context object that can be used to authorize a message using the AuthorizationContextProvider.
+7757	A class that implements the standard access denied handler.
+7758	A RequestMatcher that matches if and only if the HttpServletRequest matches.
+7759	Interface to decide whether a FilterInvocation can process a particular ConfigAttribute of a Channel, based on a list of ConfigAttributes.
+7760	Interface to be implemented by the ConfigAttributeProvider to decide whether the FilterInvocation provides the appropriate level of channel security based on a list of Config
+7761	The directives that can be added to the header.
+7762	Enumeration of directives that can be added to the header.
+7763	A HeaderWriter that writes the value of the Cross-Origin-Embedder-Policy header.
+7764	A HeaderWriter that writes the value of the X-Origin-Opener-Policy header.
+7765	A HeaderWriter that writes the specified resource policy to the HTTP response.
+7766	A token is a token that is associated with a CSRF token.
+7767	A request attribute handler that uses a CsrfToken.
+7768	Strategy interface used to handle request using a CSRF token.
+7769	Default implementation of CsrfToken.
+7770	Default implementation of CsrfToken.
+7771	Default implementation of the ServerRedirectStrategy interface, forcing a redirect mechanism.
+7772	Interface representing a token that is deferred until the CsrfToken is generated.
+7773	A ServerAuthenticationEntryPoint that delegates to a given ServerAuthenticationEntryPoint.
+7774	A RequestMatcher that matches if an EL expression can evaluate the request.
+7775	An enumeration that provides at least one element to provide.
+7776	The FastHttpDateFormat implementation that uses the FastDateFormat.
+7777	A HeaderWriter that writes out the security policy directives (s) to the HttpServletResponse.
+7778	A ServerHttpHeadersWriter that adds the specified policy directives to the response.
+7779	This interface is used to customize a FilterChain that accounts for the provided filters and also to the original FilterChain.
+7780	A filter invocation that exposes the information needed to access the user agent.
+7781	A collection of header names and values.
+7782	A ServerAuthenticationEntryPoint that implements the basic HTTP authentication flow.
+7783	An interface for providing information on the action being performed.
+7784	A Filter that checks for J2EE container-based authentication before processing the request.
+7785	A SecurityWebFilterChain implementation that matches a Matcher WebFilter on the provided ServerWebExchange.
+7786	Builder for a MvcRequestMatcher.
+7787	A RequestMatcher that matches if the HttpServletRequest matches the OR operator.
+7788	A HeaderWriter that writes the permissions policy to the HttpServletResponse.
+7789	A ServerHttpHeadersWriter that adds the permissions policy to the response.
+7790	Strategy interface for mapping between HTTP and HTTPS ports.
+7791	A PreAuthenticatedAuthenticationToken is a token that is valid only if the user is authenticated.
+7792	A ServerAuthenticationFailureHandler that uses a RedirectStrategy when the request fails.
+7793	A ServerLogoutSuccessHandler that returns a URL to the URL when the user logs out successfully.
+7794	A HeaderWriter that writes the referrer policy information to the HttpServletResponse.
+7795	A ServerHttpHeadersWriter that adds the referrer policy to the response.
+7796	A context that holds the request variables and values for the authorization flow.
+7797	Interface for matchers that only accept incoming servlet requests.
+7798	Builder for DelegatingAuthenticationManagerResolver instances.
+7799	Value object to store as a cookie.
+7800	A ServerLogoutHandler that uses the SecurityContextRepository to validate the request and logout.
+7801	A WebFilterChain that determines if a WebFilterChain matches a provided ServerWebExchange.
+7802	A ServerAuthenticationFailureHandler that is used to handle server-side errors encountered during authentication.
+7803	A repository interface for storing the SecurityContext associated with a ServerWebExchange.
+7804	Event raised when a session ID is changed in the session configuration.
+7805	A SessionFixationProtectionStrategy that validates and invalidates session attributes.
+7806	An X509PrincipalExtractor that extracts the user name from a certificate's Subject DN.
+7807	Details of the web authentication request received by an application that may or may not be available at runtime.
+7808	A WebFilterExchange that is attached to a WebFilterChain.
+7809	A Filter that checks for a WebSphere user and credentials.
+7810	The mode how to write options to the writer.
+7811	A ServerHttpHeadersWriter that writes X-Frame-Options headers to the response.
+7812	Mode for writing header values.
+7813	A HeaderWriter that adds the X-XSS-PROTECTION header to the response.
+7814	The value of the header.
+7815	An extension of ServerHttpHeadersWriter that adds the X-XSS-PROTECTION header to the response.
+7816	The value of the header.
+7817	Abstract base class for binding target factories that ensure that a specific binding target type is available for use with the BindingTargetFactory.
+7818	The current state of the lifecycle.
+7819	Strategy interface for creating binding targets.
+7820	Dynamically bindable objects to output bindings for DynamicBinding.
+7821	Utilities for evaluating generic types in the pollable source.
+7822	Interface to be implemented by message channel configurer classes to allow easy easy way to configure both MessageChannels at runtime.
+7823	A factory for binding targets that are created by a MessageSource.
+7824	Partition handler.
+7825	Strategy interface used to provide a consumer to receive events.
+7826	A producer destination is a producer for a KafkaMessageDispatcher.
+7827	Interface for producers and consumers that provide data to a broker.
+7828	A factory for creating SubscribableChannel binding targets.
+7829	Enumeration of various Serf statuses.
+7830	Abstract base class for EntityInformation implementations.
+7831	Access options used when creating an AccessPath.
+7832	The enum defines the policy for null value retrieval.
+7833	The propagation behavior.
+7834	The set of null value options.
+7835	A simple accessor for properties.
+7836	A AuditingConfiguration implementation that uses Spring's annotation-specific auditing facilities for configuration information such as the creation and modification dates.
+7837	A MethodCallback implementation that detects methods with a particular annotation.
+7838	Metadata for AnnotationRepository implementations.
+7839	Interface defining auditing configuration properties that can be used to configure an auditing service.
+7840	Intended mode to use for bootstrapping.
+7841	Represents a Box.
+7842	Strategy that splits a field name from CamelCase source.
+7843	The persistent implementation of ChangeSetPersister.
+7844	Represents a circle.
+7845	A PersistentPropertyAccessorFactory that generates property accessors for classes that are persistent.
+7846	A CloseableIterator for the iterators provided by an Iterator.
+7847	A TypeInformationMapper that uses a configuration that can be used to create custom type information for a given Map.
+7848	Provider for time values to use as modification or creation date.
+7849	Custom Metric implementation.
+7850	Default implementation of RepositoryMetadata.
+7851	EntityInformation implementation that delegates all calls to the actual DomainClass.
+7852	Formatter for Distance.
+7853	A converter for PersistentEntity and PersistentProperty instances.
+7854	Information about an entity.
+7855	Interface to be implemented by extensions that need to access the context of an evaluation context.
+7856	Provider interface for EvaluationContext.
+7857	A generic example interface.
+7858	Match modes for use with the ExampleMatcher.MATCH_MODE constant.
+7859	An enumeration that describes null handler.
+7860	An enumeration of matchers for strings.
+7861	Extension aware implementation of EvaluationContextProvider.
+7862	A factory method that can be invoked on the generated entity to create a new instance of a given PersistentProperty.
+7863	A collection of GeoResults.
+7864	Interface to be implemented by objects that have their identifier (e.g. String, Number, etc).
+7865	A PersistentPropertyAccessor that is aware of the object instance returned by an instantiating method.
+7866	A PersistentPropertyAccessorFactory that creates PersistentPropertyAccessor instances based on whether the given PersistentEntity is supported by the current context.
+7867	Exception indicating that a source property path is invalid.
+7868	An AuditingHandler that determines if an object is newly created based on PersistentEntity.isNew(Object) property.
+7869	Jackson2 ResourceReader implementation that uses the ObjectMapper to deserialize the JSON document's value.
+7870	MethodInterceptorFactory that uses the JsonProjecting annotation to project objects into MethodInterceptor instances.
+7871	A repository bean that can be used to store List of Crud instances.
+7872	A QueryByExampleExecutor can be used with QueryByExample to retrieve a list of entities.
+7873	An event triggered on a MappingContext.
+7874	A TypeInformationMapper that uses a MappingContext to create mapping context TypeInformation to the actual TypeInformation.
+7875	Exception thrown when a mapping could not be instantiated because of a mapping issue.
+7876	A factory interface for creating MethodInterceptor for objects that are supposed to be used to create MethodInterceptor for proxies of the given target type.
+7877	Contract to define a list of methods that match a given predicate.
+7878	A metric of a particular type.
+7879	Metrics supported by the HS2 system.
+7880	Interface representing a collection of named queries.
+7881	Builder for Spring's NamedQueries bean definition.
+7882	A wrapper for a Nullable value.
+7883	A class representing an offset scroll position.
+7884	A Page of objects whose elements are each of the underlying DataStream's DataStream.
+7885	A repository bean that provides a paging and sorting restriction.
+7886	A Collector<S, T> of Pairs.
+7887	Utilities for parsing Camel-case strings.
+7888	A part of a PropertyPath.
+7889	The different types of case-insensitive semantics.
+7890	An interface for objects that can be persisted to a database.
+7891	An enumeration of strategies for detecting if an entity is new.
+7892	A PersistentEntityInformation is an implementation of EntityInformation that exposes basic and type-specific information about an entity.
+7893	Interface to be implemented by beans that have persistent properties.
+7894	Factory interface for PersistentPropertyAccessor factories.
+7895	Represents a point on a Vector2D.
+7896	Formatter for Point values.
+7897	A collection of utilities to construct a Predicate.
+7898	Proxies to a constructorDiscoverer for the preferred property type and property.
+7899	Supported constructor discoverers.
+7900	A projection information interface used to define a query or query plan.
+7901	A class that implements the NamedQueries interface using properties file system properties.
+7902	Proxy utilities class for Java proxies.
+7903	Builder for Querydsl Predicate instances.
+7904	Provider interface for QueryMethodEvaluationContext.
+7905	Exception thrown when MethodParameter can not be converted to a Query.
+7906	A ReactiveAuditingHandler that marks an object as audited if it is new aware.
+7907	Reactive libraries that are used by the wrapped Reactive instance.
+7908	A description of the information that is available to repository implementations, whether they contain a method to find or one object.
+7909	RepositoryQuery exposes a single method and object to the query service.
+7910	Revision type.
+7911	Class to sort objects in a RevisionRange.
+7912	The direction of the scroll position.
+7913	Simple TypeInformationMapper implementation that uses a simple TypeInformation representation for serialization.
+7914	Enumeration of possible null handling.
+7915	This class provides a function to evaluate SpEL expressions.
+7916	ParameterValueProvider is a ParameterValueProvider that can be used to retrieve the value of a given Parameter from a Spel expression.
+7917	SpringDataJaxb is an extension of XmlAdapter that can marshal and unmarshal Collection elements using the Spring Data Jaxb annotation.
+7918	A simple interface for providing a reference to a target (e.g. a class or interface) to be implemented by a proxy.
+7919	Interface to be implemented by type aliases to be used in mapping operations.
+7920	Parser class for TypeFilters.
+7921	Interface to be implemented by TypeInformationMapper implementations to convert between Java types and the aliases used for mapping.
+7922	Base class for Permission implementations.
+7923	Represents an access control entry in the cluster.
+7924	An implementation of AccessControlEntry that holds an identifier, an access permission and an audit identifier.
+7925	An AclService that can be used to create or update an Acl from the database.
+7926	An identity interface for objects.
+7927	A simple implementation of ObjectIdentity that obtains the actual identifier.
+7928	Represents a single permission in a path.
+7929	A KeySpaceResolver that determines the keySpace from an annotation or a superclass.
+7930	A KeySpaceResolver for classes that need to resolve fully qualified class names.
+7931	A KeyValueEvent.AfterDeleteEvent is triggered after a KeyValue instance is deleted from the storage.
+7932	A KeyValueEvent.AfterGetEvent is triggered after a get event is received.
+7933	A KeyValueEvent.AfterInsertEvent is triggered after an element is added to the KeyValueEvent.
+7934	A KeyValueEvent.AfterUpdateEvent is fired after an element is added or modified.
+7935	An KeyValueEvent.BEFORE_INSERT_EVENT that is triggered before an element is inserted.
+7936	A KeyValueEvent.BEFORE_UPDATE_EVENT that is emitted before an update is processed.
+7937	MockMvcConfigurers for using Spring Security for the MockMvcConfigurer.
+7938	A set of security mock result matchers that can be used with the @SecurityMockMvcResource annotation.
+7939	Event type for test execution.
+7940	Abstract base class for configuration settings.
+7941	Abstract base class for building a ConfigurationSetting.
+7942	A context that can be used to create an Authorization Server.
+7943	A holder class that holds an AuthorizationServerContext.
+7944	Context represents the context of a request or response payload.
+7945	Default implementation of an OAuth2TokenContext.
+7946	A RegisteredClientRepository that stores RegisteredClient instances in-memory.
+7947	An OAuth 2.0 Authorization Code Authentication Token that holds the authorization code and redirect uri.
+7948	Service to store and retrieve an OAuth2AuthorizationConsent.
+7949	A AuthenticationToken implementation that uses an OAuth 2.0 Authorization Grant.
+7950	An OAuth2AuthorizationServerMetadata implementation that encapsulates common claims.
+7951	Service to store and retrieve an OAuth2Authorization.
+7952	An OAuth2AuthorizationConsentAuthenticationToken that is used for device-side consenting.
+7953	A AuthenticationToken that is used for OAuth2 device verification.
+7954	An OAuth 2.0 Refresh Token Authentication Token that is used when a user wants to authorize via an OAuth2 Refresh Token authorization mechanism.
+7955	A token introspection token.
+7956	A TokenRevocationAuthenticationToken is an OAuth2-based authentication token that is valid for revocation of an OAuth2-based client.
+7957	A builder for client registration claims.
+7958	A AuthenticationToken implementation that uses an OIDC client registration token when requested.
+7959	An implementation of the OidcProviderConfiguration interface, for the OAuth2AuthorizationServerMetadata interface.
+7960	Repository for RegisteredClient.
+7961	The result of a batch operation.
+7962	Base class for VaultConverter implementations.
+7963	AppRoleAuthentication is the default implementation of ClientAuthentication, which is responsible for authenticating to the Vault.
+7964	Base class for event publisher implementations that react on authentication events.
+7965	A generic pair of parameters.
+7966	The value of a nonce used in the EC2 authentication options.
+7967	A token supplier that caches VaultTokens.
+7968	A ciphertext object that can be associated with a vault transit context.
+7969	Strategy interface used to create a credential supplier that obtains a credential early and reuses the token for each get() call.
+7970	A Cubbyhole authentication implementation that uses the Vault.
+7971	A parser for duration values.
+7972	A Supplier that can create a GoogleCredential from an OAuth2.getCredential call.
+7973	A Supplier that can be used to retrieve the GoogleCredentials from the OAuth2 credentials provider.
+7974	Flattener for JSON Maps.
+7975	A KeyValueDelegate is a simple delegate to a Key-Value backend.
+7976	A factory for authentication scenarios that require a vault token.
+7977	A non-renewable Lease.
+7978	Lease endpoints.
+7979	Simple implementation of the LeaseListener interface with a callback for a SecretLeaseEvent.
+7980	Strategy to define leases.
+7981	A refresh trigger that fixed timeout durations.
+7982	Interface for refresh trigger types.
+7983	A utility class for building AuthenticationSteps for PcfAuthentication.
+7984	A filter that applies a property transform to a map.
+7985	A PropertyTransformer that adds a prefix to each key name.
+7986	Represents a requested secret at a particular path.
+7987	Strategy interface used to create RestTemplate instances.
+7988	A factory for objects representing a valid or invalid signature.
+7989	A SimpleVaultEndpointProvider implementation that uses the standard JDK VaultEndpointProvider interface.
+7990	The SslConfiguration.KeyConfiguration that defines the configuration options for the KeyConfiguration.
+7991	A factory for token authentication scenarios.
+7992	A ciphertext to be used with Vault's transform.
+7993	Enumeration of various transit key types.
+7994	Enumeration of endpoints to unwrap when using HTTP header unwrapping.
+7995	A factory for client-side authentications that use a username/password policy.
+7996	Operations that can be used to retrieve update and delete metadata, without explicit message handling.
+7997	Interface for accessing secret values at a path.
+7998	Interface for vault-based operations on key-value pairs.
+7999	Vault-based sign request that can be used for creating signature and hash requests.
+8000	Vault token array
+8001	The request builder for a transform operation.
+8002	Context used for request and response preparation.
+8003	Strategy interface used to create WebClient instances.
+8004	Callback used for SearchDocument conversion.
+8005	Represents the number of active shards in a table.
+8006	Bulk options used in a bulk operation.
+8007	Completion context type.
+8008	Enumeration of the operator that can be used for a Criteria.
+8009	Common date format patterns used in Spring Data.
+8010	A date formatter that formats a DateAccessor into a String.
+8011	Default RoutingResolver implementation that returns the routing property of an entity.
+8012	A field with a documentation format and value.
+8013	Dynamic types are used in the compiler to dynamically map classes.
+8014	TypeMapper for Elasticsearch.
+8015	Converter used to convert Map to Point.
+8016	Converter used to convert Point to Map.
+8017	Interface representing a GeoJSON representation.
+8018	GeoJsonGeometryCollection is defined as a list of GeoJson objects.
+8019	GeoJsonMultiPolygon is defined as a list of GeoJsonPolygons.
+8020	The verification level for the HostProvider.
+8021	Index query operation type.
+8022	A class that holds the mapping parameters.
+8023	Interface to convert property value to an elasticsearch value
+8024	Query record for creating new query id and routing.
+8025	Query point in time.
+8026	Utility methods for working with ReactiveResources.
+8027	ReactiveScriptOperations exposes the operations necessary to execute scripts on the cluster.
+8028	Defines the refresh policy for a ResourceManager.
+8029	Interface defining the set of script operations that can be performed on the cluster.
+8030	Represents the different types of scripting.
+8031	A record with no primary term.
+8032	A settings object is a representation of a JSON String containing a settings object.
+8033	Total hits relation.
+8034	The WriteTypeHint describes the write type of a table.
+8035	Abstract base class for detecting beans of a given type that should be used as database initializers.
+8036	Abstract base class for FailureAnalyzers that uses the @Injection annotation to analyze a Throwable.
+8037	Ansi8 bit color implementation used in SgColor.
+8038	AnsiBackground is the background of the current line.
+8039	AnsiElement represents a color of ANSI escape codes.
+8040	Enumeration of enabled outputs.
+8041	AnsiElement that defines the style to use when printing an ANSI escape sequence.
+8042	An ApplicationEvent that is triggered whenever the application environment is prepared.
+8043	SpringApplicationEvent that is emitted when the application of a Application has failed.
+8044	A property to hold the directory where the application's code is stored.
+8045	SpringApplicationEvent is an event that is emitted when the application is ready to be serviced and can be called from the event loop.
+8046	SpringApplicationEvent is fired when the Application is started.
+8047	Application temp files, either directly or via a subdirectory of the ApplicationTemp directory.
+8048	Enumeration of Banner.Mode that can be used in the Banner.write() method.
+8049	Basic JSON parser implementation that supports comma separated JSON strings.
+8050	Enumeration of restrictions for the bind operation.
+8051	Strategy interface used to retrieve the correct bind constructor to use for the given bindable type.
+8052	A context for the bind operation.
+8053	Exception thrown when a configuration property value is invalid within a given origin.
+8054	Enumeration of the possible bind methods.
+8055	An event that is emitted when the BootstrapContext is closed.
+8056	Scope used in bootstrapping.
+8057	A collection of ConfigurationProperties that can be bound to a given ConfigurationPropertyName.
+8058	A description of the BuildProperties implementation that covers the hints.
+8059	A representation of a configuration data object that can be used to parse configuration properties, either as Properties or as Options.
+8060	Option used for logging or error messages.
+8061	A listener that allows to update the environment properties when a new ConfigData is added to the Environment.
+8062	Interface for config data loading.
+8063	Exception thrown when a configuration data location could not be found in a given JSON API.
+8064	Provides access to theBinder and ConfigurableBootstrapContext for resolving ConfigDataResource locations.
+8065	The action to take when a configuration data is not found.
+8066	Resolver for ConfigDataLocation instances.
+8067	PropertySource for config tree properties.
+8068	Option for property source.
+8069	Exception thrown when a ConfigurationProperties annotation is violated during bean creation.
+8070	The possible forms for the configuration property.
+8071	Enumeration of the various states of a configuration property.
+8072	Represents the same site as the cookie value.
+8073	Enumeration that defines the database initialization behavior when creating and working a database.
+8074	A utility class for unwrapping DataSource instances.
+8075	Default SslBundleRegistry implementation.
+8076	Factory interface to create DeferredLog instances.
+8077	Enumeration that represents the dispatcher type.
+8078	The type of encoding.
+8079	Include options for creating ErrorAttribute instances.
+8080	Interface for error attributes extracted from the error message of a WebRequest.
+8081	A generic object for a failure.
+8082	A FilterRegistrationBean that allows to register a Filter with the FilterManager.
+8083	GitProperties hints.
+8084	Result of shutdown.
+8085	Gson-based JSON parser implementation that uses the Java JsonParser library.
+8086	A collection of import candidates.
+8087	Thrown when a configuration data access exception is thrown when a property is not found in the ConfigData.
+8088	A collection of info properties.
+8089	A factory that is responsible for instantiating objects, optionally given a set of class names, and a set of class types.
+8090	Interface for available parameters.
+8091	Exception thrown when a configuration property value is invalid.
+8092	Thrown when a configuration property value is invalid.
+8093	Jackson specific JSON parser implementation that uses the JsonParserFactory to create new instance of this class.
+8094	Jetty WebServer implementation that exposes the underlying Jetty Server as a WebServer.
+8095	An SslStoreBundle implementation that uses the Jks KeyStore.
+8096	The scope of a component.
+8097	Builder for JsonMixinModuleEntries.
+8098	Interface parsing a JSON string into a List, Map, or a single value.
+8099	A JSP servlet implementation used for servlet lifecycle management.
+8100	Simple callback implementation.
+8101	Lambda-safe implementation of C.
+8102	Base class for LambdaSafe.LambdaSafeCallback.
+8103	Callback interface used to filter beans to be excluded from having lazy-init automatically set.
+8104	Liveness state.
+8105	A reference to a log file configured in Spring's log directory.
+8106	The configuration scopes that can be used to configure the logging system using LoggerConfiguration.getDefaultConfiguration() and LoggerConfiguration.getConfiguration() methods
+8107	A factory to create a logging system implementation.
+8108	Exception thrown when a configuration property cannot be mutually exclusive.
+8109	Netty RSocketServer implementation for Apache Commons RSocket.
+8110	A web server that uses netty.
+8111	Interface for objects originating.
+8112	MapPropertySource that tracks the origin of a map property.
+8113	An object representing an origin tracked value.
+8114	SslStoreBundle implementation that uses the PemKeyManagerFactory to generate the key and trust stores.
+8115	A collection of profiles that can be accepted by the UserManager.
+8116	A PropertySourceLoader that reads properties from a Properties resource.
+8117	A PropertySourceLoader can be used to load property data from a resource (e.g.
+8118	A PropertySourceOrigin for the given PropertySource.
+8119	A R2dbc database initialization that loads and deserializes R2C scripts.
+8120	Readiness states for an Availability Zone.
+8121	RSocket server.
+8122	Supported transports.
+8123	An event that is emitted when the RSocketServer is initialized.
+8124	Enumeration that controls the schema management level for a resource.
+8125	Represents a Cookie in the session.
+8126	Session tracking behavior.
+8127	An enum to represent the shutdown states of a Redis cluster.
+8128	Augments the current instance of SpringApplication with additional sources that should be applied when the application is started.
+8129	SpringApplicationAdminMXBean is a JMX bean that provides access to the configuration properties of the Spring Application.
+8130	An interface that can be added to the handlers that will be run when the JVM is shut down.
+8131	The list of supported client auth types.
+8132	An interface for creating an SslStoreBundle.
+8133	A Standard ConfigDataResource implementation that uses the standard Spring Resource interface.
+8134	A container that holds a list of StartupTimeline.TimelineEvent's and a start time.
+8135	A class representing a timeline event.
+8136	An origin for a TextResource property.
+8137	A location in the context of a TextResource.
+8138	A Tomcat web server implementation.
+8139	Undertow-based web server implementation.
+8140	Represents the web application type.
+8141	Interface to a web server.
+8142	An event that is emitted when a WebServer is initialized.
+8143	A PropertySourceLoader for YAML resources.
+8144	Interface for parsing a URI using PropertiesLookup.
+8145	AesBytesEncryptor that uses AES-128-CBC.
+8146	BCrypt encodes passwords for use with Apache Bcrypt, and is used for encryption and decryption.
+8147	BCrypt password encoder version.
+8148	Bouncy Castle Encryptor for byte arrays.
+8149	Encryptor that decrypts and decrypts the byte array using Bouncy Castle's Algorithm.
+8150	Encryptors an array of bytes.
+8151	Key generator interface for use with KeyGeneratorFactory.
+8152	Utility methods for encoding/decoding byte arrays.
+8153	Interface for password encoding.
+8154	The algorithms for creating secret key factories.
+8155	Encryptors can encrypt and decrypt raw text strings.
+8156	A utility class for working with UTF-8 strings.
+8157	An enumeration of the compression types that can be used to compress data.
+8158	The action that should be performed on a consumer when Crypto failure occurs.
+8159	A listener interface for a consumer group change event.
+8160	An interface representing a generic object.
+8161	Builder for GenericRecord instances.
+8162	An interface defining a schema for a GenericRecord.
+8163	An enumeration of the various hashing strategies.
+8164	Intended mode to use for key-shared behaviors when using the @KeyShared annotation (or both).
+8165	A key/value pair that can be stored in a Redis Hash.
+8166	Key value encoding type.
+8167	A Schema representing the different kinds of data types that can be used to represent a KeyValue to be understood by a DataStream.
+8168	Value object for a message ID.
+8169	Listener for receiving new messages.
+8170	The payload interface for a message.
+8171	Factory interface for MessagePayload instances.
+8172	Router for Kafka messages.
+8173	A stable enumeration of the modes in which messages can be delivered.
+8174	Enumeration for modes for Producer.
+8175	Enumeration of actions for ProducerCryptoMessageFormat.
+8176	Proxy Protocol supported by Redis.
+8177	An interface that encapsulates the ability to intercept incoming Kafka messages from a single Reader.
+8178	Listener interface for receiving new messages from a Reader.
+8179	Defines what to do when a source code is regarded as regular expressions.
+8180	Information about a schema.
+8181	Provides SchemaInfo for the current cluster.
+8182	A provider that returns the service URL that a Pulsar client should connect to.
+8183	The size unit.
+8184	An enumeration defining the initial position in which a subscription can be started.
+8185	A supported subscription mode.
+8186	A type of subscription.
+8187	Builder for a topic consumer.
+8188	Represents a transaction within a streaming session.
+8189	Strategy interface used to create transaction instances.
+8190	Current transaction state.
+8191	A factory for Job instances, creating and working with ApplicationContext.
+8192	Batch job observations.
+8193	A BatchStepObservation is an Observation that sends a batch of a job's results to the client.
+8194	Tasklet adapter for Callable.
+8195	Listener for executing a chunk.
+8196	Tasklet implementation that separates chunks of a given type into smaller tasks.
+8197	Composite JobParametersValidator that validates a list of JobParameterValidator instances.
+8198	A DecisionState is a container of a State that can be either an end state or an execution status.
+8199	Default implementation of the ExecutionContextSerializer interface, for the purposes of using the Spring Data Serialization SDK.
+8200	Default error handler implementation.
+8201	State that represents the end of a flow.
+8202	Entity representing a single node.
+8203	A SkipPolicy implementation that uses the delegate classifier to skip given exceptions.
+8204	A StepExecutionListener that manages the PromotionPolicy.
+8205	A simple comparison of two FlowExecutionStatus objects, each representing a single status in a queue.
+8206	Base class for jobs that are in a flow.
+8207	A State that is either a State instance or a list of flows).
+8208	Base class for flows.
+8209	Builder for FlowStep.
+8210	A listener for processing an item.
+8211	A listener that allows to observe the state of an item being read.
+8212	A listener that allows to register before and after a write operation is performed.
+8213	A helper class for creating JobBuilder instances.
+8214	Listener for job execution events.
+8215	The JobExecutionListenerParser is used to parse the listener factory beans for a given JobExecution.
+8216	A listener that allows to register and unregister a JobFactory from the JobRegistry.
+8217	A converter interface for converting from Java Properties to JobParameters.
+8218	Strategy interface used to register and unregister Job factories at runtime.
+8219	Builder for JobStep.
+8220	A JobParametersConverter that encodes and deserializes JobParameter from JSON.
+8221	JobRegistry implementation that uses a Map-based implementation to register Job factories at runtime.
+8222	StepRegistry implementation for MapJobStepRegistry.
+8223	Tasklet implementation which delegates to methods in Tasklets, translating the return value to an ExitStatus.
+8224	A Partitioner that partitions a collection of resources into multiple execution contexts.
+8225	A factory for Job instances, creating a Job instance per invocation of a JobFactory.
+8226	A JobParametersIncrementer that increments the run.id parameter of a Job with the equivalent of an auto-increment parameter.
+8227	Simple implementation of the DelegateState interface, for use by the FlowFactoryBean.
+8228	A JVM exit code mapper that just returns the JVM exit code in the form of an integer.
+8229	Strategy interface for handling skip operations.
+8230	A callback that manages a step context.
+8231	A StepListener that allows to transition between step execution and exit status.
+8232	Strategy interface used to split a StepExecution into multiple parallel executable instances with the same parent JobExecution.
+8233	Listener parser implementation for step elements.
+8234	Factory bean that exposes a StepLocator as a Step instance.
+8235	Strategy interface for obtaining all the Step instances of a given job.
+8236	A State that represents a single Step.
+8237	A SimpleJobLauncher that runs a task executor in a background thread.
+8238	Access levels that can be used to allow access to objects identified by their ID.
+8239	Exception thrown when a CloudFoundryAuthorizationException is thrown.
+8240	Reasons for the exception thrown when attempting to authorize a CloudFoundry application.
+8241	An enumeration of various endpoint exclusion types.
+8242	Fallback to the most basic InfoContributor.
+8243	A type of context.
+8244	A wrapper around a double value.
+8245	An authentication token that is always valid when the client is anonymous.
+8246	A ReactiveAuthorizationManager that checks if access is granted for an authentication and object.
+8247	An AuthenticationProvider encapsulates the authentication information provided to the client.
+8248	An AuthorizationManager that checks if the current user is authorized by evaluating one or more authorities.
+8249	Event raised when the principal requiring an access
+8250	Order of authorization interceptors to be applied during authorization.
+8251	Strategy interface used to determine if an access is granted for an authentication and an object.
+8252	Default implementation of the JAAS AuthenticationProvider interface, for authentication via the Configuration.
+8253	Default implementation of Token.
+8254	Delegating Runnable to a SecurityContext that is invoked once with a SecurityContext that has been delegated to a different ThreadLocal.
+8255	Utilities for accessing fields on a bean.
+8256	A Spring-based AuthorizationManager that uses the JSR250 Security Policy.
+8257	ReactiveUserDetailsService implementation that maps the specified username and password to the user details.
+8258	An AuthorizationManager that uses the SecurityExpressionHandler to evaluate method expressions.
+8259	The result of a method invocation.
+8260	A NullUserCache is a specialized implementation of the UserCache interface.
+8261	Authorization manager that checks if an access is granted for an authentication and object, for reporting observation data.
+8262	A ReactiveAuthenticationManager that exposes authentication observations to the application.
+8263	An AuthorizationManager that checks to see if a given Authentication has been authorized on the MethodInvocation for the PostAuthorize annotation.
+8264	A ReactiveAuthenticationManager is a factory that delegates calls to the AuthenticationManager.
+8265	A ReactiveAuthorizationManager is a factory for objects that need to be authorized by an application.
+8266	A token that is used for RememberMe authentication.
+8267	A representation of the role hierarchy that is used to pre-calculate for every role in the collection of authorities.
+8268	Static converter class to convert PEM-encoded RSA Public Key or X.509 Certificate into RSAPublicKey.
+8269	Factory bean for SecureRandom instances.
+8270	Security context that is associated with a request.
+8271	An event that is emitted when the SecurityContext set on a ApplicationEvent is changed.
+8272	Security context that is associated with a request and response.
+8273	An event that is emitted when a session ID is changed in a session session store.
+8274	Utility methods for calculating the SHA digest.
+8275	Spring cache based UserCache implementation.
+8276	An AuthenticationProvider that supports testing Authentication objects.
+8277	An authentication token that is used for testing.
+8278	Interface representing a token, which is associated with a request or response.
+8279	TokenService encapsulates the logic for Token allocation and verification.
+8280	User attribute.
+8281	Cache for users.
+8282	List of supported action types.
+8283	An interceptor that appends broker timestamp to the broker entry.
+8284	An interface that defines the ability for ManagedLedger to intercept adding a broker entry and optionally with a specific number of messages.
+8285	The checksum type to use when calculating checksum values.
+8286	A cancellation handler that handles cancels and timeouts.
+8287	A codec that supports decompression and compression.
+8288	A compression codec for LZ4.
+8289	A default compression codec that does nothing.
+8290	A compression codec that uses snappy compression.
+8291	A Zlib compression codec.
+8292	A Zstd compression codec.
+8293	Enumeration of Domain types.
+8294	Enumeration of all the Redis event types.
+8295	This class defines a JvmG1GCMetricsLogger.
+8296	Interface for the JvmMetricsLogger interface.
+8297	The default Mode for a KeyStoreSSLContext.
+8298	Data structure to be passed to Lookup methods.
+8299	Enumeration of namespace operations.
+8300	Builder for NetTLS.
+8301	Helper class for working with netty.
+8302	Utility class for creating new SSL contexts when using Netty.
+8303	Util methods for handling Netty Future types.
+8304	Builder for NettyServerSslContext.
+8305	An SslContextAutoRefreshBuilder that uses Netty's internal SSLContext cache when auto-refresh is enabled.
+8306	Enumeration of the policy names.
+8307	Enumeration of policy operations.
+8308	Data structure to represent a data schema.
+8309	Contract for ServiceUnitId objects.
+8310	The class to create ServiceURIs from a URI.
+8311	Abstract builder for SslContextAutoRefresh.
+8312	An SSLContextValidatorEngine that validates the TLS handshake handshake.
+8313	ResourceType specifies the resource type that can be used for this usage.
+8314	Enumeration of various operations on a Tenant.
+8315	Interface for topic compaction strategies.
+8316	An enumeration of the various topic operations.
+8317	A callback that is executed asynchronously with a reactive executor.
+8318	Batch consumer allows a group of exchanges to be processed in a single thread.
+8319	Factory interface for bean processor factories.
+8320	A predicate that matches the binary representation of a message exchange.
+8321	The current breakpoint state.
+8322	Cacheable is a cacheable object that can be used to cache some data
+8323	Defines how the elements will be kept in the cache for a given fill policy.
+8324	Interface for Spring's CamelBeanPostProcessorInjectorInjector.
+8325	Interface to be implemented by CamelContextAware implementations.
+8326	Customizes the CamelContext.
+8327	Strategy interface for calculating context names.
+8328	Exception to be thrown when an exception is thrown when the Camel container is not available
+8329	Custom advice for Camel internal processor.
+8330	A CamelClusterView that can be used to preemptively manage the cluster state when it is deployed to the node manager.
+8331	Category.
+8332	Parameters for the CipherSuites.
+8333	Enum specifying the client authentication requirement for a request.
+8334	Interface to be implemented by objects that are aware of a Component.
+8335	A policy to use for customization.
+8336	The result of a ComponentVerifierExtension.execute(org.apache.ignite.sdk.core.ComponentVerifierExtension.Result) call
+8337	Result status.
+8338	Describes the type of an attribute of a verification error.
+8339	Value type for the code.
+8340	The condition interface for the exchange.
+8341	A listener that is registered for events triggered by a consumer.
+8342	Interface to be implemented by Consumer instances that are able to be injected into the object.
+8343	Interface to be implemented by objects that can set the content type.
+8344	The DataFormat is used to marshal and unmarshal the data from the exchange to an OutputStream.
+8345	A policy defining how to process data from a DataFormatCustomizer.
+8346	Interface to be implemented by objects that have data types (e.g. String, Number, etc) to be handled by the message body
+8347	Service resolver for DevConsole instances.
+8348	Interface to be implemented by EndpointConsumerResolver implementations that want to resolve this object as an endpoint.
+8349	Interface to be implemented by EndpointProducerResolver implementations that do not extend the EndpointProducer interface.
+8350	Interface to be implemented by objects that need to have a Error Handler set.
+8351	A factory to create an error handler.
+8352	Interface for customizing the output of a error handler to use for JMX instrumentation.
+8353	Exception handler interface for the @ExceptionListener annotation.
+8354	Pattern to match when there is an exchange available
+8355	Key of exchange property.
+8356	Contract for Camel expressions.
+8357	Interface to be implemented by expression result type aware interfaces
+8358	This class defines the basic vault configuration for use with Hashicorp.
+8359	HeaderFilterStrategy is used to apply filtering logic to target message headers, as well as to inspect the name of the header that is going to
+8360	The direction of the filter.
+8361	Interface to be implemented by objects that can be used to set the header filter strategy
+8362	Factory interface for HeadersMap.
+8363	Interface to be implemented by objects that need to be configured with a HealthCheck.
+8364	A repository of health checks.
+8365	Interface that defines a resolver for HealthCheck and HealthCheckRepository.
+8366	Interface to be implemented by objects that can be set as HTTP response codes and responses.
+8367	Interface to be implemented by objects which have their id set correctly.
+8368	An interface for controls whether a given object is a singleton or not.
+8369	A policy that can be used for patterns.
+8370	Interface to be implemented by entities that have a line number.
+8371	Interface that can be implemented by the source of Properties to be loaded.
+8372	Interface to be implemented by beans that need to be local.
+8373	Logging levels that can be used to control the logging behavior of a ResourceManager.
+8374	A level of management MBeans.
+8375	Statistics levels.
+8376	Factory interface for the ManagementStrategy.
+8377	
+8378	Dumps a model definition to an XML string.
+8379	Dumps a model definition to YAML
+8380	A route represented by a named node.
+8381	Interface to be implemented by classes that want to inject the XML namespaces into the root element of the document.
+8382	Navigate to the next output group of a query.
+8383	Interface for the notification builder matcher.
+8384	Offset represents a specific field in a Query
+8385	A key representing a range of keys
+8386	AggregationRepository that supports optimistic locking.
+8387	Strategy interface for resolving PeriodTasks
+8388	PeriodTaskScheduler allows scheduling of periodic tasks at a time.
+8389	Interface to manage custom plugins in the Camel context.
+8390	Policy for a Route.
+8391	A consumer that polls for messages on a queue.
+8392	Interface for consumer polling strategy implementations.
+8393	Strategy interface for Consumer polling.
+8394	Interface that can be implemented by factories to collect statistics.
+8395	Contract for a Camel message exchange predicate.
+8396	Factory interface for route processor definitions.
+8397	Interface representing a function that looks up a value as a regular properties first, before applying the function.
+8398	Interface representing a source of properties
+8399	Factory for PropertiesSource
+8400	Enum for payloads to be passed to a RedeliveryTrait.
+8401	Strategy that allows to trigger a reload of an object.
+8402	Interface to be implemented by any object that implements the Resource interface.
+8403	Interface for resource reload strategies.
+8404	A service interface for resolving Resource from a given Uri.
+8405	Resumable is an addressable element that can be either be resumed or not.
+8406	Defines the contract for ResumeStrategy implementations that allow to inject a ResumeStrategy instance into the given object.
+8407	A builder for a ResumeStrategyConfiguration.
+8408	Interface to be implemented by Route in a EndpointConfig.
+8409	Interface to be implemented by classes that can be added or update the route configurations from a CamelContext.
+8410	Interface for errors in a Route.
+8411	Interface to be implemented by classes which want to store route id as String.
+8412	Interface for building a Routes instance in the CamelContext.
+8413	Interface to load a RoutesBuilder from a Resource.
+8414	Interface that defines the order in which a route should be started.
+8415	The source of parameters for a RouteTemplate.
+8416	Exception to be thrown when a Camel runtime exception is encountered.
+8417	Information about an endpoint usage, such as usage of its input or output direction (e.g.
+8418	A service that can schedule tasks for polling using a ScheduledPollConsumer.
+8419	Parameters for the SecureSocketProtocols.
+8420	Interface that can be implemented by objects that can be serialized to a byte array or byte[] (or string).
+8421	A simple service implementation which is a wrapper class which allows to start and stop instances of the service.
+8422	Interface to be implemented by objects that are aware of a ServiceChooser
+8423	Interface to be implemented by classes that need to inject a ServiceDiscovery
+8424	Interface to be implemented by objects that have a ServiceFilter injected.
+8425	Processor that shared the internal exchange with the default AsyncCallback.
+8426	Interface to be implemented by classes that can be either to execute shutdown in any given order or to defer shutdown during first phase of shutdown.
+8427	An enumeration of the routes that can be used to handle a shutdown request.
+8428	Enumeration of shutdown running tasks.
+8429	Interface to be implemented by Camel context parameters aware objects.
+8430	Listener interface for events about the start of a CamelContext.
+8431	A step of a setup phase.
+8432	Startup summary levels.
+8433	Repository for state data.
+8434	Static expression
+8435	StreamCache is a wrapper for a OutputStream that will be used to cache data from a file in another thread.
+8436	The used heap memory limit on spooling.
+8437	A Service that can suspend and suspends a specific Service.
+8438	Interface for a message synchronization layer that allows to implement a custom RouteSynchronization when processing a message exchange.
+8439	An interface to be implemented by Route implementations that want to inform the Exchange about a SynchronizationOutcome for a given Route.
+8440	A interface for synchronization vetoable objects.
+8441	Factory interface for thread pool management.
+8442	Exception thrown when Camel can't convert the value to the required type
+8443	An enumeration of the possible types for the TypeConverterExists annotation.
+8444	Factory interface for UnitOfWork instances.
+8445	Interface to generate UUID string representation used for exchange and exchange identifier.
+8446	Enumeration of tasks that need to be completed when a task is waiting for execution.
+8447	A file that was wrapped in a request or response body.
+8448	A HealthCheckRepository that encapsulates a collection of HealthCheck instances.
+8449	The address shuffle algorithm.
+8450	A manager that encapsulates the AmqpAppender.AbstractConnectionFactory and AmqpConnectionFactoryBean.
+8451	RabbitTemplate implementation that supports batching of incoming messages.
+8452	The event that was received on a broker.
+8453	Cache mode supported by the connection factory.
+8454	Enum for confirming of a successful connection.
+8455	ChannelListener is a callback registered to the ChannelManager to receive events on channel creation.
+8456	A proxy for a Channel to a Channel.
+8457	Default exception strategy implementation that logs fatal exceptions.
+8458	Listener for establishing new connections and notifying about it.
+8459	Event raised when a consumer is successfully subscribed to a queue.
+8460	A ConnectionListener that exposes a listener for Exchange connections.
+8461	A message that can be delivered to a broker.
+8462	Type of factory.
+8463	An AmqpEvent that is emitted when a container is idle if configured to publish idle events.
+8464	Strategy interface used to handle the recovery of a batch of messages.
+8465	Base class for completable futures.
+8466	Factory interface for the MessageListenerContainer.
+8467	RabbitListenerObservation is used to report the expected behavior of a listener on a RabbitMQ broker.
+8468	Low cardinality tags.
+8469	RabbitObservation for RabbitTemplate.
+8470	Low cardinality tags.
+8471	A RepublishMessageRecoverer that allows for a user to confirm their publish timeout after a confirm is complete.
+8472	Listener for closing a RabbitMQ channel when it is about to be shut down.
+8473	NodeLocator that configures a WebFluxClient for use with the @WebFluxExtension extension.
+8474	A simple cache interface implemented by scope-aware caches.
+8475	A StandardScopeCache implementation for use with the ScopeCacheFactory.
+8476	Options indicating whether the cookies are stored the same site as the other.
+8477	DefaultFilter is used to select the best matching Filter based on the FilterConfig.
+8478	A servlet context listener that is notified when the Shiro WebEnvironment is initialized.
+8479	Interface to be implemented by IP sources such as IPv4, IPv6 or CIDRs.
+8480	Base class for a Filter that returns a nameable value.
+8481	A FilterList that is composed of a given set of Filter instances, and a configurable name assigned to each Filter instance.
+8482	A source interface for a pair of ServletRequest and ServletResponse.
+8483	A SessionKey implementation that uses a WebServletContext to create a SessionKey for use with a Spring WS-based servlet.
+8484	A Subject that exposes the HttpServletRequest and ServletResponse for the Subject instance created via the WebService.
+8485	A AddColumnSpecification implementation that supports both string and numeric types.
+8486	A KeyspaceSpecification that can be used to alter an existing keyspace.
+8487	Interface representing a column type that can be used for Cassandra command parsing.
+8488	Factory bean that creates CQLTemplate instances using the given SessionFactory.
+8489	CassandraExceptionTranslator is a CqlExceptionTranslator for use with the @CassandraExtension annotation.
+8490	Cassandra specific implementation of EntitySchemaDropper that checks for and drops the necessary schema for the given entity.
+8491	A repository bean that can be used to retrieve a List of CrudEntity instances.
+8492	CassandraSchemaElementExistsException is thrown when a schema element with the given name already exists in the current schema.
+8493	The CQL type name.
+8494	A property value provider that can be used to query a value from a source object.
+8495	A name for a column in a query.
+8496	Interface to resolve Cassandra column types.
+8497	Composite keyspace populators can be delegates to a list of given KeyspacePopulator implementations, executing all scripts.
+8498	An enumeration of the compression types that can be used to compress data.
+8499	The valid column function for the CREATE INDEX.
+8500	The primary key criteria for a Query.
+8501	The operator supported by this criteria.
+8502	Representation of the options for delete queries.
+8503	A ColumnChangeSpecification that checks the existence of a column in a table.
+8504	A SQL Server index specification for dropping an index.
+8505	An enum for options when the entity is completely empty.
+8506	EntityMapping-Used to provide a mapping between table name and entity class name.
+8507	Delete query part (optional).
+8508	Options for the INSERT.
+8509	Select query builder.
+8510	An update with a table name.
+8511	A FieldSpecification describes the specifications of a field in a CQL query.
+8512	Filter is a collection of CriteriaDefinition objects that can be used as a filter for a Query.
+8513	Exception thrown when an IdInterface is accessed.
+8514	Data access exception thrown when a result set did not have the correct column count, for example when expecting a single column but getting 0 or more
+8515	IndexDescriptor represents a specific index on a table.
+8516	Document write options for inserts.
+8517	Actions to be performed on a Keyspace.
+8518	A keyspace descriptor.
+8519	Keyspace replication strategy.
+8520	Base class for a keyspace options specification.
+8521	Factory for map id implementations.
+8522	Cassandra specific implementation of PersistentEntityInformation that maps to the actual entity and the id will be persisted to.
+8523	ReactiveSessionFactory that wraps a ReactiveSession with an ObservationRegistry.
+8524	Enumeration of the supported Ordering.
+8525	Primary key types.
+8526	A simple property mapping implementation which allows to define a column name and a force quote if specified.
+8527	Idempotency options.
+8528	A field of a QueryMapper.MappingDocument.
+8529	Metadata backing a field.
+8530	Delete options (table name, query).
+8531	Options for the INSERT.
+8532	Select query builder.
+8533	Compose select execution by calling one of the terminating methods.
+8534	An update operation specifying the table to be updated.
+8535	Converts CQL Rows to an array.
+8536	ReadingConverter used to convert Row to List<Object>
+8537	A converter that converts a CQL row to a map.
+8538	A value provider for row properties.
+8539	Schema traversal action.
+8540	Simple PreparedStatementCreator implementation that uses the default CQL provider.
+8541	Snake case naming strategy implementation.
+8542	The list of supported parameter handling.
+8543	Enumeration of various key caching options.
+8544	Base class for TableOptionsSpecification.
+8545	Factory for Term instances.
+8546	A naming strategy that transforms the given entity to the expected format for Cassandra columns.
+8547	A ValueProvider that provides tuple values.
+8548	UdtValueProvider is a ValueProvider implementation that checks the underlying source for a given property and whether it contains a data source for the given
+8549	Builder for the remove from statement.
+8550	Builder for Set values.
+8551	Representation of the options to use for updating a table.
+8552	A UserTypeSpecification describes how to create a UserType.
+8553	A class to represent the mapping exceptions produced by Verifier.
+8554	Query options for creating write operations.
+8555	Default implementation of a ModelReader.
+8556	Model source backed by a file.
+8557	ProfileActivator that checks whether a given profile is active in the configuration or not.
+8558	An event that is emitted when a model is building a request and has been processed.
+8559	Exception thrown when a model could not be built properly.
+8560	Exception thrown when parsing a model file.
+8561	Severity level.
+8562	The versions of the problem.
+8563	Interface for model reading.
+8564	Interface representing a model source POM.
+8565	An Activator that checks whether specified profiles are active in the operating system.
+8566	Interface for profiles that can be activated at runtime.
+8567	ProfileActivator that checks whether specified profiles are active in the configuration or not.
+8568	The context for Transformer.
+8569	An interface for building a TransformerContext.
+8570	Exception to be thrown when a model is not resolvable.
+8571	JDBC column types.
+8572	Builder for JdbcIdentifier.
+8573	A factory for JDBC types.
+8574	A context that can be used to query an entity on a Batis server.
+8575	Exception thrown when SQL specified is invalid.
+8576	A single binding found in a bind expression.
+8577	A bind marker interface for a Statement.
+8578	Interface to create multiple BindMarkers.
+8579	Strategy interface for binding values.
+8580	Composite DatabasePopulator that delegates to a list of given DatabasePopulator implementations, executing all scripts.
+8581	Interface to be implemented by functions that access a specific Connection.
+8582	Interface that defines a strategy for populating the R2 database, optionally using a given ConnectionFactory.
+8583	An operation that is prepared for a query.
+8584	Rows fetch specification for use with QuerySpec.
+8585	Callback interface used to filter a Statement and ExecuteFunction.
+8586	Exception thrown when we can't classify the R2dbcException into a DataAccessException that is specific to a MySQL connection.
+8587	A file that should be used to activate a profile.
+8588	A property to be used to activate a profile.
+8589	Interface for artifact deploymenter implementations.
+8590	MetadataGraph implementation.
+8591	Enum for MetadataResolutionRequest.
+8592	ParamdocXpp3Writer.
+8593	Writer for ProfilesRoot.
+8594	Base class for mojo implementations.
+8595	A plugin for the Maven build-process.
+8596	Strategy interface for reading and writing a cookie value to the HttpServletResponse.
+8597	A representation of a cookie value, used for writing a cookie value to the HttpServletResponse.
+8598	Specifies when to write to the backing store when flushing the underlying data.
+8599	Enumeration that represents the save behavior when saving to a file.
+8600	A repository interface for managing Session instances.
+8601	Base class for persistable objects.
+8602	Wraps an existing Spring EntityManagerFactory bean definition, which is aware of the fact that it is used as a bean name for the underlying Spring EntityManager
+8603	QueryRewriter that delegates the query to a given QueryRewriter.
+8604	The type of the entity graph.
+8605	A JpaEntityGraph is an implementation of the EntityGraph interface that is suitable for generation of an ad-hoc EntityGraph.
+8606	Abstract base class for JpaEntityInformation implementations that support entity information.
+8607	Base class for query execution.
+8608	A bean that provides configuration options for the repository to be used with JpaSpecificationExecutor.
+8609	A path is an array of Attribute instances, holding a reference to each of the associated Attribute types.
+8610	Utilities for JSQLParser.
+8611	Meta-data for Query.
+8612	Query to use a TypedQuery for count operations on a PartTree.
+8613	An accessor interface for identifiers.
+8614	An interface for query extraction that can extract the original query string from a Query object.
+8615	Strategy interface for query rewrite logic.
+8616	QueryRewriterProvider provides an implementation of the QueryRewriter interface that can be used to obtain an instance of QueryRewriter.
+8617	A MultipartFileReader that copies a multipart file into a FileSystem.
+8618	A MultipartFileReader that reads a multipart file.
+8619	A RemoteFileInboundChannelAdapterSpec for a FtpInboundFileSynchronizingMessageSource.
+8620	The mode to use when checking if a file exists.
+8621	A RemoteFileStreamingInboundChannelAdapterSpec for a FtpStreamingMessageSource.
+8622	Abstract implementation of the JpaQueryProvider interface.
+8623	A subclass of ItemReader that allows for a single item type to be passed in as an argument to the AmqpCodec.
+8624	A builder for AmqpItemReader.
+8625	Builder for AmqpItemWriter.
+8626	A MethodResolver that looks for methods on an Annotation type.
+8627	A base class for ItemReader for items that contain an Avro schema.
+8628	A ItemWriter for avro data.
+8629	A builder for an avro item writer.
+8630	Wrapper for an ItemProcessor that is injected into a Classifier.
+8631	Builder for ClassifierCompositeItemProcessor.
+8632	Builder for ClassifierCompositeItemWriter.
+8633	CompletionPolicy support isComplete(RepeatContext, RepeatStatus) method.
+8634	CompositeItemProcessor is a ItemProcessor that wraps a list of other Processor implementations, handling multiple items at the same time.
+8635	Builder that builds a composite ItemProcessor.
+8636	Paging query provider that uses the Db2 database for pagination.
+8637	Default implementation of the FieldSetFactory interface.
+8638	Default implementation of the MailErrorHandler interface, for use by the Spring Mail framework.
+8639	Default implementation of PropertyEditorRegistrar.
+8640	Default CompletionPolicy implementation that always returns false.
+8641	DelimitedLineAggregator factory for ExtractorLineAggregator using DelimiterSeparator.
+8642	Base class for FieldAggregator implementations that use a FieldExtractor to split an input object up into multiple lines.
+8643	Factory interface for FieldSet instances.
+8644	A utility class for working with file system output.
+8645	A LineTokenizer that separates lines of text into tokens of a fixed length format.
+8646	A FileItemWriter that renders a sequence of objects in a Flat format.
+8647	Interface to be implemented by event readers for a fragment.
+8648	A Gson Json JsonMarshaller implementation that uses the Gson library.
+8649	Gson-based JsonObjectReader implementation that uses the Gson JsonReader.
+8650	Paging query provider that uses the H2 database.
+8651	Paging query provider that uses HANA's internal pagination support.
+8652	Paging query provider that uses the HSQL database.
+8653	A format exception thrown when a line is not of the expected length.
+8654	Interface that defines the contract for items that can be operated on by an execution context.
+8655	A Jackson JsonObjectMarshaller that converts objects to JSON.
+8656	Jackson Json JsonReader implementation that uses Jackson to read Json objects.
+8657	A factory bean for ItemReader that reads data from a JMS stream.
+8658	Builder for JMSItemReader.
+8659	ItemWriter for JMS messages.
+8660	A builder for a JMSItemWriter.
+8661	A builder for JpaItemWriter.
+8662	Provides a QueryProvider to the Jakarta Persistence Service.
+8663	A writer for file items that marshall objects to JSON.
+8664	A reader for objects stored in a Json resource.
+8665	A ExceptionHandler that can log or rethrow based on a given Throwable.
+8666	The log level.
+8667	Paging query provider that uses MariaDB's standard PagingQueryProvider.
+8668	Strategy interface for resolving methods based on a set of criteria.
+8669	Paging query provider that uses the MySql database.
+8670	Paging query provider that uses Oracle's default implementation.
+8671	Order.
+8672	Paging query provider for PostgreSQL.
+8673	A converter that converts a Properties object to a String.
+8674	A policy that can be used to separate multiple record separator patterns such as tab and tab.
+8675	RecursiveCollectionLineAggregator is a LineAggregator that concatenates multiple values in a collection.
+8676	A LineTokenizer that tokenize lines using a regular expression.
+8677	A counter to count times a RepeatContext.
+8678	Aopalliance MethodInterceptor that exposes a collection of RepeatOperations as part of a method invocation.
+8679	Simple completion policy implementation.
+8680	A builder for SimpleMailMessageItemWriter.
+8681	A record separator policy that just prefixes each line with a separator.
+8682	A builder for SinglePeekableItemReader.
+8683	A Skipper for a given Exception and Object.
+8684	Paging query provider that generates query strings to be used for retrieving the first page of a given SQLite database.
+8685	PagingQueryProvider that uses the SqlServer2 platform for pagination.
+8686	PagingQueryProvider that uses the Sybase database.
+8687	A builder for SynchronizedItemStreamReader.
+8688	A builder for SynchronizedItemStreamWriter.
+8689	A bean that initializes a system property.
+8690	A CompletionPolicySupport implementation that checks the timeout and completes gracefully if it has expired.
+8691	BufferedWriter implementation that uses a TransactionAwareOutputStream to write to a file.
+8692	A ItemProcessor that validates each item using a custom validator.
+8693	Abstract implementation of the ComponentDefinition interface.
+8694	A BeanMetadataElement that associates an alias with a bean.
+8695	Strategy interface used to define annotated bean methods and annotations.
+8696	Extended implementation of GenericBeanDefinition that exposes annotated method and bean class metadata.
+8697	A BeanWiringInfoResolver implementation that will wiring beans annotated with @Configurable.
+8698	The service source for streaming events.
+8699	Enumeration of various autowired values, like POST_AUTOWOWIR, PUT_TO_HTTP_CODE or DELETE_TO_
+8700	Exception thrown when a bean definition needs to be overridden in a given fashion.
+8701	Exception thrown when the bean definition can't be loaded.
+8702	Code to be generated when the BeanFactory is initialized.
+8703	Exception thrown when a bean needs to be instantiated when it is impossible to determine the expected behavior for a bean.
+8704	A bean metadata attribute.
+8705	Exception thrown when the type of a bean is not of the expected type.
+8706	Strategy interface for processing a RegisteredBean instance ahead-of-time and optionally excluded from the AOT processing.
+8707	Interface for generating registration code for beans.
+8708	Code that generates code for bean registrations.
+8709	Exception thrown when a bean class could not be loaded.
+8710	Represents a child bean definition.
+8711	Represents a composite component.
+8712	Custom DateEditor implementation, for adding a custom DateEditor to a PropertyEditor.
+8713	Editor for Number properties.
+8714	A BeanPostProcessor that determines whether the given bean instance should be considered to be destruction by this bean post-processor.
+8715	A factory bean encapsulates the creation of objects that, when created, and how to create factories.
+8716	A ProblemReporter that reports problems in a FailFast fashion.
+8717	Generic bean definition implementation that just returns the bean definition with the same name and parent as the argument.
+8718	Sub-interface of BeanFactory to be implemented by beans that are hierarchical beans.
+8719	Metadata element that imports a bean from a given source object.
+8720	Exception thrown when a bean property is invalid.
+8721	A location with a source and a resource (e.g.
+8722	LookupOverride is a MethodOverride that matches a MethodReference or Method name.
+8723	Interface defining a mergeable method that can be implemented by objects that can be configured with the MergeEnabled annotation.
+8724	A BeanPostProcessor that reinitializes the bean definition on every post-process of a MergedBeanDefinition.
+8725	A holder for a named bean.
+8726	Exception to be thrown when more than one bean was found with the expected bean name.
+8727	A ParameterResolutionDelegate that can be used to determine if the supplied Parameter can potentially be autowired from an AutowireCapableBean
+8728	A state that can be taken on the state of an ArrayDeque.
+8729	Interface for reporting problems that may occur during the parsing of a file.
+8730	Editor for Properties.
+8731	Base class for exceptions thrown when a property value is changing in a given state, or when a failure occurs.
+8732	Factory for PropertyAccessor instances, creating bean wrappers and getters.
+8733	A Comparator that accepts a property of an object and a SortDefinition.
+8734	A MethodOverride that replaces a method in a bean with a new value.
+8735	A BeanReference implementation that uses the Spring bean name runtime to resolve references to bean names.
+8736	A factory bean that exposes a ServiceLoader as an object.
+8737	A factory bean that exposes a list of ServiceLoader objects, as well as a ServiceList for subclasses that need to handle service loaders via
+8738	A factory bean that exposes a ServiceLoader as an object.
+8739	A factory bean that exposes common implementations of objects, like FactoryBean, and delegates calls to the underlying object.
+8740	Sort definition.
+8741	Enumeration of possible resolution methods.
+8742	DestinationResolver that caches destinations for a given ServiceRegistration.
+8743	A ExceptionListener that delegates to multiple registered ExceptionListener implementations, propagating the exception to each of the registered delegates.
+8744	DynamicDestinationResolver implementation that allows dynamic destination resolution.
+8745	Base class for exceptions thrown by JMS.
+8746	Sub-interface of AbstractJmsListenerEndpoint that exposes the ID of the JMS listener model to be used by the MessageDispatcher.
+8747	The MessageConverter interface that can be used to convert a Java object to JMS messages.
+8748	Represents a message type.
+8749	Subclass of JmsHeaderMapper that allows for simple JMS headers to be added.
+8750	An authenticator that uses the LDAP protocol to authenticate as a user and obtains additional user information from the directory.
+8751	Container for a embedded LDAP server.
+8752	The default LdapAuthoritiesPopulator implementation that sets the attribute names to retrieve for each ldap group in the namespace.
+8753	Control message for the PasswordPolicy.
+8754	Enumeration that represents the status of a password policy error.
+8755	A SpringSecurityAuthenticationSource that encapsulates the information required for Spring Security for an AuthenticationSource.
+8756	A literal node which is a boolean.
+8757	Represents a reference to a constructor (method, static, static, static, static-value)
+8758	Base class for the 'lvis' operator.
+8759	Expression parser can be used to parse expressions into Expression objects
+8760	A literal node which is a float.
+8761	Represents a function reference (function name, function reference, object or method call).
+8762	Inline map.
+8763	A literal node which is an integer.
+8764	A literal node which is a long (or string).
+8765	A null literal is a literal that is always null.
+8766	Logical AND operator
+8767	Base class for division operators.
+8768	An operator that is considered equal to a given value.
+8769	Enumeration of all operations that may be performed on a RESTful service.
+8770	An Operator that checks whether a node is an instance of a specified type.
+8771	Base class for OperatorNot.
+8772	Interface for overloading of an Operator.
+8773	An operator that is considered to be greater than or equal to a given value.
+8774	An operator that compares a value with another.
+8775	An operator that compares to a boolean value.
+8776	An operator that checks if a node is less than the supplied value.
+8777	Base class for minus operators.
+8778	Base class for division operators.
+8779	Base class for the 'mul' operator.
+8780	An operator that is always true
+8781	An operator that performs the OR on a list of typed values.
+8782	Base class for binary arithmetic operators that add the result to an operator.
+8783	ParserContext encapsulates the parsing of template expressions.
+8784	A simple literal node which is just a real value.
+8785	Enum for controlling how Druid runs Groovy into the compiler environment.
+8786	Exception thrown when a Spel expression cannot be evaluated.
+8787	Enum for all the messages that can be delivered to the SpelServer.
+8788	The message kind.
+8789	Exception thrown when a DOM node cannot be parsed as a Spel expression.
+8790	Standard implementation of the OperatorOverloader interface, for generating standard Operators.
+8791	A type comparator for standard Java types.
+8792	A literal node which is a string.
+8793	ParserContext for template expressions.
+8794	AST node that is a ternary operator.
+8795	Represents a set of binary types and their types.
+8796	A comparator for types.
+8797	Base class for AST node types.
+8798	Interface representing a ValueRef to a Value.
+8799	ValueRef for null values.
+8800	ValueRef for a TypedValueHolder.
+8801	Interface to be implemented by the ArtifactHandler interface when a dependency is added to a project or its dependencies are found in the classpath.
+8802	Exception to be thrown when multiple artifacts could not be resolved
+8803	Abstract base class for post processing of decompression messages.
+8804	Abstract base class for the AbstractDeflaterPostProcessor interface.
+8805	Abstract base class for MessageConverters that check whether a class is in the allowed list.
+8806	Listener for handling a batch of incoming messages.
+8807	Enumeration of destination types to be used when converting from String to URL parameters.
+8808	The class that gets called after the compression is finished.
+8809	Gunzip post processor implementation for decompression.
+8810	The post processor implementation for GZip.
+8811	A post processor for decompression of GZIP stream.
+8812	The precedence for type conversion - inferred from the method parameter or message headers.
+8813	A generic message that can be handled by anyone in the wire.
+8814	Strategy interface for converting a Java object to a Message.
+8815	Enum for defining message delivery algorithm.
+8816	Interface to be implemented by objects that receive new messages.
+8817	Strategy interface for adding or removing a message post processor to a Message instance.
+8818	The queue leader locator.
+8819	Enumeration of the values for the QueueBuilder.OVERFLOW.
+8820	Adapter for MessageConverter implementations that use a RemoteInvocationAwareMessageConverter.
+8821	A message returned by a exchange when a request to the exchange is made.
+8822	Accessor for RetryContext instances.
+8823	A DecompressingPostProcessor that deals with the end of a file.
+8824	A ZipPostProcessor that adds the necessary compression characteristics to the ZippedOutputStream.
+8825	Base class for tokens.
+8826	Represents a standard address claim, either from a city, zip code, state, province, prefecture or region.
+8827	A ConversionService that supports claiming values.
+8828	Default implementation of an OAuth 2.0 AuthenticatedPrincipal.
+8829	Default implementation of an OAuth2.0 User.
+8830	Default implementation of the OidcUser interface.
+8831	An OAuth 2.0 token that holds an access token.
+8832	An interface representing an OAuth 2.0 token.
+8833	A class that holds the Authorization Request and Response from an OAuth2AuthorizationExchange.
+8834	Error class for OAuth2 errors.
+8835	Describes an OAuth 2.0 token that has been issued.
+8836	An IdTokenClaimAccessor that can be used to create claims when assertion is enabled.
+8837	Interface to be implemented by users that use the OIDC protocol.
+8838	A UserAuthority implementation that uses the OIDC protocol.
+8839	A user info object that holds claims used for OIDC assertions.
+8840	Abstract base class for connection-specific implementations of this class.
+8841	A serializer that serializes a byte[].
+8842	A serializer that serializes a byte array to a byte[], appends a termination marker at the end of the byte array.
+8843	A serializer that uses STX and ETX characters to serialize and deserialize byte arrays using the provided PooledBufferInputStream.
+8844	Default implementation of the SocketFactorySupport interface, for creating new Sockets.
+8845	Default implementation of the SSLSocketFactorySupport interface.
+8846	Default implementation of SSLConnectionSupport.
+8847	Default implementation of the TcpSocketSupport interface.
+8848	Default implementation of TcpSSLContextSupport.
+8849	A factory spec for ClientConnectionFactory instances.
+8850	A factory specification for a TcpNetServerConnectionFactory.
+8851	A factory spec for TCPNioClientConnectionFactory.
+8852	A factory spec for a TcpNioServerConnectionFactory.
+8853	Interface that can be implemented by connections that are created/closed by a socket.
+8854	A factory for server connection factories.
+8855	Interface to be implemented by factories that create new Sockets.
+8856	Interface that defines the contract for supporting supporting TCP sockets.
+8857	Enumeration that represents the Database used to connect to the Kafka cluster.
+8858	Exception thrown when a JDBC exception has occurred.
+8859	A DAO exception thrown when an optimistic locking exception has occurred.
+8860	Exception thrown when a data access exception was not able to retrieve an object from a DataAccess repository.
+8861	PersistenceUnitManager provides a way to obtain persistence unit info.
+8862	Extended persistence unit info interface for SmartPersistenceUnit.
+8863	A simple helper class for working with a namespace
+8864	This class defines all the new XML-related groovy methods which enhance the normal JDK XML classes when inside the Groovy environment.
+8865	Base class for arrays.
+8866	A simple binding target binder.
+8867	A dialect that uses the H2 database.
+8868	Converter used to convert Boolean to Byte.
+8869	Converter used to convert Byte to Boolean.
+8870	A dialect for PostgreSQL.
+8871	CustomConversions implementation for using R2JDBC.
+8872	Declare the table to delete with the query.
+8873	Provide the ability to specify the table to insert to.
+8874	Select with a table.
+8875	Compose select execution by calling one of the terminating methods.
+8876	Trigger an update execution by setting the table name that the update will be performed.
+8877	A dialect that uses the R2dbc dialect for the SqlServer.
+8878	A DELETE specification that can be used in a DELETE query.
+8879	Mapper for the Update clause.
+8880	Base class for Candidate implementations.
+8881	Abstract base class for MessageSource implementations that limit the number of objects received by this MessageSource.
+8882	Strategy interface for matching headers.
+8883	A pattern-based header matcher that matches if the given header matches at least one pattern.
+8884	Base class for events that are part of a Leader.
+8885	An execution callback that can be used to alter the execution of a request.
+8886	MessageMapper for byte arrays.
+8887	A candidate of a leader.
+8888	A Transformer for ClaimCheckIn integration patterns.
+8889	A Codec encodes and decodes an object to an OutputStream.
+8890	Composite codec that encodes and deserializes objects in a composite fashion.
+8891	Composite Executor that combines multiple Executor instances.
+8892	A trigger that is a composite of other triggers.
+8893	MetadataStore that supports atomic insert, replace and get operations.
+8894	A context that can be passed to a CandidateInterceptor.
+8895	A Transformer that decodes messages using Base64.decode(String) method.
+8896	Default implementation of a Candidate.
+8897	Default implementation of the MessageSplitter interface, for pre-defined delimiters.
+8898	A base class for a direct channel.
+8899	Parser for enricher endpoints.
+8900	A ExecutorChannel implementation with a dispatcher.
+8901	MessageHandler that sends to all targets with an expression.
+8902	MessageListProcessor that processes a MessageList by evaluating an expression on each Message's list.
+8903	Router that will return the keys of the channel messages that match the expressions in the message payload.
+8904	HeaderChannelRegistry provides a mapping between a channel and its name.
+8905	Interface to be implemented by handlers that should not propagate headers to the client.
+8906	Strategy interface used to convert an object to a Message or return an instance of a generic subclass of Message.
+8907	Component used to consume IntegrationMessages from the communication broker.
+8908	Integration observations for integration queries.
+8909	Gateway tags supported by the integration observations.
+8910	Handler tags supported for integration observations.
+8911	Producer tags supported for IntegrationObservation.
+8912	Enumeration of various types of integration patterns that can be used in parsing integration requests.
+8913	Category of patterns that can be used in integration integration.
+8914	ResourceHolder implementation used for integration related messages.
+8915	Json headers to be added at the request or response body.
+8916	A provider for a JsonMapper.
+8917	Interface to be implemented by event publisher classes to publish LeaderEvents.
+8918	A metadata store that listens to events for changes to the data.
+8919	Map to object transformer.
+8920	A MessageChannel reference that holds a reference to a message.
+8921	A dispatcher for messaging.
+8922	A producer for messages that can be sent via a MessageSender.
+8923	Strategy interface used to receive messages from a MessageSource.
+8924	Interface that defines a source for a message exchange.
+8925	A managed store of metadata.
+8926	Listener for the event of a key-value change in the metadata store.
+8927	The base class for MetadataStoreListener implementations that provide the ability to adapt the listener methods to the store.
+8928	A MessageSelector that matches messages by key from a MetadataStore.
+8929	This class defines a method invoking the router method.
+8930	Builder for MetricsCaptor.Counter.
+8931	Builder for a gauge.
+8932	Builder for timers.
+8933	A JsonTransformer that converts objects to JSON.
+8934	Interface that can be implemented by implementations of OrderlyShutdownable that can be used to achieve the maximum number of active messages in process after
+8935	Utilities for handling of pattern match against a given string.
+8936	An endpoint pauseable (e.g., a thread-safe) and resumeable (e.g., a pause endpoint) if possible
+8937	A QueueChannel implementation that uses a priority queue.
+8938	Interface that defines the operations necessary to queue up incoming and outgoing messages in a channel.
+8939	A MessageProducer that publishes messages from a Redis source to a Redis destination.
+8940	Strategy interface used to adapt a receive message event to a Message instance.
+8941	A MessageHandlerWrapper that delegates to a ReplyProducingMessageHandler.
+8942	Simple implementation of ReceiveMessageAdvice that sets the active poll period and the idle poll period.
+8943	Simple poller skip strategy implementation.
+8944	The callback interface for the pool items.
+8945	Register property accessors for use with Spel.
+8946	A simple upper bound implementation of a try-with-resources mechanism.
+8947	A converter that converts an Object to a UUID.
+8948	Batch mode for the inbound channel.
+8949	A base class for outbound endpoint specifications that use AmqpPublisher.
+8950	Exception thrown when a ManualAckListenerExecutionFailedException is thrown for a given listener.
+8951	Enumeration of layout types.
+8952	Base class for packager mojo for buildImage.
+8953	Container object representing the Docker configuration that is used to start the TLS communication.
+8954	Represents a Docker registry that can be used for HTTP requests and/or access to it.
+8955	Container for layer configuration information.
+8956	Implementation of the XsdSchema interface that uses Apache WS-Commons XML Schema.
+8957	Base class for JAXP versions.
+8958	Convenient utility methods for dealing with SAX.
+8959	Convenient utility methods for loading of Schema objects, performing standard handling of input streams.
+8960	A StreamSource for a StringReader.
+8961	Convenient utility methods for dealing with TrAX.
+8962	Simple processor that validates a given Source.
+8963	Factory for XmlValidator objects, being aware of JAXP 1.3 Validator implementations, and JAXP 1.0 Validator implementations, being aware
+8964	Factory class for compiled XPathExpressions.
+8965	Factory bean that facilitates creation of XPathExpression instances.
+8966	Represents an abstraction for XSD schemas.
+8967	Represents a collection of XSD schemas.
+8968	Abstract base class for ReaderSources.
+8969	An interface for MetaClass instances that are adapting another MetaClass.
+8970	Utilities for handling array types
+8971	This class handles converting Strings to ASTNode lists.
+8972	Intended style to use for cloning when using the @AutoClone annotation.
+8973	Simple wrapper for a boolean function.
+8974	This class represents a sequence of BytecodeInstructions or ASTNodes.
+8975	Find classes under the specified package via the classpath entry URI.
+8976	Helper class to return either a SourceUnit or ClassNode.
+8977	An interface for things that might be invoking closures on a method.
+8978	The phases of the GroovyCompiler.
+8979	A convenience wrapper around Java's compiler.
+8980	Concurrent reference map update options.
+8981	Various reference types supported by this map.
+8982	Thrown when configuration data is invalid.
+8983	This class is a general adapter for the ConverterHandler interface.
+8984	Intended mode to use when generating constructors when no parameters are provided.
+8985	Script that performs method invocations and property access like Closure does.
+8986	Represents a do { ...
+8987	A buffered writer only for OutputStreamWriter that is aware of the encoding of the OutputStreamWriter.
+8988	Represents an evictable memoize cache with its essential methods
+8989	Represents an eviction strategy for the cache with limited size
+8990	A class for error messages produced by the parser system.
+8991	A ReaderSource for source files.
+8992	Represents a file type in the manifest.
+8993	Represents the result of a file visit.
+8994	Represents a standard for loop in Groovy
+8995	Transformation for declarative dependency management.
+8996	This class represents an error that is thrown when a bug is recognized in the runtime.
+8997	A special visitor for working with the structure of a class.
+8998	Represents groovydoc
+8999	Represents Groovydoc Holder
+9000	Defines the contract for objects that can be represented by Java objects.
+9001	Base class for Groovy objects.
+9002	A PrintStream that outputs objects in Groovy style.
+9003	Classes which can run scripts should implement this interface.
+9004	This class is the DSL for the TypeCheckingExtension.
+9005	This factory allows the generation of an import customizer.
+9006	Enum for easy differentiation between call types
+9007	Enum for easy differentiation between call types
+9008	A ReaderSource for source strings.
+9009	Implementers of this interface can be registered in the ProxyMetaClass for notifications about method calls on objects created by the ProxyMetaClass.
+9010	A closure that provides a closure that iterates over a given Iterable.
+9011	Java 16 based plugins
+9012	Compilation unit to only generate stubs.
+9013	A LazyInitializable is an object that can be initialized lazily.
+9014	Represents a loop in a class.
+9015	A cache backed by a ConcurrentLinkedHashMap
+9016	A simple implementation of a map that holds a single value.
+9017	Handles generation of code for the @MapConstructor annotation.
+9018	Represents a memoize cache with its essential methods
+9019	Message source backed up by one or more ResourceBundle instances for simple i18n support.
+9020	Represents the length property of an array
+9021	MetaMethod for mixed in classes
+9022	Handles generation of code for the @Newify AST transform.
+9023	A MetaMethod implementation where the underlying method is really a static helper method on some class.
+9024	A MetaMethod implementation where the underlying method is really a static helper method on some class.
+9025	Handles generation of code for the @NullCheck annotation.
+9026	Default implementation of the RelationNameResolver interface.
+9027	Strategy interface for resolving a relationship property name.
+9028	Util for object operations, cloning and working with them
+9029	Intended target when @PackageScope is placed at the class level.
+9030	A factory of parser plugin instances.
+9031	An interface that adds the ability to intercept property getters/setters
+9032	A GroovyProxy for a given object.
+9033	An interface for things that can supply (and potentially resupply) a Reader on a source stream.
+9034	Handles completion of code for the @RecordType annotation.
+9035	Intended mode to use for records when using the @RecordType annotation (or record keyword).
+9036	Represents a reference to a value
+9037	Reflector class loader
+9038	Utility class to add return statements.
+9039	The tool to run script files via groovy command
+9040	Handles generation of code for the @Sealed annotation.
+9041	Intended mode to use for sealed classes when using the @Sealed annotation (or sealed keyword).
+9042	This factory allows the generation of a SecureASTCustomizer.
+9043	Provides the source text for an assertion statement and translates coordinates in the original source text to coordinates relative to the assertion's (normalized) source
+9044	Static compilation AST node metadata keys.
+9045	Handles the implementation of the CompileStatic transformation.
+9046	This enumeration is used to differentiate between AST node static type tracking and evaluation state.
+9047	Handles the implementation of the TypeChecked transformation.
+9048	This class is meant to be used as a utility for working with StringWriter instances.
+9049	A ReaderSource for source strings.
+9050	A class for error messages produced by the parser system.
+9051	Base exception indicating a syntax error.
+9052	This MetaBeanProperty will create a pseudo property whose value is bound to an object using weak references.
+9053	A type checking extension that will take care of handling errors which are specific to traits.
+9054	Transform try-with-resources to try-catch-finally Reference JLS "14.20.3.
+9055	Represents a list of 2 typed Objects.
+9056	Represents a list of 3 typed Objects.
+9057	Represents a list of 4 typed Objects.
+9058	Represents a list of 5 typed Objects.
+9059	Represents a list of 6 typed Objects.
+9060	Represents a list of 7 typed Objects.
+9061	Represents a list of 8 typed Objects.
+9062	Specifies the mode for doing type checking.
+9063	Static utility methods for working with type transformers.
+9064	A ReaderSource for source files hosted at a URL.
+9065	Various utility methods for use in the compiler.
+9066	Represents the visibility of a node.
+9067	A class for warning messages.
+9068	Represents a while (condition) { ...
+9069	Abstract base class for security builders.
+9070	Interface to customize an input argument.
+9071	Default implementation of a LoginPageConfigurer.
+9072	An implementation of SecurityConfigurer that delegates to a global AuthenticationManagerBuilder.
+9073	A PasswordManagementConfigurer that allows to set the change password page.
+9074	Enum to define the order of which PayloadInterceptor should be used.
+9075	A Configurer that can use a Spring Security web.PortMapper as the port mapping.
+9076	A configurer interface to be implemented by the security framework.
+9077	Policy defining how a session is created when it is initialized.
+9078	A configurer that can be used to configure the SecurityBuilder to use the UserDetailsService.
+9079	Message selector to test if a value is returned by an XPath expression.
+9080	A PayloadTransformer that uses the Spring Data Mapping's marshalling API.
+9081	XPath evaluation type for use with Spring XPath.
+9082	Strategy interface for processing annotated parameters.
+9083	The context of a parameter, used for setting method parameters, template parameters and index.
+9084	A parameter processor for @CookieValue annotation.
+9085	Pool concurrency policy.
+9086	Pool reuse policy.
+9087	Process a parameter of a @MatrixVariable annotation.
+9088	PathVariableParameterProcessor implementation for @PathVariable annotation.
+9089	QueryMapParameterProcessor implementation for Spring's @QueryMap annotation.
+9090	A parameter processor for HTTP request header parameters.
+9091	A AnnotatedParameterProcessor implementation for HTTP request parameters.
+9092	A parameter processor for request part annotation.
+9093	Represents the lock type for use with Redis.
+9094	Metadata store implementation that delegates to Redis.
+9095	A broker filter that only adds the AntiAffinityGroup policy.
+9096	A broker filter is used to filter out brokers that are not qualified by the service unit.
+9097	Interface that defines the host usage information of a broker.
+9098	Utilities for loading and working with broker interceptors.
+9099	A load data reporter that generates and reports the load data for a broker.
+9100	CompactorMXBean provides access to compaction metrics for a particular topic.
+9101	A StickyKeyConsumerSelector implementation that uses ConsistentHashingStrategy.getConsistentHash() to get the consumer key ranges for
+9102	A factory for DelayedDeliveryTracker instances.
+9103	Generic implementation of the BrokerHostUsage interface, storing the result in an object array.
+9104	A StickyKeyConsumerSelector that auto-splits the consumer by its hash.
+9105	A StickyKeyConsumerSelector that exposes a range of consumer keys for exclusive access.
+9106	Load manager strategy that minimizes the number of available resource usage by minimizing the number of available resource usage by weight.
+9107	Linux-based implementation of BrokerHostUsage.
+9108	Interface for load data reporters that generate and report load data.
+9109	The context that is used to obtain the information needed to execute a load manager.
+9110	A scheduler for scheduling load managers.
+9111	Strategy interface for loading bundles, based on the provided ServiceConfiguration.
+9112	Class that represents a callback for pending ack reply.
+9113	A PendingAckStoreProvider that uses an ML-based transaction to read and write acknowledgement records for a given subscription.
+9114	Strategy interface that specifies the placement of load balancers based on the given service configuration.
+9115	Listener for namespace bundles owned by a broker.
+9116	This interface defines the contract for the UnloadStrategy interface.
+9117	The state of the PendingAckHandle.
+9118	Interface for callbacks that need to handle pending ack reply.
+9119	A class representing a protocol-agnostic message.
+9120	Enum for monitoring a resource group
+9121	Represents the reference types of a resource group.
+9122	Interface for validating if the given schema data is in a well formed form.
+9123	Service transition states.
+9124	A load manager scheduler that separates multiple load managers into a single load manager scheduler.
+9125	Dispatcher that can issue read request on a single topic.
+9126	A LoadSheddingStrategy implementation that uses a threshold of broker names.
+9127	Top bundle load data reporter.
+9128	The stage of the event being processed.
+9129	The type of a topic event.
+9130	State of a topic transaction buffer.
+9131	A provider for transaction buffers, which provide a persistent buffer to be used for regular transaction operations.
+9132	Provider interface for PendingAckStore.
+9133	The base class for the TransferShedder interface, for the bundles that need to be transferred.
+9134	Abstract implementation of an OAuth 2.0 Authentication Token.
+9135	Error thrown when an OAuth 2.0 Bearer token is invalid.
+9136	Errors thrown when the bearer token is invalid.
+9137	A token authentication token that is composed of the attributes of an access token.
+9138	Abstract implementation of the ContextMapper interface, exposing common implementations of the methods mapFromContext(Object) and doMapFromContext(DirContextOperations
+9139	Filter to be used as a conjunction of another Filter.
+9140	The attribute types.
+9141	Interface that defines the source of authentication.
+9142	Interface that defines the base LDAP path to use as the prefix for the path to retrieve entries.
+9143	Base class for filters that handle logical operations.
+9144	A CompensatingTransactionOperationExecutor for use with the @BindOperation annotation, which allows the operation to be rolled back when the target object
+9145	A AuthenticationErrorCallback implementation that collects errors that may have occurred during the processing of an Authentication request.
+9146	Base class for Filter implementations that support comparison.
+9147	Represents a compensating transaction object.
+9148	Strategy interface for operations that Compensate for a transaction.
+9149	An interface for compaction transaction operations that supports rollback and commit operations.
+9150	Encapsulates a container criteria.
+9151	Strategy interface used by the ContextSource to get the appropriate Context instance.
+9152	A converter manager is responsible for deciding whether a given class can be converted to an instance of a given class with an optional LDAP syntax.
+9153	Callback handler that counts the number of times a NameClassPair matches the current query.
+9154	Default implementation of the TempEntryRenamingStrategy interface, for creating temporary names and optionally renaming them.
+9155	Base implementation of BaseLdapPathContextSourceSupport that delegates to the target ContextSource.
+9156	A DirContextAuthenticationStrategy that uses the DigestMd5 algorithm.
+9157	Interface that defines the contract for user-specific authentication strategies such as the LDAP or LDAP.
+9158	Component that holds the DirContext for the current transaction.
+9159	Strategy interface for processing a DirContext.
+9160	Token Manager.
+9161	Defines a filter that can be used to filter values based on a query string.
+9162	A filter that hardcoded.
+9163	Represents the LdapAttributes for a given LdapObject.
+9164	The specification of the authenticate operation.
+9165	A specification of a bind operation.
+9166	Contract for a ListBindings entry.
+9167	Contract for a list entry.
+9168	A specification of a name and attributes for an LDAP entry.
+9169	Contract for the LDAP_DELETE entry for a given LDAP_CONNECTION_UNBIND operation.
+9170	The LdapQuery to be implemented by a LdapResourceProvider.
+9171	A NullDirContextProcessor implementation that always returns null.
+9172	Utility methods for working with Ldap transaction operations.
+9173	An OperationExecutor that exposes a commit() and a rollback() method, for modify attributes.
+9174	A filter to be used as a not operator.
+9175	A filter to test if a path is not present.
+9176	A null operation executor for use with CompensatingTransactionOperationExecutor.
+9177	A filter to use the OR operator.
+9178	A filter that only adds fields that are present in the request.
+9179	A CompensatingTransactionOperationExecutor for a RebindOperation.
+9180	An OperationExecutor for renaming a given target.
+9181	Enumeration that represents the scope in which a node should be referred.
+9182	Simple implementation of the DirContextAuthenticationStrategy interface, for use in conjunction with Spring's DirContextProvider.
+9183	A RequestControlDirContextProcessor that returns the sort key and the result code.
+9184	Represents a token stream.
+9185	Proxy to ContextSource that delegates to the base LdapPathContextSource.
+9186	A CompensatingTransactionOperationExecutor for a UnbindOperation.
+9187	Abstract base class for HttpMessageConverter implementation that exposes a Crm.Feed as well as Crm.Header.
+9188	A runtime exception thrown when a request timeout is reached.
+9189	A ClientHttpRequestFactory that buffers the request/response for a given URI and HTTP method.
+9190	Interface that encapsulates customization of HTTP message readers and writers registered by default by default.
+9191	Documentation for ClientHttpObservation.
+9192	A representation of a HTTP request that was received by the client.
+9193	An HTTP response that was received by the client.
+9194	Client request observation context.
+9195	Default codec configuration.
+9196	CodecConfigurer.MultipartCodecs provide a custom encoder and writer for sending multipart attachments.
+9197	A listener that is notified when the root web application context is changed.
+9198	A CorsFilter is used to include a CorsProcessor for a given request.
+9199	Utility methods for checking CORS headers.
+9200	The mode of encoding used for URI query parameters.
+9201	A MethodArgumentResolver that supports error handling.
+9202	A class to find a Method to handle an exception.
+9203	A WebHandlerDecorator that uses an exception handler.
+9204	A file part of a multipart request.
+9205	Provides a list of configured filters and delegates calls to the actual web handler.
+9206	A ContentNegotiationStrategy that fixedifies the content type of a given request.
+9207	A LocaleContextResolver that fixed-rate locale resolvers.
+9208	This filter applies a charset-based MIME encoding to the request body.
+9209	Events delivered when a form part is parsed.
+9210	Strategy interface used to resolve method parameters into an argument value.
+9211	This filter can be used to filter out methods that are not HTTP methods.
+9212	A WebFilter that filters out requests to a specific HTTP method.
+9213	A representation of a Cookie used for HTTP request headers.
+9214	An HTTP entity that can be used as a response entity.
+9215	A ServerHttpResponseDecorator that writes HEAD response body to the response stream.
+9216	Exception to be thrown when the response body is not acceptable for a media type.
+9217	A MediaTypeException that is thrown when a media type is not supported by the browser.
+9218	A ResponseExtractor implementation that uses the ClientHttpResponse to extract message data, based on the Content-Type header.
+9219	A representation of an HTTP request used for creating an HttpExchange.
+9220	A wrapper for HttpRequest.
+9221	A factory that creates HTTP service proxies based on an HTTP client.
+9222	DataBinder factory that determines whether the given @InitBinder method should be used to initialize a given WebDataBinder instance.
+9223	Jackson2JsonEncoder implementation that returns a list of supported media types for the given ProblemDetail.
+9224	A factory that creates Apache Apache Commons HttpClientResource using Jdk's Executor.
+9225	LocaleContextResolver helps to set the current locale context via a WebExchange.
+9226	Convenient base class for LoggingCodec implementations that use HTTP servlet 2.x and 3.x+ scoped methods to encode and decode values using
+9227	Subclass of AbstractJackson2XmlHttpMessageConverter that uses the ObjectMapper to map data to XML.
+9228	InputMessage implementation which uses the Jackson Mapping annotation to deserialize the body.
+9229	Factory for media types.
+9230	Strategy interface for resolving media types to file extensions.
+9231	A MethodArgumentConversionNotSupportedException is thrown when a method argument conversion exception is thrown.
+9232	Exception thrown when the type of a method argument of a Method was incorrect.
+9233	Exception indicating that the requested HTTP method is not allowed.
+9234	Exception thrown when a matrix variable is not found in a request message.
+9235	Exception thrown when a path variable is not found in the request message.
+9236	Exception thrown when a request cookie could not be parsed or could not be resolved into a valid Cookie value.
+9237	Exception thrown when a request header is not found in a method or request body.
+9238	A WebError for any missing request values.
+9239	A MissingRequestValueException for a request parameter.
+9240	An interface to be implemented by objects that contain a convenient representation of a multipart request.
+9241	Interface that defines the contract for the WebRequest and Response objects that are used to communicate to the ApplicationContext.
+9242	A NotAcceptableStatusException is thrown when the Accept header is not parsed but can not be used.
+9243	Content negotiation strategy that uses a named parameter for media type negotiation.
+9244	A part of a multipart/form-data request.
+9245	An event sent on a part of a multipart message.
+9246	A path segment that can be used in conjunction with a path matcher.
+9247	Contains information about the path match.
+9248	Exception thrown when a pattern text is invalid.
+9249	Message to be used when parsing a pattern error.
+9250	Factory bean that represents a Proxy.
+9251	This filter will handle the case of a redirection.
+9252	A ServletServerHttpRequest for use with a multipart request.
+9253	The scope for a request.
+9254	Builder for a response entity.
+9255	Strategy interface for handling errors in ClientHttpResponse.
+9256	Exception indicating that the HTTP response was invalid.
+9257	This class defines common REST gateway support.
+9258	Interface to customize or replace HTTP message readers and writers registered by default by default.
+9259	Exception thrown when a server error occurs during processing a request.
+9260	Documentation for HTTP Observation.
+9261	Documentation for HTTP Observation.
+9262	A WebFilter that exposes an ObservationContext for every WebExchange received in a request.
+9263	An extension of the HttpOutputMessage interface used by the ServerHttpResponse package to provide additional content to the response.
+9264	Builder for ServerSentEvent.
+9265	A Servlet-specific implementation of the ServletContextAttributeExporter interface.
+9266	Factory bean that exposes a ServletContextAware instance for the ServletContext.
+9267	A BeanPostProcessor that ensures that a ServletConfig is injected before and afterInitialization.
+9268	Factory bean that exposes a ServletContext init parameter.
+9269	A RequestLoggingFilter that logs messages from the servlet context to the Logger.
+9270	Extension point that delegates to the implementation of WebDataBinder, sending any bind values found in the servlet request to the target WebDataBinder.
+9271	Store the specified attributes in the backend session.
+9272	Interface defining a session status that can be returned by a session handler.
+9273	A simple implementation of the SessionStatus interface, exposing a structure that allows for a single handler's session processing state to be explicitly called.
+9274	Convenient superclass for @Autowiring objects that are intended to be injected into Spring beans, as well as by Spring's @Contextual
+9275	Encapsulation of various SSL information that can be obtained from a request.
+9276	A ServerWebInputException is thrown if a request parameter is invalid for a certain condition.
+9277	Exception thrown when a servlet request has a parameter which is not violated one or more parameter conditions.
+9278	Interface to create URI builders based on a UriTemplate.
+9279	Handler for URI templates.
+9280	A CorsConfigurationSource that is used to set the CORS configuration based on a list of URL patterns.
+9281	A WebHandlerDecorator that wraps a web server web handler and calls handle(ServerWebExchange) method.
+9282	WebDataBinder implementation that automatically catches errors and handles the parameters of WebRequest objects.
+9283	Interface that can be used to intercept the execution of a request handler, that is, right before and after rendering the view.
+9284	Interface that defines the method to resolve session IDs associated with a request and send the session ID to the client.
+9285	A web session store knows about sessions, updates the last accessed timestamp and returns the resulting web session.
+9286	An output message that writes zero values to a file.
+9287	Abstract base class for ActionEndpointMapping implementations that map methods to actions.
+9288	Abstract base class for MethodEndpointMapping implementations that map classes tagged with an annotation.
+9289	Abstract base class for DestinationProvider implementations that cache destination URI.
+9290	Abstract implementation of the MimeMessage interface, exposing various default implementations of the addAttachment(String, Object) methods.
+9291	Abstract base class for EndpointMappings that resolve qualified names as registration keys.
+9292	Represents an attachment to a MimeMessage
+9293	Client-side interceptors.
+9294	Default implementation of the ClientInterceptor interface, for simplified implementation of pre-only/post-only interceptors.
+9295	Implementation of the PoxMessage interface that is based on a DOM Document.
+9296	Adapter to use a single endpoint as the endpoint for a EndpointInvocationChain.
+9297	Endpoint invocation chain, consisting of an endpoint object and any preprocessing interceptors.
+9298	Represents an Endpoint Reference, as defined in the WS-Addressing specification.
+9299	Sub-interface of WebServiceConnection that exposes any Fault messages received.
+9300	Sub-interface of WebServiceMessage that can contain any Fault messages.
+9301	Enumeration that represents the standard SOAP Fault codes for use with the JDK 1.5+ SoapFault annotation.
+9302	Interface to be implemented by WebServiceConnection implementations that want to store the headers that are set in the request.
+9303	Helper class for handling marshalling and unmarshaling WebServiceMessages.
+9304	A MethodArgumentResolver that supports MessageContext arguments.
+9305	Adapter to use a MessageEndpoint as the endpoint for a EndpointInvocationChain.
+9306	Strategy interface that encapsulates the creation and validation of WS-Addressing MessageIDs.
+9307	Strategy interface used to resolve method parameters into arguments.
+9308	Strategy interface used to handle method return values.
+9309	Adapter to use a PayloadEndpoint as the endpoint for a EndpointInvocationChain.
+9310	Annotation method endpoint mapping for the PayloadRoot annotation.
+9311	Implementation of the EndpointMapping interface to map from the qualified name of the request payload root element.
+9312	Interceptor that validates the contents of WebServiceMessages using a schema.
+9313	Interceptor that validates the contents of WebServiceMessages using a schema.
+9314	SAX XMLReader that adds support for certain features for SAAJ.
+9315	Default implementation of the Wsdl11Definition interface, exposing the standard SOAP 1.2 format.
+9316	Subinterface of SoapHeader that exposes SOAP 1.2 functionality.
+9317	SOAP-specific subclass of the EndpointInvocationChain.
+9318	Represents the Envelope element in a SOAP message.
+9319	Exception thrown when the response message contains a SOAP fault.
+9320	Defines properties for a SOAP Fault.
+9321	Represents the detail element in a SOAP fault.
+9322	Represents the content of a SOAP detail element.
+9323	Exception resolver that sets the mappings between exception class names and SOAP Faults.
+9324	A MethodArgumentResolver that supports resolving SoapHeaderElement parameters.
+9325	Sub-interface of WebServiceMessageFactory that exposes SOAP-specific properties such as the SOAP version.
+9326	A MethodArgumentResolver that supports resolving SoapMessage parameters.
+9327	Contains various utility methods for handling SOAP messages.
+9328	Defines the contract for payloads that can be written directly to a XMLStreamWriter.
+9329	A holder class that holds a TransportContext instance associated with the current thread.
+9330	An output stream to a Transport.
+9331	Implementation of the EndpointMapping interface to map from the full request URI (e.g.
+9332	Implementation of the MessageIdStrategy interface that uses a UUID to generate a Message Id.
+9333	Represents a protocol-agnostic XML message.
+9334	Factory for WebServiceMessages.
+9335	Defines the contract for WebServiceMessageSender implementations.
+9336	Utility methods for web applications.
+9337	Defines the contract for the WsConfigurer interface.
+9338	Implementation of the DestinationProvider that resolves a destination URI from a WSDL file.
+9339	Implementation of the Wsdl11Definition that defines the WSDL4J implementation.
+9340	Implementation of the EndpointMapping interface that uses the Spring XML Transformer for the root element of a request or response payload.
+9341	Abstract base class for rewriters that want to rewrite a single expression list.
+9342	A QuadHolder that holds a collection of Quads.
+9343	A construct clause.
+9344	A handler that handles the creation of a new construct statement.
+9345	A clause that represents a dataset to be added to a query.
+9346	A query handler that can be used to set the values for the query variables.
+9347	A quad holder that holds quads in a model.
+9348	Order.
+9349	The handler class that manages a prefix mapping.
+9350	A quad holder that holds quads.
+9351	A QuadHolder implementation that holds a collection of Quads.
+9352	A quad holder that can be assigned to any number of Quads that are contained in the QuadHolder.
+9353	A select clause in a query.
+9354	A QuadHolder that holds only one quad.
+9355	Defines the metadata policy.
+9356	LIST OF HANDLER TYPES.
+9357	A BoundedInputStream is a wrapper around an InputStream that has a read limit. When the input stream reaches a certain limit, then the delegate
+9358	A CompositeDetector that wraps a list of Detectors, providing a list of different types.
+9359	ContainerExtractor is an interface for processing container files.
+9360	A parser that uses Crypto to extract media.
+9361	Utilities for working with Date.
+9362	This is the default implementation of the EmbeddedStreamTranslator interface.
+9363	Translate, using the first available translator, which is available in the system.
+9364	Handler for embedded content.
+9365	Interface that defines the contract for document embedder.
+9366	A parser that always returns an empty sequence.
+9367	Empty translator.
+9368	ErrorParser is a parser that returns XHTML to the caller.
+9369	HandlerConfig.DEFAULT_PARSE_MODE.
+9370	This class is used for dealing with CoDec classes with big numbers in the following format: https://github.com/mayconbord
+9371	Handler that returns the language based on the text handled by the ContentHandler.
+9372	Wraps a Reader and returns the language detected by a LanguageDetector.
+9373	This is a PipesReporter that logs errors, which is useful in situations where the pipes are not available at the cluster level.
+9374	Matches a given node if the XPath expression matches the current state.
+9375	This interface defines the basic parsing functionality.
+9376	ParserContainerExtractor. Parses a container file, extracts embedded resources.
+9377	A reader that parses text from a socket connected to a parsing thread. The reader is started by a Thread that reads text from the socket and
+9378	This class implements the ContentHandler interface for parsing a Phone document.
+9379	PipesReporter.
+9380	This class implements the ParadigmParser interface in order to walk through a tree of parsed content.
+9381	This parser wrapper handler will recursively parse the document in a case-insensitive manner.
+9382	An input stream that rereads all bytes from an existing stream.
+9383	Utilities for loading classes using a ServiceLoader.
+9384	A collection of the most important technical standard organizations.
+9385	A FieldFilter for Metadata that only updates the value of a field in a Map.
+9386	This ContentHandler tags any SAXExceptions thrown by the parser. It wraps any exceptions that are not a tag.
+9387	Exception that is thrown when a tag was encountered during parsing.
+9388	Indicates the embedded resource type.
+9389	Translate text to different languages.
+9390	ContentHandler for XMP documents.
+9391	Interface that defines the configuration options for applications that are used to run server-side operations.
+9392	This enumeration allows to define how many fields in a model are used in a mapping. It is used in the MappingFactory to define the naming
+9393	An immutable value of JsonNull.
+9394	JsonSerializationContext encapsulates the context in which objects will be serialized.
+9395	JsonStreamParser is a JsonParser that reads from a stream and returns a stream of JsonElements.
+9396	Represents a JSON value
+9397	A serialization policy that can be used to control how long values are serialized.
+9398	Result of the filter.
+9399	ToNumber policy.
+9400	Base class for chunks.
+9401	Socket state.
+9402	Abstract base class for object creation factories.
+9403	Abstract base class for a single archive resource set.
+9404	Interface for access logs. Implementations of this interface provide an interface for adding request attributes.
+9405	AccessLogAdapter is the adapter for the AccessLog interface.
+9406	Action codes for all actions
+9407	AjpNio2Protocol implementation.
+9408	AjpNioProtocol implementation for Logging.
+9409	A stack that implements a list of types.
+9410	Utilities for working with ASCII characters.
+9411	Callback used to process an asynchronous Request.
+9412	A log file that asynchronously publishes records in a separate thread.
+9413	A simple user realm implementation that uses the principal and password for authenticating users.
+9414	The class that implements B2C converter.
+9415	An authenticator that uses Basic authentication. Used for both the Basic Authentification Request and Authorization Header.
+9416	Basic credentials used for basic auth.
+9417	DataSourceFactory implementation that does not leak transient exceptions.
+9418	This class is meant to be used as a wrapper around an OutputStream. It is designed to be used when using the OutputStream class as a source
+9419	This class is a ServletOutputStream for writing Byte[].
+9420	The channel on which to write chunks of a single type of bytes.
+9421	A utility class for messages with a single byte value.
+9422	A class that implements the C2B converter interface.
+9423	Implementation of the CallbackHandler interface.
+9424	Rule for handling call parameters.
+9425	Provides a stack trace that will be used to print a stacktrace.
+9426	Utilities for working with CallStack.
+9427	Handles creation of a certificate.
+9428	A ChannelException contains the details of a failure.
+9429	The listener interface for listening to channel messages.
+9430	The CharsetMapper class is responsible for calculating the name of a character set to be assumed, given the specified Locale and the absence of a
+9431	A class for checking Eol.
+9432	Factory class loaders.
+9433	An interface for objects that are closed.
+9434	ClusterSessionListener is a listener for session messages delivered to the cluster.
+9435	This interface defines the contract for cluster valve. It is used to express the details of the cluster that the deployer will be running.
+9436	This class provides a way to configure a class using a ConfigurationSource to load configuration resources.
+9437	Rule that creates a connector.
+9438	ConnectorMBean is a wrapper for a simple MBean with its methods
+9439	Contains various AJP-specific information about the HTTP request.
+9440	Interface to be implemented by objects that are responsible for container creation.
+9441	
+9442	The ContainerServlet interface.
+9443	A listener to observe context naming information.
+9444	This class is a simple MBean class that is used to link a context-wide resource to an MBean.
+9445	This class is an extension of ResourceMBean to allow for multiple context-specific attributes to be passed directly to an MBean.
+9446	Context transaction implementation.
+9447	Timing values for ContinueResponse.
+9448	CORS request type.
+9449	A ServletOutputStream that implements a CoyoteOutputStream.
+9450	Interface to be implemented by the CredentialHandler interface.
+9451	Simple extension of CredentialHandler in server.xml.
+9452	Custom ObjectInputStream is a wrapper class for a custom Java object input stream.
+9453	Enum to control how we destroy the HBase instance when a resource is deleted.
+9454	An authenticator that uses Digest to authenticate to the server. Used for HTTP Digest Authentication.
+9455	Digest authentication digest types.
+9456	Dispatches are types of events that can be handled by the IO subsystem.
+9457	A ConnectionFacade that implements a disposable connection behavior. When the connection is returned to the client, it is removed from the pool and the
+9458	An interface for distributed sessions manager.
+9459	Provides DNS membership via discovery.
+9460	The factory for EJOs.
+9461	This class is the wrapper class for the EL context interfaces.
+9462	Represents an element_value of a constant pool.
+9463	The interface for a specific engine.
+9464	The configuration class for the Engine.
+9465	Interface for error handling.
+9466	Interface that defines the logic for handling errors.
+9467	Error page. Contains the details about the error.
+9468	Utility methods for handling Throwable.
+9469	Contains common utilities for handling Throwable.
+9470	Contains common utilities for handling Throwable.
+9471	The unit of duration. The value of this enum defines the time unit where the duration part of the timestamp will be stored. The time part
+9472	The point in time the filter starts.
+9473	Extended RPC callback.
+9474	This class implements the basic work horse for extracting the root of the web application.
+9475	Rule that creates a factory instance.
+9476	A queue that supports FIFO retrieval. This queue can be bounded and can be polled asynchronously. When the queue is full, it will
+9477	The FastHttpDateFormat class. This class uses the FastDateFormat java.util.Date interface to format a date in the HTTP format. This
+9478	A file log handler that writes log records to a file.
+9479	Provides access to the header names and values of a file item.
+9480	Implementation of the FileItemHeaders interface.
+9481	Interface that defines collection of headers defined locally within an item.
+9482	Exception indicating a file size limit is violated.
+9483	
+9484	Base class for filters that logs warnings or exceptions from configuration attributes.
+9485	FindLeaksTask performs a findLeaks operation on a table.
+9486	Generic role implementation.
+9487	This is the JMX interface for a group. It contains a list of users and roles that this group belongs to.
+9488	This is the Valve API for checking a container for a given path. It also has support for setting the checkContainersAvailable property (default
+9489	A UserDatabase implementation that uses the Homes home directory.
+9490	This class implements a buffer based on the Http11 protocol. It is a wrapper around an ApplicationBufferHandler.
+9491	A NIO2 protocol implementation.
+9492	An abstract class that implements the NIO protocol.
+9493	An interface for reading from the input stream. The interface is expected to be thread-safe.
+9494	An input filter that can be used to process a request and return a response. The filter can be used either to process the request body or
+9495	This interface defines a common interface for class loaders that can be used to instrument class files for a given class loader.
+9496	Server.xml file that contains the information for the specified Interceptor.
+9497	An interface for implementing a callback for scanning a jar file.
+9498	This class contains a list of methods and values that dispatches to the appropriate method via Jasper.
+9499	The JasperLoader is a simple classloader that delegates to the parent ClassLoader, but delegates to find the class using the JasperPermission
+9500	Represents a Java class including all the fields and methods on it.
+9501	Factory that creates Context instances for use with java.util.URLFactory.
+9502	JMX accessors get task.
+9503	JMX AccessorInvokeTask.
+9504	JMX Query task implementation for accessing JNDI resources.
+9505	JMX accessor unregister task.
+9506	JMX Get Task
+9507	This servlet is used to lookup JMX beans via the GETs.
+9508	JMXQueryTask. Contains the logic to execute a query with the following parameters: - GET - POST - GET - GET - SET -
+9509	This task will set the value of one or more JMX attributes on a bean.
+9510	AccessLogValve implementation for JSON.
+9511	This class defines the best-match for properties and pages in the jsp config.
+9512	Possible lifecycle states. These states are used to determine the lifecycle event of a component, which is either available or not.
+9513	A LoaderSF is a wrapper class for defining a Loader configuration.
+9514	This class is the default XAConnectionFactory implementation which is used by the JVM to create XAResource objects.
+9515	This class represents a simple DataSource implementation capable of creating new ManagedConnection instances on a ManagedConnection. It also has a TransactionRegistry.
+9516	A simple Manager SF.
+9517	A Matcher checks whether a given string matches against a given pattern.
+9518	Represents a membership cache entry.
+9519	Called whenever a new member is added/removed or the cluster is shutdown
+9520	Fair blocking queue implementation with support for concurrent updates.
+9521	An enumeration of binding instances in the namespace context.
+9522	An enumeration of name-class-pairs for use with NamingContext.
+9523	Class to store the naming resources.
+9524	The netmask class, for InetAddress, int.
+9525	A basic authenticator that does nothing and does not require a login-config.
+9526	A dummy class for the CallStack mechanism.
+9527	Information class to represent a notification on a model MBean.
+9528	A realm that always returns null
+9529	Rule for creating object.
+9530	A factory for objects, creating arbitrary objects based on the element's attributes.
+9531	A one line log formatter that uses one format for timestamped log messages.
+9532	The interface for writing data to the response.
+9533	The output filter is the filter that is used to build the filter pipeline. It can be used to add any necessary parameters to the response.
+9534	A UserDatabase implementation that uses the PasswdUserConfigProvider to store configuration data for a particular user.
+9535	Base class for POJO endpoints.
+9536	Pool allocation and destroying.
+9537	PoolableStatement is a wrapper for a statement that returns a result to the pool.
+9538	A PreparedStatement that supports adding and deleting a batch. The active connection should be the one that can be used to execute a query. The batch
+9539	PooledObjectState.
+9540	A SoftReference that holds a reference to an object that was previously returned by PooledSoftReference.
+9541	The type of statement.
+9542	The listener class for role mapping management.
+9543	Randomized Text rewrite map.
+9544	Server.xml realm (root/subsystem/...) section.
+9545	Contains common utility methods for Reflection.
+9546	RegistryMBean is an interface for defining modeler MBean instances.
+9547	A replicated map
+9548	The interface for the request context that is being used to build the request.
+9549	A factory for creating JNDI objects for resource references.
+9550	A factory for objects that reference a resource.
+9551	This class represents a set of resources. It is a specialized version of the java.util.Set implementation, but it is used to support
+9552	Map of parameters to replacement values.
+9553	
+9554	RPC callback interface.
+9555	A thread-safe pool of task from an RxTaskPool. There can be up to "maxTasks" threads available, and at most
+9556	SecurityConfig implementation.
+9557	A class that holds a snapshot of the stack trace of a SecurityManager.
+9558	The sender interface is used to send a message to one or more proxies
+9559	A servlet request context that is created by a ServletContextFactory.
+9560	This class is a ServletResponseWrapper for a ServletOutputStream, including a JspWriter. The JspWriter will be passed into the PrintWriter when the
+9561	session message implementation
+9562	SessionsTask implementation.
+9563	This class contains utility methods for dealing with sessions.
+9564	Set the next rule.
+9565	Simple server-side authentication context.
+9566	Exception indicating the size of a request.
+9567	Events that may occur on a SocketServer, like MEMBER_EVENTS_TO_RECV_EVENT or MEMBER_EVENTS_TO
+9568	This filter is used to filter out SIP-based resources
+9569	An SSL implementation that is aware of the standard JDK SSL/TLS.
+9570	An interface that encapsulates the configuration of a WebSocket connection, used for establishing a WebSocket connection to a remote peer. This is a wrapper
+9571	SSLUtil.
+9572	A standard ServerSF.
+9573	This servlet serves as a servlet for getting the status of a resource.
+9574	Store factory rule.
+9575	A class to load store registry configuration from a file.
+9576	This class handles the loading of String from a resource bundle.
+9577	Utilities for working with Strings.
+9578	A LifecycleListener that monitors for the presence of a ThreadLocalLeakPrevention.
+9579	A class that holds the stack trace of a method.
+9580	A wrapper for an existing servlet.
+9581	Interface for objects that have been used in a tracker.
+9582	A factory for transaction objects, creating JNDI objects based on a set of reference types.
+9583	Exception thrown when Connection.method_missing(Method) is invoked.
+9584	Converts Txt files into HTML.
+9585	UDecoder.URLDecode, is used to URL-decode a String to a ByteChunk.
+9586	Mode.
+9587	User MBean.
+9588	This is the interface for any Valve types that can be performed on a pipeline.
+9589	Cluster War Watcher
+9590	A WebRuleSet is a RuleSet that validates the contents of a web.xml file against a Digester.
+9591	A listener that listens to the ServletContextEvent of a WsContext.
+9592	This filter is used for testing purposes only.
+9593	The read states that can be performed on a WsFrameBase.FrameRead.
+9594	Sub-interface of ConnectionFactory that exposes the methods necessary to create XAResource instances.
+9595	An asynchronous event. A event is a specialized implementation of AsyncContext.getAsyncContext().
+9596	Defines the dispatcher type.
+9597	The element to be added as a HttpConstraint.
+9598	A listener that is notified when a session is about to be activated and about to be passivated.
+9599	A listener interface for listening to session attributes.
+9600	A class for tracking the changes in the session attributes.
+9601	A listener for the object that is being bound to or unbound from a session and identifies the session.
+9602	A listener for session creation/invalidation events.
+9603	This interface is used to handle HTTP upgrade requests.
+9604	A descriptor of a JSP configuration.
+9605	Matches a set of mappings.
+9606	A configuration element that can be used to define a multipart request.
+9607	An interface that allows to observe the existence of a data-available response body.
+9608	This is the interface for the ServletServer2.
+9609	Spring event that is emitted when a ServletContextAttribute changes the attribute of a ServletContext.
+9610	A listener for receiving ServletContextAttributeEvent events.
+9611	A listener for the ServletContext.
+9612	A Servlet input stream is an input stream that is created via a Servlet.
+9613	Interface for servlet registration.
+9614	An event that is emitted when an attribute is changed on a ServletRequest.
+9615	A listener for receiving HttpServletRequestAttributeEvent events.
+9616	This class is an event class for a servlet. It contains a ServletRequest and its ServletContext.
+9617	The listener interface for the servlet framework.
+9618	Defines semantically if a servlet is empty.
+9619	Defines the guards for transport-based authentication.
+9620	A utility class that holds collection of HTTP methods and constraints configured for servlet-specific methods.
+9621	Defines session tracking algorithm.
+9622	A descriptor for a TagLibrary.
+9623	Exception indicating that the servlet is temporarily unavailable.
+9624	Provides access to input and output streams for a WebClient.
+9625	An interface that allows the application to listen for write data to the response.
+9626	A dialog action for gallery types.
+9627	A form for the HTTPImport manager.
+9628	A dialog to import a user from a given UA.
+9629	Abstract class for actions that work on the jsp server.
+9630	A class that implements the basic I/O conversion for the CmsPublishListResourceState store.
+9631	A simple menu item with a label for a given locale.
+9632	A preference for content objects.
+9633	A progress thread in the progress bar of a CmsAppContext.
+9634	Group age.
+9635	A repository session for a CmsObject.
+9636	Abstract class for visibility checking of simple resources.
+9637	The action that is performed on the toolbar of a dialog.
+9638	A class for storing navigation entries.
+9639	A content value editor change handler.
+9640	Base class for XML content nodes that are typically stored in a CmsObject.
+9641	Base class for values stored in XML content nodes of a CmsObject.
+9642	A bundle of client messages.
+9643	A class for working with Acacia editors.
+9644	Parses the HTTP Accept-Language header into a value string.
+9645	Encapsulates additional info fields for users.
+9646	The types of fields that can be used for storage in CmsAccountInfo.
+9647	Handler for adding categories after the content has been created.
+9648	The class for adding content restrictions.
+9649	Information class for additional info about the entry in a CmsAdditionalEntry.
+9650	A bean that holds additional info properties for the CMS.
+9651	The attribute string value for the CmsADEConfigDataInternal.
+9652	A sequence of configuration data files which are used to configure the ADE.
+9653	POJO representing various av list properties.
+9654	The status of the CmsADEManager.
+9655	A bean that holds the last page for a detail.
+9656	A PasswordHandler based on a CmsAdvancedPasswordEvaluator.SecurityLevel.
+9657	This class defines the gallery for the AJAX download operation.
+9658	A bean that represents an alias site.
+9659	A lock table for the CMS aliases.
+9660	A filter for CMS aliases.
+9661	A table that holds the list of alias import results, and returns the key under the list for the import.
+9662	The result of the import of an alias.
+9663	The status of a CmsAliasImport.
+9664	
+9665	Class that provides the ability to map from the site root to the alternative site title.
+9666	The category for the app.
+9667	A small app hierachy implementation.
+9668	A category panel that displays the hierarchy of apps in a given locale.
+9669	Cache status.
+9670	A status class for checking if an app is in the visibility tree.
+9671	A comparison of two names and types for use with a CmsMessageSource.
+9672	A difference between two history attributes.
+9673	State for the AutoGrowingTextArea example.
+9674	A dialog to choose from the availability of a project.
+9675	The width of the dialog.
+9676	A benchmark table that uses CmsBenchmarks.
+9677	State of a bread crumb in the cms.
+9678	Content mode to use for the message body.
+9679	A class that holds the message that will be shown in the Broadcast pane.
+9680	Base class for the IFRAME/IFRAME_DIALOG.
+9681	State object for the IgniteBrowser.
+9682	A class that represents a list of select options, each holding a label, the index of the select widget and the value of the select widget
+9683	Mode.
+9684	A dialog with the selection of categories.
+9685	The category tree.
+9686	A category tree entry.
+9687	Configuration string for a change handler.
+9688	A dialog to change the password of a user using a 2FA verification code.
+9689	A dialog with a change of type.
+9690	A dialog action for changing the type of a resource.
+9691	A date bean used for datepicker.
+9692	A class that encapsulates details about the lock used for a request.
+9693	The mode of the request.
+9694	The edit status of a sitemap entry.
+9695	The types of sitemap entry.
+9696	A class that converts from preferences to settings that the client can use.
+9697	Variant used for the CmsClient.
+9698	A info class for the variant of a cms client.
+9699	The mode of element deletion.
+9700	The mode how to handle element reuse.
+9701	The theme to use for code mirrors.
+9702	Helper class for collector publish list management.
+9703	The converter for column values.
+9704	Internal implementation of WidgetData that is used for rendering complex widget instances using a renderer.
+9705	A field that represents a component in a CmsInputDocument.
+9706	Utility class for parsing list configuration resources.
+9707	The mode of combining the values of multiple configuration values.
+9708	A configuration item for a CmsConfiguration.
+9709	A simple flush dialog with no parameters.
+9710	The state of a container element model group.
+9711	Element for the containerpage action.
+9712	The mode of copy when using container pages.
+9713	Container page gallery data bean.
+9714	Container page rpc context.
+9715	A wrapper for a container page.
+9716	Element that represents the action of the editor.
+9717	Evaluation rule.
+9718	Event handler that is triggered when a context menu is opened on a component.
+9719	Event handler for the FooterEvent.
+9720	Event handler for the ICEXtable.
+9721	Event handler for the IgniteContext.openContextMenu() event.
+9722	Event handler for the IgniteTree.eventContextOpenedOnTreeItem event.
+9723	Handler for the context menu edit.
+9724	A group of context menu item provider instances, responsible for generating and working with context menu items.
+9725	A simple action that copies a resource from a parent dialog to another parent.
+9726	The action that is performed on the dialog.
+9727	The mode of the copy move dialog.

@@ -81,7 +81,7 @@ def read_arguments():
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
 
     # other arguments
-    parser.add_argument("--load_model_path", default=None, type=str,
+    parser.add_argument("--load_model_path", default="model_0725_1000/checkpoint-last", type=str,
                         help="Path to trained model: Should contain the .bin files")
     parser.add_argument("--max_source_length", default=512, type=int,
                         help="The maximum total source sequence length after tokenization. Sequences longer "
@@ -92,7 +92,7 @@ def read_arguments():
     parser.add_argument("--warm_up_ratio", default=0.1, type=float)
 
     # controlling arguments
-    parser.add_argument("--do_train", action='store_true', default=True,
+    parser.add_argument("--do_train", action='store_true', default=False,
                         help="Whether to run training.")
     parser.add_argument("--do_eval", action='store_true', default=True,
                         help="Whether to run eval on the dev set.")
@@ -155,7 +155,7 @@ def main(args):
 
     if args.load_model_path is not None:
         logger.info("reload model from {}".format(args.load_model_path))
-        model.load_state_dict(torch.load(args.load_model_path))
+        model.load_state_dict(torch.load(os.path.join(args.load_model_path, 'pytorch_model.bin')))
 
     model.to(device)
 
