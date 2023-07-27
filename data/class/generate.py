@@ -48,7 +48,7 @@ def get_processed_data(filename, start_idx):
 
 if __name__ == '__main__':
     res = []
-    for i in range(1, 5):
+    for i in range(1, 4):
         filename = './classes_v{}.jsonl'.format(i)
         print('Processing ' + filename)
         res.extend(get_processed_data(filename, len(res)))
