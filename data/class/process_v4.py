@@ -28,6 +28,11 @@ if __name__ == '__main__':
         # 获取包含summary-table样式类的div
         index_container_div = allclasses_soup.find(
             'main', class_='indexContainer')
+        if index_container_div is None:
+            index_container_div = allclasses_soup.find(
+            'div', class_='indexContainer')
+        if index_container_div is None:
+            continue
 
         for li in index_container_div.find_all('li'):
             class_name = li.find('a').get_text()
@@ -61,22 +66,8 @@ if __name__ == '__main__':
             if class_description_block_div is None:
                 continue
 
-            # 若存在pre标签或p标签，则删除第一个p或pre标签之后的内容
-            p_index = class_description_block_div.decode().find('<p>')
-            pre_index = class_description_block_div.decode().find('<pre>')
-
-            if p_index == -1 and pre_index != -1:
-                class_des = class_description_block_div.decode()[:pre_index]
-            elif p_index != -1 and pre_index == -1:
-                class_des = class_description_block_div.decode()[:p_index]
-            elif p_index != -1 and pre_index != -1:
-                class_des = class_description_block_div.decode()[
-                    :min(p_index, pre_index)]
-            else:
-                class_des = class_description_block_div.get_text()
-
-            class_des = formatText(BeautifulSoup(
-                class_des, 'html.parser').get_text())
+            # 取出第一句话
+            class_des = formatText(class_description_block_div.get_text().split('.')[0] + '.')
 
             # 获取class中的方法以及对应的描述
             methods = []

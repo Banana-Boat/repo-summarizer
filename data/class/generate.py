@@ -15,6 +15,7 @@ def get_processed_data(filename, start_idx):
             obj = {}
 
             valid_num = 0
+
             code = jsonl['signature'] + ' {\n'
             for method in jsonl['methods']:
                 tmp_str = ''
@@ -48,7 +49,7 @@ def get_processed_data(filename, start_idx):
 
 if __name__ == '__main__':
     res = []
-    for i in range(1, 4):
+    for i in range(1, 5):
         filename = './classes_v{}.jsonl'.format(i)
         print('Processing ' + filename)
         res.extend(get_processed_data(filename, len(res)))

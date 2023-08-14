@@ -39,6 +39,7 @@ if __name__ == '__main__':
                 class_soup = BeautifulSoup(
                     open(class_a, "r", encoding='utf-8'), 'html.parser')
             except:
+                print('Error: ' + class_a)
                 continue
 
             # 获取class的签名
@@ -61,26 +62,14 @@ if __name__ == '__main__':
             if class_description_block_div is None:
                 continue
 
-            # 若存在pre标签或p标签，则删除第一个p或pre标签之后的内容
-            p_index = class_description_block_div.decode().find('<p>')
-            pre_index = class_description_block_div.decode().find('<pre>')
-
-            if p_index == -1 and pre_index != -1:
-                class_des = class_description_block_div.decode()[:pre_index]
-            elif p_index != -1 and pre_index == -1:
-                class_des = class_description_block_div.decode()[:p_index]
-            elif p_index != -1 and pre_index != -1:
-                class_des = class_description_block_div.decode()[
-                    :min(p_index, pre_index)]
-            else:
-                class_des = class_description_block_div.get_text()
-
-            class_des = formatText(BeautifulSoup(
-                class_des, 'html.parser').get_text())
+            # 取出第一句话
+            class_des = formatText(class_description_block_div.get_text().split('.')[0] + '.')
 
             # 获取class中的方法以及对应的描述
             methods = []
             table_a = class_soup.find('a', {'name': 'method.summary'})
+            if table_a is None:
+                table_a = class_soup.find('a', {'name': 'method_summary'})
             if table_a is None:
                 continue
 
