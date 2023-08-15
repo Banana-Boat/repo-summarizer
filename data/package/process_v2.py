@@ -70,10 +70,11 @@ if __name__ == '__main__':
                                                 summary_table.find_all('div', class_='col-last')):
                 class_des_div = class_des_div.find('div', class_='block')
                 if class_des_div is None:
-                    continue
-
+                    class_des = ""
+                else:
+                    class_des = formatText(class_des_div.get_text())
                 class_name = class_name_div.get_text()
-                class_des = formatText(class_des_div.get_text())
+
                 #删去pkg_a的最后一项
                 pkg_root_path = pkg_a.split('/')[0:-1]
                 pkg_root_path = '/'.join(pkg_root_path)

@@ -71,10 +71,11 @@ if __name__ == '__main__':
                             continue
                         class_des_div = class_des_div.find('div', class_='block')
                         if class_des_div is None:
-                            continue
+                            class_des = ""
+                        else:
+                            class_des = formatText(class_des_div.get_text())
 
                         class_name = class_name_div.get_text()
-                        class_des = formatText(class_des_div.get_text())
                         class_a = os.path.join(
                             root_path, dirname, class_name_div.find('a').get('href').replace('../', '').replace('./', ''))
 
