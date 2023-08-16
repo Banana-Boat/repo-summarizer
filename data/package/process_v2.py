@@ -85,6 +85,7 @@ if __name__ == '__main__':
                     class_soup = BeautifulSoup(
                         open(class_a, "r", encoding='utf-8'), 'html.parser')
                 except:
+                    print('Error: ' + class_a)
                     continue
 
                 # 获取class的签名

@@ -71,10 +71,12 @@ if __name__ == '__main__':
 
             # 获取class中的方法以及对应的描述
             methods = []
-            method_summary_table = class_soup.find('table', class_='memberSummary')
+            table_a = class_soup.find('a', id='method.summary')
+            if table_a is None:
+                continue
+            method_summary_table = table_a.find_next_sibling('table')
             if method_summary_table is None:
                 continue
-
             for method_tr in method_summary_table.find_all('tr')[1:]:
                 return_div = method_tr.find('td', class_='colFirst')
                 method_div = method_tr.find('th', class_='colSecond')
