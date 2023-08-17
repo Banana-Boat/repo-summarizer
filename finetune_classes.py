@@ -73,15 +73,15 @@ def read_arguments():
     parser.add_argument("--num_train_epochs", default=24, type=int,
                         help="Total number of training epochs to perform.")
 
-    parser.add_argument("--train_batch_size", default=40, type=int,
+    parser.add_argument("--train_batch_size", default=32, type=int,
                         help="Batch size per GPU/CPU for training.")
-    parser.add_argument("--eval_batch_size", default=20, type=int,
+    parser.add_argument("--eval_batch_size", default=16, type=int,
                         help="Batch size per GPU/CPU for evaluation.")
     parser.add_argument('--gradient_accumulation_steps', type=int, default=2,
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
 
     # other arguments
-    parser.add_argument("--load_model_path", default="", type=str,
+    parser.add_argument("--load_model_path", type=str,
                         help="Path to trained model: Should contain the .bin files")
     parser.add_argument("--max_source_length", default=512, type=int,
                         help="The maximum total source sequence length after tokenization. Sequences longer "
