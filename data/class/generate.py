@@ -56,6 +56,9 @@ if __name__ == '__main__':
 
     print('Total num: ' + str(len(res)))
 
+    # 打乱顺序
+    random.shuffle(res)
+
     # 将res拆分为train, valid, test，比例为6:2:2
     train_num = int(len(res) * 0.6)
     valid_num = int(len(res) * 0.2)
