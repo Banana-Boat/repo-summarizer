@@ -14,6 +14,10 @@ model/**
 !model/*.gold
 !model/*.output
 
+java-code-parser/target/
+java-code-parser/origin/
+
+
 ################################################
 .vscode
 .idea
