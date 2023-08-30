@@ -6,15 +6,13 @@ public class JClass {
   private String name;
   private String signature;
   private List<String> methods;
-  private String packageName;
-  private String filePath;
+  private String path;
 
-  public JClass(String name, String signature, List<String> methods, String packageName, String filePath) {
+  public JClass(String name, String signature, List<String> methods, String path) {
     this.name = name;
     this.signature = signature;
     this.methods = methods;
-    this.packageName = packageName;
-    this.filePath = filePath;
+    this.path = path;
   }
 
   public String getName() {
@@ -41,20 +39,12 @@ public class JClass {
     this.methods = methods;
   }
 
-  public String getPackageName() {
-    return packageName;
+  public String getPath() {
+    return path;
   }
 
-  public void setPackageName(String packageName) {
-    this.packageName = packageName;
-  }
-
-  public String getFilePath() {
-    return filePath;
-  }
-
-  public void setFilePath(String filePath) {
-    this.filePath = filePath;
+  public void setPath(String path) {
+    this.path = path;
   }
 
   @Override
@@ -63,8 +53,7 @@ public class JClass {
         "name='" + name + '\'' +
         ", signature='" + signature + '\'' +
         ", methods=" + methods +
-        ", packageName='" + packageName + '\'' +
-        ", filePath='" + filePath + '\'' +
+        ", path='" + path + '\'' +
         '}';
   }
 }

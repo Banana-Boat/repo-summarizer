@@ -9,15 +9,63 @@ import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.summarizer.pojo.JClass;
+import com.summarizer.pojo.JPackage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
   public static void main(String[] args) {
-    File file = new File("origin/DayOfWeek.java");
+    String dirname = "time";
+    File dir = new File("origin/" + dirname);
+    if(!dir.isDirectory()) return;
+
+    String json = JSON.toJSONString(extractPackage(dir));
+    try(FileWriter fw = new FileWriter("origin/" + dirname + ".json")) {
+      fw.write(json);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    System.out.println("Done!");
+  }
+
+  /**
+   * 提取一个目录中的所有子包 / 类 / 接口 / 枚举
+   */
+  public static JPackage extractPackage(File dir) {
+    if (!dir.isDirectory()) return null;
+
+    ArrayList<JPackage> subPackages = new ArrayList<>();
+    ArrayList<JClass> classes = new ArrayList<>();
+
+    for (File file : dir.listFiles()) {
+      if(file.isDirectory()) {
+        subPackages.add(extractPackage(file));
+      } else {
+        if(file.getName().endsWith(".java")) {
+          classes.addAll(extractClasses(file));
+        }
+      }
+    }
+
+    return new JPackage(
+        dir.getName(),
+        dir.getPath(),
+        classes,
+        subPackages
+    );
+  }
+
+  /**
+   * 提取一个文件中的所有类 / 接口 / 枚举
+   */
+  public static List<JClass> extractClasses(File file) {
+    ArrayList<JClass> classes = new ArrayList<>();
+
     try {
       CompilationUnit cu = StaticJavaParser.parse(file);
       cu.accept(new VoidVisitorAdapter<Void>() {
@@ -36,20 +84,19 @@ public class Main {
             coi.getExtendedTypes().forEach(e -> extendsTypes.append(e).append(", "));
             if (extendsTypes.length() > 0) extendsTypes.delete(extendsTypes.length() - 2, extendsTypes.length());
 
-            String signature = (coi.isInterface() ? "interface " : "class ") + coi.getNameAsString() +
+
+            // 拼接签名
+            String signature = (coi.isAbstract() ? "abstract " : "") +
+                (coi.isInterface() ? "interface " : "class ") + coi.getNameAsString() +
                 (extendsTypes.isEmpty() ? "" : " extends " + extendsTypes) +
                 (implTypes.isEmpty() ? "" : " implements " + implTypes);
 
-
-            String jsonString = JSON.toJSONString(new JClass(
+            classes.add(new JClass(
                 coi.getNameAsString(),
                 signature,
                 extractMethods(coi),
-                cu.getPackageDeclaration().get().getNameAsString(),
-                file.getAbsolutePath()
+                file.getPath()
             ));
-            System.out.println(jsonString);
-
           });
 
           // 获取枚举类中的所有方法
@@ -59,20 +106,17 @@ public class Main {
             e.getImplementedTypes().forEach(t -> implTypes.append(t).append(", "));
             if (implTypes.length() > 0) implTypes.delete(implTypes.length() - 2, implTypes.length());
 
+            // 拼接签名
             String signature = "enum " + e.getNameAsString() +
                 (implTypes.isEmpty() ? "" : " implements " + implTypes);
 
-            String jsonString = JSON.toJSONString(new JClass(
+            classes.add(new JClass(
                 e.getNameAsString(),
                 signature,
                 extractMethods(e),
-                cu.getPackageDeclaration().get().getNameAsString(),
-                file.getAbsolutePath()
+                file.getPath()
             ));
-            System.out.println(jsonString);
           });
-
-
         }
       }, null);
 
@@ -80,10 +124,12 @@ public class Main {
       e.printStackTrace();
     }
 
-
+    return classes;
   }
 
-  // 提取class / interface / enum中所有方法
+  /**
+   * 提取一个类 / 接口 / 枚举中的所有方法
+   */
   public static List<String> extractMethods(TypeDeclaration cu) {
     ArrayList<String> methods = new ArrayList<>();
 
@@ -95,6 +141,8 @@ public class Main {
           md.getNameAsString().equals("equals")) {
         return;
       }
+      // 忽略空方法
+      if (md.getBody().isEmpty()) return;
 
       StringBuilder params = new StringBuilder();
       md.getParameters().forEach(p -> params.append(p.getType()).append(" ").append(p.getName()).append(", "));
