@@ -1,23 +1,18 @@
-data/javadocs/
+finetune/data/javadocs/
 
-data/class/**
-!data/class/*.py
+finetune/data/class/**
+!finetune/data/class/*.py
 
-data/package/**
-!data/package/*.py
+finetune/data/package/**
+!finetune/data/package/*.py
 
-
-repo/
-
-model_*
-model/**
-!model/*.gold
-!model/*.output
+finetune/model_*
+finetune/model/
 
 java-code-parser/target/
-java-code-parser/origin/
+java-code-parser/repo/
 
-
+repo/
 ################################################
 .vscode
 .idea
