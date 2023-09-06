@@ -4,9 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.*;
-import com.github.javaparser.ast.stmt.BlockStmt;
-import com.github.javaparser.ast.stmt.Statement;
-import com.github.javaparser.ast.type.ClassOrInterfaceType;
+import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.summarizer.pojo.JBlock;
 import com.summarizer.pojo.JClass;
@@ -18,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -25,10 +24,12 @@ import picocli.CommandLine.Option;
 
 @Command(name = "JavaCodeParser", mixinStandardHelpOptions = true, version = "JavaCodeParser 1.0")
 public class JavaCodeParser implements Runnable {
-    private static final Integer MAX_BLOCK_LENGTH = 512;
+    private static final Integer MAX_LLM_LENGTH = 512;
+    private static final Double MAX_BLOCK_LENGTH = MAX_LLM_LENGTH * 0.75;
+    private static final String BLOCK_PLACEHOLDER = "<BLOCK>";
 
     @Option(names = {"-r", "--repo-dir"}, description = "Path to the directory of repository", required = true)
-    private String repoDirPath;
+    private String repoDirPath = "";
 
     @Option(names = {"-o", "--output"}, description = "Path to the output file")
     private String outputDirPath = "./output.json";
@@ -56,13 +57,13 @@ public class JavaCodeParser implements Runnable {
     /**
      * 提取一个目录中的所有子包 / 类 / 接口 / 枚举
      */
-    public static JPackage extractPackage(File dir) {
+    public JPackage extractPackage(File dir) {
         if (!dir.isDirectory()) return null;
 
         ArrayList<JPackage> subPackages = new ArrayList<>();
         ArrayList<JClass> classes = new ArrayList<>();
 
-        for (File file : dir.listFiles()) {
+        for (File file : Objects.requireNonNull(dir.listFiles())) {
             if (file.isDirectory()) {
                 subPackages.add(extractPackage(file));
             } else {
@@ -83,7 +84,7 @@ public class JavaCodeParser implements Runnable {
     /**
      * 提取一个文件中的所有类 / 接口 / 枚举
      */
-    public static List<JClass> extractClasses(File file) {
+    public List<JClass> extractClasses(File file) {
         ArrayList<JClass> classes = new ArrayList<>();
 
         try {
@@ -94,21 +95,13 @@ public class JavaCodeParser implements Runnable {
                     super.visit(cu, arg);
                     // 获取顶层的类 / 接口中的所有方法
                     cu.findAll(ClassOrInterfaceDeclaration.class).forEach(coi -> {
-                        // 拼接实现接口
-                        String implTypes = "";
-                        for (ClassOrInterfaceType t : coi.getImplementedTypes()) implTypes += t + ", ";
-                        if (implTypes.length() > 0) implTypes = implTypes.substring(0, implTypes.length() - 2);
-
-                        // 拼接继承类
-                        String extendsTypes = "";
-                        for (ClassOrInterfaceType t : coi.getExtendedTypes()) extendsTypes += t + ", ";
-                        if (extendsTypes.length() > 0) extendsTypes = extendsTypes.substring(0, extendsTypes.length() - 2);
-
                         // 拼接签名
                         String signature = (coi.isAbstract() ? "abstract " : "") +
                                 (coi.isInterface() ? "interface " : "class ") + coi.getNameAsString() +
-                                (extendsTypes.isEmpty() ? "" : " extends " + extendsTypes) +
-                                (implTypes.isEmpty() ? "" : " implements " + implTypes);
+                                ((coi.getExtendedTypes().size() == 0) ? "" :
+                                        " extends " + coi.getExtendedTypes().toString().replace("[", "").replace("]", "")) +
+                                ((coi.getImplementedTypes().size() == 0) ? "" :
+                                        " implements " + coi.getImplementedTypes().toString().replace("[", "").replace("]", ""));
 
                         classes.add(new JClass(
                                 coi.getNameAsString(),
@@ -120,14 +113,10 @@ public class JavaCodeParser implements Runnable {
 
                     // 获取枚举类中的所有方法
                     cu.findAll(EnumDeclaration.class).forEach(e -> {
-                        // 拼接实现接口
-                        String implTypes = "";
-                        for (ClassOrInterfaceType t : e.getImplementedTypes()) implTypes += t + ", ";
-                        if (implTypes.length() > 0) implTypes = implTypes.substring(0, implTypes.length() - 2);
-
                         // 拼接签名
                         String signature = "enum " + e.getNameAsString() +
-                                (implTypes.isEmpty() ? "" : " implements " + implTypes);
+                                ((e.getImplementedTypes().size() == 0) ? "" :
+                                        " implements " + e.getImplementedTypes().toString().replace("[", "").replace("]", ""));
 
                         classes.add(new JClass(
                                 e.getNameAsString(),
@@ -149,7 +138,7 @@ public class JavaCodeParser implements Runnable {
     /**
      * 提取一个类 / 接口 / 枚举中的所有方法
      */
-    public static List<JMethod> extractMethods(TypeDeclaration cu) {
+    public List<JMethod> extractMethods(TypeDeclaration cu) {
         ArrayList<JMethod> methods = new ArrayList<>();
 
         cu.findAll(MethodDeclaration.class).forEach(md -> {
@@ -164,16 +153,12 @@ public class JavaCodeParser implements Runnable {
                 return;
             }
 
-            // 获取方法签名
-            String params = "";
-            for (Parameter p : md.getParameters()) params += p.getType() + " " + p.getName() + ", ";
-            if (params.length() > 0) params = params.substring(0, params.length() - 2);
-            String signature = md.getType() + " " + md.getName() + "(" + params + ")";
+            String signature = md.getType() + " " + md.getName() + md.getParameters().toString().replace("[", "(").replace("]", ")");
 
             JBlock jBlock;
             BlockStmt body = md.getBody().get();
-            if(signature.length() + body.toString().length() > MAX_BLOCK_LENGTH) {
-                jBlock = splitBlock(body);
+            if (signature.length() + body.toString().length() > MAX_LLM_LENGTH) {
+                jBlock = splitBlock(body, formatBlock(body.toString()));
             } else {
                 jBlock = new JBlock(formatBlock(body.toString()), new ArrayList<>());
             }
@@ -189,33 +174,109 @@ public class JavaCodeParser implements Runnable {
     }
 
     /**
-     * 将一个代码块分割为多个长度不超过 MAX_BLOCK_LENGTH 的代码块
+     * 将一个代码块分割为多个长度不超过 MAX_LLM_LENGTH 的代码块
+     * TODO： 无法处理多个单行的语句构成的代码块
+     *
+     * @param body    待处理的语句节点
+     * @param content 该语句节点（可以为其父节点）的字符串内容（未替换占位符）
      */
-    public static JBlock splitBlock(Statement body) {
-        String content = formatBlock(body.toString());
+    public JBlock splitBlock(Statement body, String content) {
         ArrayList<JBlock> jBlocks = new ArrayList<>();
 
         for (Statement stmt : body.findAll(Statement.class, s -> s.getParentNode().get() == body)) {
             String blockContent = formatBlock(stmt.toString());
-            if (blockContent.length() > MAX_BLOCK_LENGTH * 0.75) {
-                jBlocks.add(splitBlock(stmt));
 
-                // 将原代码块中的内容替换为占位符
-                content = content.replace(blockContent, "<BLOCK>");
+            if (blockContent.length() > MAX_BLOCK_LENGTH) {
+                switch (stmt.getClass().getSimpleName()) {
+                    case "IfStmt":
+                        Statement thenStmt = stmt.asIfStmt().getThenStmt();
+                        String ifBlockContent = "if (" + stmt.asIfStmt().getCondition() + ") " + formatBlock(thenStmt.toString());
+
+                        if (stmt.asIfStmt().getElseStmt().isPresent()) { // 若有else-if / else则递归处理
+                            Statement elseStmt = stmt.asIfStmt().getElseStmt().get();
+                            String elseBlockContent = "else " + formatBlock(elseStmt.toString());
+
+                            // 判断若then中内容替换后，if-else整体是否超过上限（因为存在递归关系）
+                            if (replaceOnce(content, ifBlockContent, BLOCK_PLACEHOLDER).length() > MAX_BLOCK_LENGTH) { // 若仍然超过则分别对then和else进行分割，并替换为两个占位符
+                                jBlocks.add(splitBlock(thenStmt, ifBlockContent));
+                                jBlocks.add(splitBlock(elseStmt, elseBlockContent));
+                                content = replaceOnce(content, ifBlockContent, BLOCK_PLACEHOLDER)
+                                        .replaceFirst(elseBlockContent, BLOCK_PLACEHOLDER);
+                            } else { // 若未超过则只对then进行分割，并替换为一个占位符
+                                String tempContent = ifBlockContent + " " + elseBlockContent;
+                                jBlocks.add(splitBlock(thenStmt, tempContent));
+                                content = replaceOnce(content, tempContent, BLOCK_PLACEHOLDER);
+                            }
+                        } else { // 若无else-if / else
+                            jBlocks.add(splitBlock(thenStmt, ifBlockContent));
+                            content = replaceOnce(content, ifBlockContent, BLOCK_PLACEHOLDER);
+                        }
+                        break;
+                    case "SwitchStmt":
+                        for (SwitchEntry entry : stmt.asSwitchStmt().getEntries()) {
+                            for (Statement statement : entry.getStatements()) {
+                                String statementContent = formatBlock(statement.toString());
+                                // 若当前statement超过上限，则分割
+                                if (statementContent.length() > MAX_BLOCK_LENGTH) {
+                                    jBlocks.add(splitBlock(statement, statementContent));
+                                    content = replaceOnce(content, statementContent, BLOCK_PLACEHOLDER);
+                                }
+                            }
+                        }
+                        break;
+                    case "TryStmt":
+                        jBlocks.add(splitBlock(stmt.asTryStmt().getTryBlock(), blockContent));
+                        content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
+                        // 不对catch和finally进行分割，若超过则直接截断
+                        break;
+                    case "ForStmt":
+                        jBlocks.add(splitBlock(stmt.asForStmt().getBody(), blockContent));
+                        content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
+                        break;
+                    case "WhileStmt":
+                        jBlocks.add(splitBlock(stmt.asWhileStmt().getBody(), blockContent));
+                        content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
+                        break;
+                    case "DoStmt":
+                        jBlocks.add(splitBlock(stmt.asDoStmt().getBody(), blockContent));
+                        content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
+                        break;
+                    case "ForEachStmt":
+                        jBlocks.add(splitBlock(stmt.asForEachStmt().getBody(), blockContent));
+                        content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
+                        break;
+                    case "SynchronizedStmt":
+                        jBlocks.add(splitBlock(stmt.asSynchronizedStmt().getBody(), blockContent));
+                        content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
+                        break;
+                    default:
+                        System.out.println("Unhandled long statement type: " + stmt.getClass().getSimpleName());
+                        jBlocks.add(splitBlock(stmt, blockContent));
+                        content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
+                }
             }
         }
 
-        // 待改！！！
-        // 若分割完后仍然超过 MAX_BLOCK_LENGTH，则截断
-        if (content.length() > MAX_BLOCK_LENGTH) {
-            System.out.println("cut off from: \n" + content + "\n" + "to: \n" + content.substring(0, MAX_BLOCK_LENGTH));
-            content = content.substring(0, MAX_BLOCK_LENGTH);
+        // 若分割完后仍然超过 MAX_LLM_LENGTH，则截断
+        if (content.length() > MAX_LLM_LENGTH) {
+            System.out.println("cut off from: \n" + content + "\n" + "to: \n" + content.substring(0, MAX_LLM_LENGTH));
+            content = content.substring(0, MAX_LLM_LENGTH);
         }
 
         return new JBlock(content, jBlocks);
     }
 
-    public static String formatBlock(String block) {
+    // 替换第一个匹配的字符串。String自带的方法第一个参数为正则表达式，而待替换的代码块存在存在正则中的特殊字符，故自己实现
+    public String replaceOnce(String str, String target, String replacement) {
+        int idx = str.indexOf(target);
+        if (idx == -1) {
+            return str;
+        } else {
+            return str.substring(0, idx) + replacement + str.substring(idx + target.length());
+        }
+    }
+
+    public String formatBlock(String block) {
         return block.replaceAll("\n", " ")
                 .replaceAll(" +", " ");
     }
