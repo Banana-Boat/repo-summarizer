@@ -9,8 +9,8 @@ finetune/data/package/**
 finetune/model_*
 finetune/model/
 
-java-code-parser/target/
-java-code-parser/repo/
+java-repo-parser/target/
+java-repo-parser/repo/
 
 repo/
 
