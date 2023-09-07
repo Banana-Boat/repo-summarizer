@@ -13,6 +13,8 @@ java-code-parser/target/
 java-code-parser/repo/
 
 repo/
+
+tmp/
 ################################################
 .vscode
 .idea

@@ -25,14 +25,22 @@ import picocli.CommandLine.Option;
 @Command(name = "JavaCodeParser", mixinStandardHelpOptions = true, version = "JavaCodeParser 1.0")
 public class JavaCodeParser implements Runnable {
     private static final Integer MAX_LLM_LENGTH = 512;
-    private static final Double MAX_BLOCK_LENGTH = MAX_LLM_LENGTH * 0.75;
+    private static final Double MAX_BLOCK_LENGTH = MAX_LLM_LENGTH * 0.5;
     private static final String BLOCK_PLACEHOLDER = "<BLOCK>";
 
-    @Option(names = {"-r", "--repo-dir"}, description = "Path to the directory of repository", required = true)
-    private String repoDirPath = "";
+    private Integer blockCount = 0; // 分割的代码块数
+    private Integer cutCount = 0; // 截断的代码块数
+    private Integer totalCutCharCount = 0; // 总截断的字符数
+    private List<String> logs = new ArrayList<>(); // 截断日志
 
-    @Option(names = {"-o", "--output"}, description = "Path to the output file")
-    private String outputDirPath = "./output.json";
+    @Option(names = {"-r", "--repo-path"}, description = "Path to the directory of repository", required = true)
+    private String repoPath = "";
+
+    @Option(names = {"-o", "--output-path"}, description = "Path to the output file")
+    private String outputPath = "./parse_output.json";
+
+    @Option(names = {"-l", "--log-path"}, description = "Path to the log file")
+    private String logPath = "./parse_log.txt";
 
     public static void main(String[] args) {
         int exitCode = new CommandLine(new JavaCodeParser()).execute(args);
@@ -41,15 +49,30 @@ public class JavaCodeParser implements Runnable {
 
     @Override
     public void run() {
-        File dir = new File(repoDirPath);
+        File dir = new File(repoPath);
         if (!dir.isDirectory()) return;
 
+        // 写入解析结果
         String json = JSON.toJSONString(extractPackage(dir));
-        try (FileWriter fw = new FileWriter(outputDirPath)) {
+        try (FileWriter fw = new FileWriter(outputPath)) {
             fw.write(json);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Result file was written to " + outputPath);
+
+        // 写入日志信息
+        logs.add(0,
+                "分割代码块：" + blockCount + "\n截断代码块：" + cutCount + "\n截断率：" + (double) cutCount / blockCount +
+                "\n平均截断字符数：" + (double) totalCutCharCount / cutCount);
+        try (FileWriter fw = new FileWriter(logPath)) {
+            for (String log : logs) {
+                fw.write(log + "\n==================================================================\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("Log file was written to " + logPath);
 
         System.out.println("Done!");
     }
@@ -106,7 +129,7 @@ public class JavaCodeParser implements Runnable {
                         classes.add(new JClass(
                                 coi.getNameAsString(),
                                 signature,
-                                extractMethods(coi),
+                                extractMethods(coi, file.getPath()),
                                 file.getPath()
                         ));
                     });
@@ -121,7 +144,7 @@ public class JavaCodeParser implements Runnable {
                         classes.add(new JClass(
                                 e.getNameAsString(),
                                 signature,
-                                extractMethods(e),
+                                extractMethods(e, file.getPath()),
                                 file.getPath()
                         ));
                     });
@@ -138,7 +161,7 @@ public class JavaCodeParser implements Runnable {
     /**
      * 提取一个类 / 接口 / 枚举中的所有方法
      */
-    public List<JMethod> extractMethods(TypeDeclaration cu) {
+    public List<JMethod> extractMethods(TypeDeclaration cu, String filePath) {
         ArrayList<JMethod> methods = new ArrayList<>();
 
         cu.findAll(MethodDeclaration.class).forEach(md -> {
@@ -158,7 +181,7 @@ public class JavaCodeParser implements Runnable {
             JBlock jBlock;
             BlockStmt body = md.getBody().get();
             if (signature.length() + body.toString().length() > MAX_LLM_LENGTH) {
-                jBlock = splitBlock(body, formatBlock(body.toString()));
+                jBlock = splitBlock(body, formatBlock(body.toString()), filePath);
             } else {
                 jBlock = new JBlock(formatBlock(body.toString()), new ArrayList<>());
             }
@@ -180,7 +203,7 @@ public class JavaCodeParser implements Runnable {
      * @param body    待处理的语句节点
      * @param content 该语句节点（可以为其父节点）的字符串内容（未替换占位符）
      */
-    public JBlock splitBlock(Statement body, String content) {
+    public JBlock splitBlock(Statement body, String content, String filePath) {
         ArrayList<JBlock> jBlocks = new ArrayList<>();
 
         for (Statement stmt : body.findAll(Statement.class, s -> s.getParentNode().get() == body)) {
@@ -198,17 +221,17 @@ public class JavaCodeParser implements Runnable {
 
                             // 判断若then中内容替换后，if-else整体是否超过上限（因为存在递归关系）
                             if (replaceOnce(content, ifBlockContent, BLOCK_PLACEHOLDER).length() > MAX_BLOCK_LENGTH) { // 若仍然超过则分别对then和else进行分割，并替换为两个占位符
-                                jBlocks.add(splitBlock(thenStmt, ifBlockContent));
-                                jBlocks.add(splitBlock(elseStmt, elseBlockContent));
-                                content = replaceOnce(content, ifBlockContent, BLOCK_PLACEHOLDER)
-                                        .replaceFirst(elseBlockContent, BLOCK_PLACEHOLDER);
+                                jBlocks.add(splitBlock(thenStmt, ifBlockContent, filePath));
+                                jBlocks.add(splitBlock(elseStmt, elseBlockContent, filePath));
+                                content = replaceOnce(content, ifBlockContent, BLOCK_PLACEHOLDER);
+                                content = replaceOnce(content, elseBlockContent, BLOCK_PLACEHOLDER);
                             } else { // 若未超过则只对then进行分割，并替换为一个占位符
                                 String tempContent = ifBlockContent + " " + elseBlockContent;
-                                jBlocks.add(splitBlock(thenStmt, tempContent));
+                                jBlocks.add(splitBlock(thenStmt, tempContent, filePath));
                                 content = replaceOnce(content, tempContent, BLOCK_PLACEHOLDER);
                             }
                         } else { // 若无else-if / else
-                            jBlocks.add(splitBlock(thenStmt, ifBlockContent));
+                            jBlocks.add(splitBlock(thenStmt, ifBlockContent, filePath));
                             content = replaceOnce(content, ifBlockContent, BLOCK_PLACEHOLDER);
                         }
                         break;
@@ -218,48 +241,58 @@ public class JavaCodeParser implements Runnable {
                                 String statementContent = formatBlock(statement.toString());
                                 // 若当前statement超过上限，则分割
                                 if (statementContent.length() > MAX_BLOCK_LENGTH) {
-                                    jBlocks.add(splitBlock(statement, statementContent));
+                                    jBlocks.add(splitBlock(statement, statementContent, filePath));
                                     content = replaceOnce(content, statementContent, BLOCK_PLACEHOLDER);
                                 }
                             }
                         }
                         break;
                     case "TryStmt":
-                        jBlocks.add(splitBlock(stmt.asTryStmt().getTryBlock(), blockContent));
+                        jBlocks.add(splitBlock(stmt.asTryStmt().getTryBlock(), blockContent, filePath));
                         content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
                         // 不对catch和finally进行分割，若超过则直接截断
                         break;
                     case "ForStmt":
-                        jBlocks.add(splitBlock(stmt.asForStmt().getBody(), blockContent));
+                        jBlocks.add(splitBlock(stmt.asForStmt().getBody(), blockContent, filePath));
                         content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
                         break;
                     case "WhileStmt":
-                        jBlocks.add(splitBlock(stmt.asWhileStmt().getBody(), blockContent));
+                        jBlocks.add(splitBlock(stmt.asWhileStmt().getBody(), blockContent, filePath));
                         content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
                         break;
                     case "DoStmt":
-                        jBlocks.add(splitBlock(stmt.asDoStmt().getBody(), blockContent));
+                        jBlocks.add(splitBlock(stmt.asDoStmt().getBody(), blockContent, filePath));
                         content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
                         break;
                     case "ForEachStmt":
-                        jBlocks.add(splitBlock(stmt.asForEachStmt().getBody(), blockContent));
+                        jBlocks.add(splitBlock(stmt.asForEachStmt().getBody(), blockContent, filePath));
                         content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
                         break;
                     case "SynchronizedStmt":
-                        jBlocks.add(splitBlock(stmt.asSynchronizedStmt().getBody(), blockContent));
+                        jBlocks.add(splitBlock(stmt.asSynchronizedStmt().getBody(), blockContent, filePath));
                         content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
                         break;
                     default:
-                        System.out.println("Unhandled long statement type: " + stmt.getClass().getSimpleName());
-                        jBlocks.add(splitBlock(stmt, blockContent));
+                        logs.add(filePath + "\n" + stmt.getRange().get() + "\n" +
+                                "Unhandled long statement type: " + stmt.getClass().getSimpleName());
+                        jBlocks.add(splitBlock(stmt, blockContent, filePath));
                         content = replaceOnce(content, blockContent, BLOCK_PLACEHOLDER);
                 }
             }
         }
 
+        blockCount++;
+
         // 若分割完后仍然超过 MAX_LLM_LENGTH，则截断
         if (content.length() > MAX_LLM_LENGTH) {
-            System.out.println("cut off from: \n" + content + "\n" + "to: \n" + content.substring(0, MAX_LLM_LENGTH));
+            totalCutCharCount += content.length() - MAX_LLM_LENGTH;
+            cutCount++;
+
+            // 记录日志信息
+            logs.add(filePath + "\n" + body.getRange().get() + "\n" +
+                    "cut off from: \n" + content + "\n" +
+                    "to: \n" + content.substring(0, MAX_LLM_LENGTH));
+
             content = content.substring(0, MAX_LLM_LENGTH);
         }
 
