@@ -78,8 +78,6 @@ class Summarizer:
         generated_text = model_obj['tokenizer'].decode(generated_texts_ids[0],
                                                        skip_special_tokens=True, clean_up_tokenization_spaces=False)
 
-        self.pbar.update(1)
-
         return generated_text
 
     # 生成当前代码片段的摘要。若存在占位符<BLOCK>，则替换为对应位置代码片段的摘要
@@ -98,8 +96,9 @@ class Summarizer:
         summarization = self.summarize_by_llm(source, MODEL_TAG.CODE)
 
         self.sum_logs.append(
-            "{}\n{}\n{}".format(
-                summarization, source, "CODE==========================="))
+            "{}\n{}\n<=\n{}".format("CODE======================================================",
+                                    summarization, source))
+        self.pbar.update(1)
 
         return summarization
 
@@ -119,18 +118,19 @@ class Summarizer:
         summarization = self.summarize_by_llm(source, MODEL_TAG.CODE)
 
         self.sum_logs.append(
-            "{}\n{}\n{}".format(
-                summarization, source, "METHOD==========================="))
+            "{}\n{}\n<=\n{}".format("METHOD======================================================",
+                                    summarization, source))
+        self.pbar.update(1)
 
         return summarization
 
     # 根据类内方法生成当前类的摘要，如果没有方法则摘要为空
     def summarize_cls(self, cls_json) -> str:
-        source = ""
+        source = cls_json["signature"]
         summarization = ""
 
         if len(cls_json["methods"]) > 0:
-            source += cls_json["signature"] + " {\n"
+            source += " {\n"
 
             for method in cls_json["methods"]:
                 method_sum = self.summarize_method(method)
@@ -141,10 +141,15 @@ class Summarizer:
             source += "}"
 
             summarization = self.summarize_by_llm(source, MODEL_TAG.CLS)
+            self.sum_logs.append(
+                "{}\n{}\n<=\n{}".format("CLASS======================================================",
+                                        summarization, source))
+        else:
+            self.sum_logs.append(
+                "{}\n{}\n<=\n{}".format("CLASS======================================================",
+                                        "*** No enough context for summarization ***", source))
 
-        self.sum_logs.append(
-            "{}\n{}\n{}".format(
-                summarization, source, "CLASS==========================="))
+        self.pbar.update(1)
 
         return summarization
 
@@ -162,19 +167,22 @@ class Summarizer:
         source = ""
         summarization = ""
         if len(pkg_json["classes"]) > 0:
-            for cls in pkg_json["classes"]:
-                source += cls["signature"] + " "
+            for idx, cls in enumerate(pkg_json["classes"]):
                 cls_sum = self.summarize_cls(cls)
                 if cls_sum != "":
                     source += "// " + cls_sum + "\n"
+                source += cls["signature"]
+                if idx != len(pkg_json["classes"]) - 1:
+                    source += "\n"
 
             summarization = self.summarize_by_llm(source, MODEL_TAG.PKG)
         else:
             summarization = "*** No enough context for summarization ***"
 
         self.sum_logs.append(
-            "{}\n{}\n{}".format(
-                summarization, source, "PACKAGE==========================="))
+            "{}\n{}\n<=\n{}".format("PACKAGE======================================================",
+                                    summarization, source))
+        self.pbar.update(1)
 
         return {
             "name": pkg_json["name"],

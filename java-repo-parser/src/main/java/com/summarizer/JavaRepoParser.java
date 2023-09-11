@@ -105,7 +105,6 @@ public class JavaRepoParser implements Runnable {
         }
 
         nodeCount++;
-
         return new JPackage(
                 dir.getName(),
                 dir.getPath(),
@@ -127,7 +126,7 @@ public class JavaRepoParser implements Runnable {
                 public void visit(CompilationUnit cu, Void arg) {
                     super.visit(cu, arg);
                     // 获取顶层的类 / 接口中的所有方法
-                    cu.findAll(ClassOrInterfaceDeclaration.class).forEach(coi -> {
+                    for (ClassOrInterfaceDeclaration coi : cu.findAll(ClassOrInterfaceDeclaration.class)) {
                         // 拼接签名
                         String signature = (coi.isAbstract() ? "abstract " : "") +
                                 (coi.isInterface() ? "interface " : "class ") + coi.getNameAsString() +
@@ -145,10 +144,10 @@ public class JavaRepoParser implements Runnable {
                                 extractMethods(coi, file.getPath()),
                                 file.getPath()
                         ));
-                    });
+                    }
 
                     // 获取枚举类中的所有方法
-                    cu.findAll(EnumDeclaration.class).forEach(e -> {
+                    for (EnumDeclaration e : cu.findAll(EnumDeclaration.class)) {
                         // 拼接签名
                         String signature = "enum " + e.getNameAsString() +
                                 ((e.getImplementedTypes().size() == 0) ? "" :
@@ -162,7 +161,7 @@ public class JavaRepoParser implements Runnable {
                                 extractMethods(e, file.getPath()),
                                 file.getPath()
                         ));
-                    });
+                    }
                 }
             }, null);
 
@@ -179,7 +178,7 @@ public class JavaRepoParser implements Runnable {
     public List<JMethod> extractMethods(TypeDeclaration cu, String filePath) {
         ArrayList<JMethod> methods = new ArrayList<>();
 
-        cu.findAll(MethodDeclaration.class).forEach(md -> {
+        for (MethodDeclaration md : cu.findAll(MethodDeclaration.class)) {
             // 忽略空方法 / 构造器 / toString / hashCode / equals / getter / setter 方法
             if (md.getBody().isEmpty() ||
                     md.isConstructorDeclaration() ||
@@ -188,7 +187,7 @@ public class JavaRepoParser implements Runnable {
                     md.getNameAsString().equals("equals") ||
                     md.getNameAsString().startsWith("get") ||
                     md.getNameAsString().startsWith("set")) {
-                return;
+                break;
             }
 
             String signature = md.getType() + " " + md.getName() +
@@ -197,18 +196,19 @@ public class JavaRepoParser implements Runnable {
             JCodeSnippet jCodeSnippet;
             BlockStmt body = md.getBody().get();
             if (signature.length() + body.toString().length() > MAX_LLM_LENGTH) {
+                // 继续分裂用jCodeSnippet替代method节点，jCodeSnippet中nodeCount已经加过
                 jCodeSnippet = splitCodeSnippet(body, formatBlock(body.toString()), filePath);
             } else {
+                nodeCount++; // 直接算作一个method节点
                 jCodeSnippet = new JCodeSnippet(formatBlock(body.toString()), new ArrayList<>());
             }
 
-            nodeCount++;
             methods.add(new JMethod(
                     signature,
                     jCodeSnippet.getContent(),
                     jCodeSnippet.getCodeSnippets()
             ));
-        });
+        }
 
         return methods;
     }
