@@ -1,7 +1,8 @@
 import logging
+import os
 import torch
 from enum import Enum
-from transformers import (RobertaTokenizer, T5Config,
+from transformers import (AutoTokenizer, RobertaTokenizer, T5Config,
                           T5ForConditionalGeneration)
 
 
@@ -14,43 +15,52 @@ class MODEL_TAG(Enum):
 class Summarizer:
     model_dict = {
         MODEL_TAG.CODE: {
-            "name": "Salesforce/codet5-base-multi-code",
+            "name": "Salesforce/codet5-base-multi-sum",
             "max_target_length": 30,
         },
-        MODEL_TAG.CLS: {
-            "name": "Salesforce/codet5-base-multi-code",
-            "max_target_length": 30,
-            # "load_state_path": ""
-        },
-        MODEL_TAG.PKG: {
-            "name": "Salesforce/codet5-base-multi-code",
-            "max_target_length": 30,
-            # "load_state_path": ""
-        }
+        # MODEL_TAG.CLS: {
+        #     "name": "Salesforce/codet5-base-multi-sum",
+        #     "max_target_length": 30,
+        #     # "load_state_path": ""
+        # },
+        # MODEL_TAG.PKG: {
+        #     "name": "Salesforce/codet5-base-multi-sum",
+        #     "max_target_length": 30,
+        #     # "load_state_path": ""
+        # }
     }
 
     def __init__(self, logger: logging.Logger):
         self.logger = logger
 
         # 加载模型
-        device = torch.device(
-            "cuda" if torch.cuda.is_available() else "cpu")
+        # device = torch.device(
+        #     "cuda" if torch.cuda.is_available() else "cpu")
+        # os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
         for tag, val in self.model_dict.items():
             model_config = T5Config.from_pretrained(val["name"])
             model = T5ForConditionalGeneration.from_pretrained(
                 val["name"], config=model_config)
-            tokenizer = RobertaTokenizer.from_pretrained(
-                self.model_name)
+            tokenizer = AutoTokenizer.from_pretrained(
+                val["name"])
 
-            if val['load_state_path'] is not None:
+            # 加载模型参数
+            if 'load_state_path' in val:
+                logger.info("Load model state from {}".format(
+                    val["load_state_path"]))
                 model.load_state_dict(torch.load(val["load_state_path"]))
 
-            model.to(device)
+            # model = model.to(device)
+
             self.model_dict[tag]["model"] = model
             self.model_dict[tag]["tokenizer"] = tokenizer
 
+            self.logger.info("Model for {} loaded successfully".format(tag))
+
     def summarize_by_llm(self, source: str, model_tag: MODEL_TAG) -> str:
         model_obj = self.model_dict[model_tag]
+
         encoded_code = model_obj['tokenizer'](source, return_tensors='pt',
                                               max_length=model_obj['max_target_length'],
                                               padding=True, verbose=False,
@@ -62,6 +72,10 @@ class Summarizer:
 
         generated_text = model_obj['tokenizer'].decode(generated_texts_ids[0],
                                                        skip_special_tokens=True, clean_up_tokenization_spaces=False)
+
+        self.logger.info(
+            "\n{}\n{}\n{}".format("=======================================================",
+                                  generated_text, source))
 
         return generated_text
 
@@ -115,11 +129,11 @@ class Summarizer:
 
             source += "}"
 
-            summarization = self.summarize_by_llm(source, MODEL_TAG.CLS)
+            summarization = self.summarize_by_llm(source, MODEL_TAG.CODE)
 
         return summarization
 
-    def summarize_pkg(self, pkg_json):
+    def summarize_pkg(self, pkg_json) -> dict:
         # TODO:
         #   将子包也作为摘要生成的上下文；
         #   是否需要设计prompt
@@ -139,7 +153,7 @@ class Summarizer:
                 if cls_sum != "":
                     source += "// " + self.summarize_cls(cls) + "\n"
 
-            summarization = self.summarize_by_llm(source, MODEL_TAG.PKG)
+            summarization = self.summarize_by_llm(source, MODEL_TAG.CODE)
         else:
             summarization = "*** No enough context for summarization ***"
 

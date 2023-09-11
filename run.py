@@ -24,7 +24,7 @@ def create_logger(log_path):
     logger = logging.getLogger(__name__)
 
     # 写入文件
-    handler = logging.FileHandler(log_path, encoding="utf-8")
+    handler = logging.FileHandler(log_path, mode="w", encoding="utf-8")
     handler.setLevel(logging.INFO)
     logger.addHandler(handler)
 
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     repo_path = "./repo/{}".format(repo_name)
     parse_log_path = "./tmp/parse_log_{}.txt".format(repo_name)
     parse_output_path = "./tmp/parse_out_{}.json".format(repo_name)
-    summarize_log_path = "./tmp/sum_log_{}.json".format(repo_name)
+    summarize_log_path = "./tmp/sum_log_{}.txt".format(repo_name)
     summarize_output_path = "./sum_out_{}.json".format(repo_name)
 
     if not os.path.exists(repo_path):
@@ -55,8 +55,8 @@ if __name__ == "__main__":
     # 创建 Logger
     logger = create_logger(summarize_log_path)
 
-    # 解析 repo
-    if (0 != parse_repo(logger, repo_path, parse_output_path, parse_log_path)):
+    # 利用java-repo-parser解析repo
+    if (0 != parse_repo(repo_path, parse_output_path, parse_log_path)):
         logging.error("Failed to parse repo")
         exit(1)
 
