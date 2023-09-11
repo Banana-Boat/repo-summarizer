@@ -148,7 +148,7 @@ class Summarizer:
 
         return summarization
 
-    def summarize_pkg(self, pkg_json) -> Tuple[list, dict]:
+    def summarize_pkg(self, pkg_json) -> dict:
         # TODO:
         #   将子包也作为摘要生成的上下文；
         #   是否需要设计prompt
@@ -176,14 +176,14 @@ class Summarizer:
             "{}\n{}\n{}".format(
                 summarization, source, "PACKAGE==========================="))
 
-        return self.sum_logs, {
+        return {
             "name": pkg_json["name"],
             "summarization": summarization,
             "subPackages": sub_pkg_summaries
         }
 
-    def summarize_repo(self, repo_json):
+    def summarize_repo(self, repo_json) -> Tuple[list, dict]:
         with tqdm(total=repo_json['nodeCount']) as pbar:
             pbar.set_description("Summarizing repo...")
             self.pbar = pbar
-            return self.summarize_pkg(repo_json['mainPackage'])
+            return self.sum_logs, self.summarize_pkg(repo_json['mainPackage'])

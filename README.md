@@ -8,6 +8,6 @@ _待补全..._
 _待补全..._
 
 ## 运行所需依赖
-- [**Java 8+**](https://github.com/o1egl/paseto)（解析Java代码所需）
+- [**Java 17+**](https://github.com/o1egl/paseto)（解析Java代码所需）
 
 

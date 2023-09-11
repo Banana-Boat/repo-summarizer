@@ -58,15 +58,19 @@ if __name__ == "__main__":
     # 生成摘要
     with open(parse_output_path, "r") as f:
         parsed_json = json.loads(f.read())
-        logger.info("Log file of summarization was written to {}".format(
-            summarize_log_path))
         sum_logs, result = summarizer.summarize_repo(parsed_json)
 
     # 写入文件
-    with open(summarize_output_path, "w") as f:
+    with open(summarize_output_path, "w") as f_out, open(summarize_log_path, "w") as f_log:
+        # 写入日志
         for log in sum_logs:
-            f.write(log + "\n")
-    logger.info("Result file of summarization was written to {}".format(
-        summarize_output_path))
+            f_log.write(log + "\n")
+        logger.info("Log file of summarization was written to {}".format(
+            summarize_log_path))
+        
+        # 写入结果
+        f_out.write(json.dumps(result))
+        logger.info("Result file of summarization was written to {}".format(
+            summarize_output_path))
 
     logger.info("RepoSummarizer: Done!")
