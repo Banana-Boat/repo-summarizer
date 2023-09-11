@@ -18,20 +18,10 @@ def exam_dir_paths(paths):
             os.mkdir(dir_path)
 
 
-def create_logger(log_path):
+def create_logger():
     logging.basicConfig(
         level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     logger = logging.getLogger(__name__)
-
-    # 写入文件
-    handler = logging.FileHandler(log_path, mode="w", encoding="utf-8")
-    handler.setLevel(logging.INFO)
-    logger.addHandler(handler)
-
-    # 写入控制台
-    console = logging.StreamHandler()
-    console.setLevel(logging.INFO)
-    logger.addHandler(console)
 
     return logger
 
@@ -53,7 +43,7 @@ if __name__ == "__main__":
     ])
 
     # 创建 Logger
-    logger = create_logger(summarize_log_path)
+    logger = create_logger()
 
     # 利用java-repo-parser解析repo
     if (0 != parse_repo(repo_path, parse_output_path, parse_log_path)):
@@ -62,15 +52,21 @@ if __name__ == "__main__":
 
     # 创建 Summarizer
     summarizer = Summarizer(logger)
+    result = {}
+    sum_logs = []
 
-    # 生成摘要并写入文件
-    with open(parse_output_path, "r") as parse_output_f, open(summarize_output_path, "w") as summarize_output_f:
-        parsed_json = json.loads(parse_output_f.read())
-        result = summarizer.summarize_pkg(parsed_json)
-        summarize_output_f.write(json.dumps(result))
+    # 生成摘要
+    with open(parse_output_path, "r") as f:
+        parsed_json = json.loads(f.read())
+        logger.info("Log file of summarization was written to {}".format(
+            summarize_log_path))
+        sum_logs, result = summarizer.summarize_repo(parsed_json)
 
-    logger.info("Summarization result file was written to {}".format(
+    # 写入文件
+    with open(summarize_output_path, "w") as f:
+        for log in sum_logs:
+            f.write(log + "\n")
+    logger.info("Result file of summarization was written to {}".format(
         summarize_output_path))
-    logger.info("Summarization log file was written to {}".format(
-        summarize_log_path))
+
     logger.info("RepoSummarizer: Done!")

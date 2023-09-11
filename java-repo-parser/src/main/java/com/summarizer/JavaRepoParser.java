@@ -6,10 +6,7 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-import com.summarizer.pojo.JCodeSnippet;
-import com.summarizer.pojo.JClass;
-import com.summarizer.pojo.JMethod;
-import com.summarizer.pojo.JPackage;
+import com.summarizer.pojo.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,6 +25,7 @@ public class JavaRepoParser implements Runnable {
     private static final Double MAX_BLOCK_LENGTH = MAX_LLM_LENGTH * 0.5;
     private static final String BLOCK_PLACEHOLDER = "<BLOCK>";
 
+    private Integer nodeCount = 0; // 总节点数
     private Integer blockCount = 0; // 分割的代码片段数
     private Integer cutCount = 0; // 截断的代码片段数
     private Integer totalCutCharCount = 0; // 总截断的字符数
@@ -53,7 +51,7 @@ public class JavaRepoParser implements Runnable {
         if (!dir.isDirectory()) return;
 
         // 写入解析结果
-        String json = JSON.toJSONString(extractPackage(dir));
+        String json = JSON.toJSONString(extractRepo(dir));
         try (FileWriter fw = new FileWriter(outputPath)) {
             fw.write(json);
         } catch (Exception e) {
@@ -76,6 +74,17 @@ public class JavaRepoParser implements Runnable {
         System.out.println("JavaRepoParser: Log file was written to " + logPath);
     }
 
+    public JRepo extractRepo(File dir) {
+        if (!dir.isDirectory()) return null;
+
+        JPackage jPackage = extractPackage(dir);
+
+        return new JRepo(
+                jPackage,
+                nodeCount
+        );
+    }
+
     /**
      * 提取一个目录中的所有子包 / 类 / 接口 / 枚举
      */
@@ -94,6 +103,8 @@ public class JavaRepoParser implements Runnable {
                 }
             }
         }
+
+        nodeCount++;
 
         return new JPackage(
                 dir.getName(),
@@ -127,6 +138,7 @@ public class JavaRepoParser implements Runnable {
                                         " implements " + coi.getImplementedTypes().toString()
                                                 .replace("[", "").replace("]", ""));
 
+                        nodeCount++;
                         classes.add(new JClass(
                                 coi.getNameAsString(),
                                 signature,
@@ -143,6 +155,7 @@ public class JavaRepoParser implements Runnable {
                                         " implements " + e.getImplementedTypes().toString()
                                                 .replace("[", "").replace("]", ""));
 
+                        nodeCount++;
                         classes.add(new JClass(
                                 e.getNameAsString(),
                                 signature,
@@ -189,6 +202,7 @@ public class JavaRepoParser implements Runnable {
                 jCodeSnippet = new JCodeSnippet(formatBlock(body.toString()), new ArrayList<>());
             }
 
+            nodeCount++;
             methods.add(new JMethod(
                     signature,
                     jCodeSnippet.getContent(),
@@ -286,8 +300,6 @@ public class JavaRepoParser implements Runnable {
             }
         }
 
-        blockCount++;
-
         // 若分割完后仍然超过 MAX_LLM_LENGTH，则截断
         if (content.length() > MAX_LLM_LENGTH) {
             totalCutCharCount += content.length() - MAX_LLM_LENGTH;
@@ -301,6 +313,8 @@ public class JavaRepoParser implements Runnable {
             content = content.substring(0, MAX_LLM_LENGTH);
         }
 
+        blockCount++;
+        nodeCount++;
         return new JCodeSnippet(content, jCodeSnippets);
     }
 

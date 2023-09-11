@@ -1,7 +1,9 @@
 import logging
 import os
+from typing import Tuple
 import torch
 from enum import Enum
+from tqdm import tqdm
 from transformers import (AutoTokenizer, RobertaTokenizer, T5Config,
                           T5ForConditionalGeneration)
 
@@ -13,27 +15,30 @@ class MODEL_TAG(Enum):
 
 
 class Summarizer:
+    sum_logs = []
+
     model_dict = {
         MODEL_TAG.CODE: {
             "name": "Salesforce/codet5-base-multi-sum",
             "max_target_length": 30,
         },
-        # MODEL_TAG.CLS: {
-        #     "name": "Salesforce/codet5-base-multi-sum",
-        #     "max_target_length": 30,
-        #     # "load_state_path": ""
-        # },
-        # MODEL_TAG.PKG: {
-        #     "name": "Salesforce/codet5-base-multi-sum",
-        #     "max_target_length": 30,
-        #     # "load_state_path": ""
-        # }
+        MODEL_TAG.CLS: {
+            "name": "Salesforce/codet5-base-multi-sum",
+            "max_target_length": 30,
+            "load_state_path": "model/cls_0817_1228/pytorch_model.bin"
+        },
+        MODEL_TAG.PKG: {
+            "name": "Salesforce/codet5-base-multi-sum",
+            "max_target_length": 30,
+            # "load_state_path": ""
+        }
     }
 
     def __init__(self, logger: logging.Logger):
         self.logger = logger
 
         # 加载模型
+
         # device = torch.device(
         #     "cuda" if torch.cuda.is_available() else "cpu")
         # os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -42,14 +47,14 @@ class Summarizer:
             model_config = T5Config.from_pretrained(val["name"])
             model = T5ForConditionalGeneration.from_pretrained(
                 val["name"], config=model_config)
-            tokenizer = AutoTokenizer.from_pretrained(
-                val["name"])
+            tokenizer = AutoTokenizer.from_pretrained(val["name"])
 
             # 加载模型参数
             if 'load_state_path' in val:
                 logger.info("Load model state from {}".format(
                     val["load_state_path"]))
-                model.load_state_dict(torch.load(val["load_state_path"]))
+                model.load_state_dict(torch.load(
+                    val["load_state_path"], map_location="cpu"))  # 将GPU上训练的模型权重加载到CPU上
 
             # model = model.to(device)
 
@@ -73,9 +78,7 @@ class Summarizer:
         generated_text = model_obj['tokenizer'].decode(generated_texts_ids[0],
                                                        skip_special_tokens=True, clean_up_tokenization_spaces=False)
 
-        self.logger.info(
-            "\n{}\n{}\n{}".format("=======================================================",
-                                  generated_text, source))
+        self.pbar.update(1)
 
         return generated_text
 
@@ -94,6 +97,10 @@ class Summarizer:
 
         summarization = self.summarize_by_llm(source, MODEL_TAG.CODE)
 
+        self.sum_logs.append(
+            "{}\n{}\n{}".format(
+                summarization, source, "CODE==========================="))
+
         return summarization
 
     # 生成当前方法的摘要。若存在占位符<BLOCK>，则替换为对应位置代码片段的摘要
@@ -111,6 +118,10 @@ class Summarizer:
 
         summarization = self.summarize_by_llm(source, MODEL_TAG.CODE)
 
+        self.sum_logs.append(
+            "{}\n{}\n{}".format(
+                summarization, source, "METHOD==========================="))
+
         return summarization
 
     # 根据类内方法生成当前类的摘要，如果没有方法则摘要为空
@@ -124,16 +135,20 @@ class Summarizer:
             for method in cls_json["methods"]:
                 method_sum = self.summarize_method(method)
                 if method_sum != "":
-                    source += "\t// " + self.summarize_method(method) + "\n"
+                    source += "\t// " + method_sum + "\n"
                 source += "\t" + method["signature"] + ";\n"
 
             source += "}"
 
-            summarization = self.summarize_by_llm(source, MODEL_TAG.CODE)
+            summarization = self.summarize_by_llm(source, MODEL_TAG.CLS)
+
+        self.sum_logs.append(
+            "{}\n{}\n{}".format(
+                summarization, source, "CLASS==========================="))
 
         return summarization
 
-    def summarize_pkg(self, pkg_json) -> dict:
+    def summarize_pkg(self, pkg_json) -> Tuple[list, dict]:
         # TODO:
         #   将子包也作为摘要生成的上下文；
         #   是否需要设计prompt
@@ -151,14 +166,24 @@ class Summarizer:
                 source += cls["signature"] + " "
                 cls_sum = self.summarize_cls(cls)
                 if cls_sum != "":
-                    source += "// " + self.summarize_cls(cls) + "\n"
+                    source += "// " + cls_sum + "\n"
 
-            summarization = self.summarize_by_llm(source, MODEL_TAG.CODE)
+            summarization = self.summarize_by_llm(source, MODEL_TAG.PKG)
         else:
             summarization = "*** No enough context for summarization ***"
 
-        return {
+        self.sum_logs.append(
+            "{}\n{}\n{}".format(
+                summarization, source, "PACKAGE==========================="))
+
+        return self.sum_logs, {
             "name": pkg_json["name"],
             "summarization": summarization,
             "subPackages": sub_pkg_summaries
         }
+
+    def summarize_repo(self, repo_json):
+        with tqdm(total=repo_json['nodeCount']) as pbar:
+            pbar.set_description("Summarizing repo...")
+            self.pbar = pbar
+            return self.summarize_pkg(repo_json['mainPackage'])
