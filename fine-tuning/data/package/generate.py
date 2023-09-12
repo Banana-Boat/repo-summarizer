@@ -6,6 +6,8 @@ MAX_TARGET_LEN = 512
 
 
 def get_processed_data(filename, start_idx):
+    # TODO: 尝试先用大模型对类的描述进行摘要总结
+
     res = []
 
     with open(filename, "r", encoding='utf-8') as f:
@@ -17,13 +19,15 @@ def get_processed_data(filename, start_idx):
             obj = {}
 
             code = 'package ' + jsonl['name'] + '\n\n'
-            for cls in jsonl['classes']:
+            for idx, cls in enumerate(jsonl['classes']):
                 tmp_str = ''
                 tmp_str += '// ' + cls['des'] + '\n'
                 tmp_str += cls['signature'] + ';\n'
 
                 # 忽略超出字符限制的类
                 if len(code + tmp_str) > MAX_TARGET_LEN:
+                    print('Ignore {} classes'.format(
+                        len(jsonl['classes']) - idx))
                     break
 
                 code += tmp_str
