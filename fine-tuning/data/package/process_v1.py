@@ -65,11 +65,13 @@ if __name__ == '__main__':
                     if summary_tbody is None:
                         continue
                     for summary_tr in summary_tbody.find_all('tr'):
-                        class_name_div = summary_tr.find('td', class_='colFirst')
+                        class_name_div = summary_tr.find(
+                            'td', class_='colFirst')
                         class_des_div = summary_tr.find('td', class_='colLast')
                         if class_des_div is None:
                             continue
-                        class_des_div = class_des_div.find('div', class_='block')
+                        class_des_div = class_des_div.find(
+                            'div', class_='block')
                         if class_des_div is None:
                             class_des = ""
                         else:
@@ -105,7 +107,7 @@ if __name__ == '__main__':
                 packages.append({
                     'name': pkg_name,
                     'des': pkg_des,
-                    'summaries': summaries,
+                    'classes': summaries,
                     'repo': repo_name,
                 })
 

@@ -51,6 +51,7 @@ def set_seed(seed=42):
     torch.cuda.manual_seed(seed)
     torch.backends.cudnn.deterministic = True
 
+
 def read_arguments():
     parser = argparse.ArgumentParser()
 
@@ -116,19 +117,21 @@ def read_arguments():
 
     return args
 
+
 def main(args):
     set_seed(args.seed)
     model_name = "Salesforce/codet5-base-multi-sum"
     # data path
-    train_filename = args.data_dir + "/train_classes.jsonl"
-    dev_filename = args.data_dir + "/valid_classes.jsonl"
-    test_filename = args.data_dir + "/test_classes.jsonl"
+    train_filename = args.data_dir + "/train_pkg.jsonl"
+    dev_filename = args.data_dir + "/valid_pkg.jsonl"
+    test_filename = args.data_dir + "/test_pkg.jsonl"
 
     # Setup CUDA, GPU & distributed training
     os.environ["CUDA_VISIBLE_DEVICES"] = args.visible_gpu
 
     if args.local_rank == -1 or args.no_cuda:
-        device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
+        device = torch.device(
+            "cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
         args.n_gpu = torch.cuda.device_count()
     # Initializes the distributed backend which will take care of synchronizing nodes/GPUs
     else:
@@ -150,12 +153,14 @@ def main(args):
 
     # read model --------------------------------------------------------------
     model_config = T5Config.from_pretrained(model_name)
-    model = T5ForConditionalGeneration.from_pretrained(model_name, config=model_config)
+    model = T5ForConditionalGeneration.from_pretrained(
+        model_name, config=model_config)
     tokenizer = RobertaTokenizer.from_pretrained(model_name)
 
     if args.load_model_path is not None:
         logger.info("reload model from {}".format(args.load_model_path))
-        model.load_state_dict(torch.load(os.path.join(args.load_model_path, 'pytorch_model.bin')))
+        model.load_state_dict(torch.load(os.path.join(
+            args.load_model_path, 'pytorch_model.bin')))
 
     model.to(device)
 
@@ -181,14 +186,16 @@ def main(args):
         # Prepare training data loader
         train_examples = read_examples(train_filename, args)
         logger.info("Total {} training instances ".format(len(train_examples)))
-        train_features = convert_examples_to_features(train_examples, tokenizer, args, stage='train')
+        train_features = convert_examples_to_features(
+            train_examples, tokenizer, args, stage='train')
 
         all_source_ids = train_features['source_ids']
         all_source_mask = train_features['source_mask']
         all_target_ids = train_features['target_ids']
         all_target_mask = train_features['target_mask']
 
-        train_data = TensorDataset(all_source_ids, all_source_mask, all_target_ids, all_target_mask)
+        train_data = TensorDataset(
+            all_source_ids, all_source_mask, all_target_ids, all_target_mask)
 
         if args.local_rank == -1:
             train_sampler = RandomSampler(train_data)
@@ -204,12 +211,16 @@ def main(args):
         optimizer_grouped_parameters = [
             {'params': [p for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)],
              'weight_decay': args.weight_decay},
-            {'params': [p for n, p in model.named_parameters() if any(nd in n for nd in no_decay)], 'weight_decay': 0.0}
+            {'params': [p for n, p in model.named_parameters() if any(
+                nd in n for nd in no_decay)], 'weight_decay': 0.0}
         ]
-        t_total = (len(train_dataloader) // args.gradient_accumulation_steps) * args.num_train_epochs
-        optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon)
+        t_total = (len(train_dataloader) //
+                   args.gradient_accumulation_steps) * args.num_train_epochs
+        optimizer = AdamW(optimizer_grouped_parameters,
+                          lr=args.learning_rate, eps=args.adam_epsilon)
         scheduler = get_linear_schedule_with_warmup(optimizer,
-                                                    num_warmup_steps=int(t_total * args.warm_up_ratio),
+                                                    num_warmup_steps=int(
+                                                        t_total * args.warm_up_ratio),
                                                     num_training_steps=t_total)
 
         # Start training
@@ -243,7 +254,8 @@ def main(args):
                 ]
                 labels = torch.tensor(labels).to(device)
 
-                out = model(input_ids=source_ids, attention_mask=source_mask, labels=labels)
+                out = model(input_ids=source_ids,
+                            attention_mask=source_mask, labels=labels)
                 loss = out.loss
 
                 if args.n_gpu > 1:
@@ -252,8 +264,10 @@ def main(args):
                     loss = loss / args.gradient_accumulation_steps
 
                 tr_loss += loss.item()
-                train_loss = round(tr_loss * args.gradient_accumulation_steps / (nb_tr_steps + 1), 4)
-                bar.set_description("epoch {} loss {}".format(epoch, train_loss))
+                train_loss = round(
+                    tr_loss * args.gradient_accumulation_steps / (nb_tr_steps + 1), 4)
+                bar.set_description(
+                    "epoch {} loss {}".format(epoch, train_loss))
 
                 nb_tr_examples += source_ids.size(0)
                 nb_tr_steps += 1
@@ -277,14 +291,16 @@ def main(args):
                     eval_examples, eval_data = dev_dataset['dev_loss']
                 else:
                     eval_examples = read_examples(dev_filename, args)
-                    eval_features = convert_examples_to_features(eval_examples, tokenizer, args, stage='dev')
+                    eval_features = convert_examples_to_features(
+                        eval_examples, tokenizer, args, stage='dev')
 
                     all_source_ids = eval_features['source_ids']
                     all_source_mask = eval_features['source_mask']
                     all_target_ids = eval_features['target_ids']
                     all_target_mask = eval_features['target_mask']
 
-                    eval_data = TensorDataset(all_source_ids, all_source_mask, all_target_ids, all_target_mask)
+                    eval_data = TensorDataset(
+                        all_source_ids, all_source_mask, all_target_ids, all_target_mask)
                     dev_dataset['dev_loss'] = eval_examples, eval_data
 
                 eval_sampler = SequentialSampler(eval_data)
@@ -310,9 +326,11 @@ def main(args):
                         ]
                         labels = torch.tensor(labels).to(device)
 
-                        tokens_num += torch.tensor([(labels_example != -100).sum().item() for labels_example in labels]).sum().item()
+                        tokens_num += torch.tensor([(labels_example != -100).sum().item()
+                                                   for labels_example in labels]).sum().item()
 
-                        loss = model(input_ids=source_ids, attention_mask=source_mask, labels=labels).loss
+                        loss = model(
+                            input_ids=source_ids, attention_mask=source_mask, labels=labels).loss
 
                     eval_loss += loss.sum().item()
 
@@ -328,34 +346,42 @@ def main(args):
                 logger.info("  " + "*" * 20)
 
                 # save last checkpoint
-                last_output_dir = os.path.join(args.output_dir, 'checkpoint-last')
+                last_output_dir = os.path.join(
+                    args.output_dir, 'checkpoint-last')
                 if not os.path.exists(last_output_dir):
                     os.makedirs(last_output_dir)
 
                 # Only save the model it-self
-                model_to_save = model.module if hasattr(model, 'module') else model
+                model_to_save = model.module if hasattr(
+                    model, 'module') else model
 
-                output_model_file = os.path.join(last_output_dir, "pytorch_model.bin")
+                output_model_file = os.path.join(
+                    last_output_dir, "pytorch_model.bin")
                 torch.save(model_to_save.state_dict(), output_model_file)
 
-                logger.info("Previous best ppl:%s", round(np.exp(best_loss), 5))
+                logger.info("Previous best ppl:%s",
+                            round(np.exp(best_loss), 5))
 
                 # save best checkpoint
                 if eval_loss < best_loss:
                     this_epoch_best = True
 
-                    logger.info("Achieve Best ppl:%s", round(np.exp(eval_loss), 5))
+                    logger.info("Achieve Best ppl:%s",
+                                round(np.exp(eval_loss), 5))
                     logger.info("  " + "*" * 20)
                     best_loss = eval_loss
                     # Save best checkpoint for best ppl
-                    output_dir = os.path.join(args.output_dir, 'checkpoint-best-ppl')
+                    output_dir = os.path.join(
+                        args.output_dir, 'checkpoint-best-ppl')
                     if not os.path.exists(output_dir):
                         os.makedirs(output_dir)
-                    output_model_file = os.path.join(output_dir, "pytorch_model.bin")
+                    output_model_file = os.path.join(
+                        output_dir, "pytorch_model.bin")
                     torch.save(model_to_save.state_dict(), output_model_file)
 
                 # Calculate bleu
-                this_bleu, dev_dataset = calculate_bleu(dev_filename, args, tokenizer, device, model, is_test=False, dev_dataset=dev_dataset, best_bleu=best_bleu)
+                this_bleu, dev_dataset = calculate_bleu(
+                    dev_filename, args, tokenizer, device, model, is_test=False, dev_dataset=dev_dataset, best_bleu=best_bleu)
 
                 if this_bleu > best_bleu:
                     this_epoch_best = True
@@ -364,11 +390,14 @@ def main(args):
                     logger.info("  " + "*" * 20)
                     best_bleu = this_bleu
                     # Save best checkpoint for best bleu
-                    output_dir = os.path.join(args.output_dir, 'checkpoint-best-bleu')
+                    output_dir = os.path.join(
+                        args.output_dir, 'checkpoint-best-bleu')
                     if not os.path.exists(output_dir):
                         os.makedirs(output_dir)
-                    model_to_save = model.module if hasattr(model, 'module') else model  # Only save the model it-self
-                    output_model_file = os.path.join(output_dir, "pytorch_model.bin")
+                    model_to_save = model.module if hasattr(
+                        model, 'module') else model  # Only save the model it-self
+                    output_model_file = os.path.join(
+                        output_dir, "pytorch_model.bin")
                     torch.save(model_to_save.state_dict(), output_model_file)
 
             # whether to stop
@@ -389,7 +418,8 @@ def main(args):
             files.append(test_filename)
 
         for idx, file in enumerate(files):
-            calculate_bleu(file, args, tokenizer, device, model, file_postfix=str(idx), is_test=True)
+            calculate_bleu(file, args, tokenizer, device, model,
+                           file_postfix=str(idx), is_test=True)
 
 
 def calculate_bleu(file_name, args, tokenizer, device, model, file_postfix=None, is_test=False, dev_dataset=None,
@@ -416,10 +446,12 @@ def calculate_bleu(file_name, args, tokenizer, device, model, file_postfix=None,
 
         # only use a part for dev
         if not is_test:
-            eval_examples = random.sample(eval_examples, min(1000, len(eval_examples)))
+            eval_examples = random.sample(
+                eval_examples, min(1000, len(eval_examples)))
 
         # tokenize data
-        eval_features = convert_examples_to_features(eval_examples, tokenizer, args, stage='test')
+        eval_features = convert_examples_to_features(
+            eval_examples, tokenizer, args, stage='test')
 
         all_source_ids = eval_features['source_ids']
         all_source_mask = eval_features['source_mask']
@@ -446,7 +478,8 @@ def calculate_bleu(file_name, args, tokenizer, device, model, file_postfix=None,
                                                  max_length=args.max_target_length)
 
             for text_ids in generated_texts_ids:
-                text = tokenizer.decode(text_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)
+                text = tokenizer.decode(
+                    text_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)
                 generated_texts.append(text)
 
     # write to file
@@ -468,7 +501,8 @@ def calculate_bleu(file_name, args, tokenizer, device, model, file_postfix=None,
     if is_test:
         logger.info("  %s = %s " % ("bleu-4", str(this_bleu)))
     else:
-        logger.info("  %s = %s \t Previous best bleu %s" % ("bleu-4", str(this_bleu), str(best_bleu)))
+        logger.info("  %s = %s \t Previous best bleu %s" %
+                    ("bleu-4", str(this_bleu), str(best_bleu)))
 
     logger.info("  " + "*" * 20)
 
@@ -490,7 +524,8 @@ if __name__ == "__main__":
     if os.path.exists(my_args.log_dir) is False:
         os.makedirs(my_args.log_dir)
     handler = logging.FileHandler(
-        my_args.log_dir + "/fintune_{}.log".format(datetime.datetime.now().strftime("%m%d_%H%M")),
+        my_args.log_dir +
+        "/pkg_{}.log".format(datetime.datetime.now().strftime("%m%d_%H%M")),
         "w", encoding="utf-8"
     )
     handler.setLevel(logging.INFO)
@@ -507,5 +542,3 @@ if __name__ == "__main__":
     main(my_args)
 
     logger.info("Finish training and take %s", get_elapse_time(begin_time))
-
-

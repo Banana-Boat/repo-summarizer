@@ -1,13 +1,13 @@
-finetune/data/javadocs/
+fine-tuning/data/javadocs/
 
-finetune/data/class/**
-!finetune/data/class/*.py
+fine-tuning/data/class/**
+!fine-tuning/data/class/*.py
 
-finetune/data/package/**
-!finetune/data/package/*.py
+fine-tuning/data/package/**
+!fine-tuning/data/package/*.py
 
-finetune/model_*
-finetune/model/
+fine-tuning/model_*
+fine-tuning/model/
 
 java-repo-parser/target/
 java-repo-parser/repo/

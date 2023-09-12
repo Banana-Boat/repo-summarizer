@@ -35,7 +35,7 @@ if __name__ == '__main__':
             div.decompose()
 
         for pkg_name_div, pkg_des_div in zip(pkg_summary_table.find_all('div', class_='col-first'),
-                                            pkg_summary_table.find_all('div', class_='col-last')):
+                                             pkg_summary_table.find_all('div', class_='col-last')):
 
             # 无描述或弃用的类class_des_div中没有block样式类
             pkg_des_div = pkg_des_div.find('div', class_='block')
@@ -67,7 +67,7 @@ if __name__ == '__main__':
                 div.decompose()
 
             for class_name_div, class_des_div in zip(summary_table.find_all('div', class_='col-first'),
-                                                summary_table.find_all('div', class_='col-last')):
+                                                     summary_table.find_all('div', class_='col-last')):
                 class_des_div = class_des_div.find('div', class_='block')
                 if class_des_div is None:
                     class_des = ""
@@ -75,10 +75,11 @@ if __name__ == '__main__':
                     class_des = formatText(class_des_div.get_text())
                 class_name = class_name_div.get_text()
 
-                #删去pkg_a的最后一项
+                # 删去pkg_a的最后一项
                 pkg_root_path = pkg_a.split('/')[0:-1]
                 pkg_root_path = '/'.join(pkg_root_path)
-                class_a = os.path.join(pkg_root_path, class_name_div.find('a').get('href'))
+                class_a = os.path.join(
+                    pkg_root_path, class_name_div.find('a').get('href'))
 
                 # 读取class_a所指文件，若无法打开文件，则跳过
                 try:
@@ -104,7 +105,7 @@ if __name__ == '__main__':
             packages.append({
                 'name': pkg_name,
                 'des': pkg_des,
-                'summaries': summaries,
+                'classes': summaries,
                 'repo': repo_name,
             })
 

@@ -76,10 +76,11 @@ if __name__ == '__main__':
 
                     class_name = class_name_div.get_text()
 
-                    #删去pkg_a的最后一项
+                    # 删去pkg_a的最后一项
                     pkg_root_path = pkg_a.split('/')[0:-1]
                     pkg_root_path = '/'.join(pkg_root_path)
-                    class_a = os.path.join(pkg_root_path, class_name_div.find('a').get('href'))
+                    class_a = os.path.join(
+                        pkg_root_path, class_name_div.find('a').get('href'))
 
                     # 读取class_a所指文件，若无法打开文件，则跳过
                     try:
@@ -107,7 +108,7 @@ if __name__ == '__main__':
             packages.append({
                 'name': pkg_name,
                 'des': pkg_des,
-                'summaries': summaries,
+                'classes': summaries,
                 'repo': repo_name,
             })
 
