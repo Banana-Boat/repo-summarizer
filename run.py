@@ -33,7 +33,7 @@ if __name__ == "__main__":
     parse_log_path = "./tmp/parse_log_{}.txt".format(repo_name)
     parse_output_path = "./tmp/parse_out_{}.json".format(repo_name)
     summarize_log_path = "./tmp/sum_log_{}.txt".format(repo_name)
-    summarize_output_path = "./sum_out_{}.json".format(repo_name)
+    summarize_output_path = "./tmp/sum_out_{}.json".format(repo_name)
 
     if not os.path.exists(repo_path):
         print("Repo's path does not exist")
@@ -67,7 +67,7 @@ if __name__ == "__main__":
             f_log.write(log + "\n")
         logger.info("Log file of summarization was written to {}".format(
             summarize_log_path))
-        
+
         # 写入结果
         f_out.write(json.dumps(result))
         logger.info("Result file of summarization was written to {}".format(

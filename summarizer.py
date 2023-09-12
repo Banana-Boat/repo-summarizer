@@ -19,17 +19,20 @@ class Summarizer:
     model_dict = {
         MODEL_TAG.CODE: {
             "name": "Salesforce/codet5-base-multi-sum",
+            "max_source_length": 512,
             "max_target_length": 30,
         },
         MODEL_TAG.CLS: {
             "name": "Salesforce/codet5-base-multi-sum",
+            "max_source_length": 512,
             "max_target_length": 30,
-            "load_state_path": "model/cls_0817_1228/pytorch_model.bin"
+            "load_state_path": "model/cls_0817_1228/checkpoint-best-bleu/pytorch_model.bin"
         },
         MODEL_TAG.PKG: {
             "name": "Salesforce/codet5-base-multi-sum",
+            "max_source_length": 512,
             "max_target_length": 30,
-            # "load_state_path": ""
+            "load_state_path": "model/pkg_0912_1113/checkpoint-best-bleu/pytorch_model.bin"
         }
     }
 
@@ -66,7 +69,7 @@ class Summarizer:
         model_obj = self.model_dict[model_tag]
 
         encoded_code = model_obj['tokenizer'](source, return_tensors='pt',
-                                              max_length=model_obj['max_target_length'],
+                                              max_length=model_obj['max_source_length'],
                                               padding=True, verbose=False,
                                               add_special_tokens=True, truncation=True)
 
@@ -193,4 +196,5 @@ class Summarizer:
         with tqdm(total=repo_json['nodeCount']) as pbar:
             pbar.set_description("Summarizing repo...")
             self.pbar = pbar
+
             return self.sum_logs, self.summarize_pkg(repo_json['mainPackage'])
