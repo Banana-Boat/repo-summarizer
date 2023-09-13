@@ -1,21 +1,31 @@
 import json
 import random
 from tqdm import tqdm
+from transformers import AutoTokenizer
 
-MAX_TARGET_LEN = 512
+
+class MyTokenizer:
+    MAX_SOURCE_LEN = 512
+
+    def __init__(self):
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            "Salesforce/codet5-base-multi-sum")
+
+    def isLegalSource(self, source):
+        encoded = self.tokenizer.encode(source, add_special_tokens=True)
+        return len(encoded) <= self.MAX_SOURCE_LEN
 
 
-def get_processed_data(filename, start_idx):
-    # TODO: 尝试先用大模型对类的描述进行摘要总结
-
+def get_processed_data(tokenizer: MyTokenizer, filename, start_idx):
     res = []
+    ignore_pkg_num = 0
+    ignore_cls_num = 0
 
     with open(filename, "r", encoding='utf-8') as f:
         index = start_idx
 
-        for line in tqdm(f):
+        for line in tqdm(f.readlines(), desc="Processing {}...".format(filename)):
             jsonl = json.loads(line)
-
             obj = {}
 
             code = 'package ' + jsonl['name'] + '\n\n'
@@ -25,15 +35,15 @@ def get_processed_data(filename, start_idx):
                 tmp_str += cls['signature'] + ';\n'
 
                 # 忽略超出字符限制的类
-                if len(code + tmp_str) > MAX_TARGET_LEN:
-                    print('Ignore {} classes'.format(
-                        len(jsonl['classes']) - idx))
+                if not tokenizer.isLegalSource(code + tmp_str):
+                    ignore_cls_num += len(jsonl['classes']) - idx
+                    ignore_pkg_num += 1
                     break
 
                 code += tmp_str
 
-            # 忽略总字符数大于上限的包
-            if len(code) > MAX_TARGET_LEN:
+            # 忽略总token数大于上限的包
+            if not tokenizer.isLegalSource(code):
                 continue
 
             obj['index'] = index
@@ -44,17 +54,30 @@ def get_processed_data(filename, start_idx):
             res.append(obj)
             index += 1
 
-    return res
+    return res, ignore_pkg_num, ignore_cls_num
 
 
 if __name__ == '__main__':
     res = []
+    total_ignore_pkg_num = 0  # 存在省略class的pkg总数
+    total_ignore_cls_num = 0  # 被省略的class总数
+
+    tokenizer = MyTokenizer()
+
     for i in range(1, 5):
         filename = './packages_v{}.jsonl'.format(i)
-        print('Processing ' + filename)
-        res.extend(get_processed_data(filename, len(res)))
 
-    print('Total num: ' + str(len(res)))
+        temp_res, ignore_pkg_num, ignore_cls_num = get_processed_data(
+            tokenizer, filename, len(res))
+
+        res.extend(temp_res)
+        total_ignore_pkg_num += ignore_pkg_num
+        total_ignore_cls_num += ignore_cls_num
+
+    print('\nTotal valid package num: ' + str(len(res)))
+    print('Package has ignored class: ' + str(total_ignore_pkg_num))
+    print('Ignore class num per ignored package: ' +
+          str(total_ignore_cls_num / total_ignore_pkg_num))
 
     # 打乱顺序
     # random.shuffle(res)

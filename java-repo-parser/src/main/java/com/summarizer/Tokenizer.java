@@ -25,26 +25,26 @@ public class Tokenizer {
         return MAX_CODE_SNIPPET_LENGTH;
     }
     public Boolean isLegalCodeSnippet(String code) {
-        return tokenizer.tokenize(code).size() <= MAX_CODE_SNIPPET_LENGTH;
+        return tokenizer.encode(code, true).getIds().length <= MAX_CODE_SNIPPET_LENGTH;
     }
 
     public Boolean isLegalSource(String source) {
-        return tokenizer.tokenize(source).size() <= MAX_SOURCE_LENGTH;
+        return tokenizer.encode(source, true).getIds().length <= MAX_SOURCE_LENGTH;
     }
 
     public Integer getTokenNum(String source) {
-        return tokenizer.tokenize(source).size();
+        return tokenizer.encode(source, true).getIds().length;
     }
 
     public String cutToLegalSource(String source) {
-        if (tokenizer.tokenize(source).size() <= MAX_SOURCE_LENGTH) {
+        if (this.isLegalSource(source)) {
             return source;
         }
 
-        long[] ids = tokenizer.encode(source).getIds();
-        long[] cutIds = Arrays.copyOfRange(ids, 0, MAX_SOURCE_LENGTH);
+        // 截断时不加入首尾的特殊token，同时为实际使用时保留token余量
+        long[] ids = tokenizer.encode(source, false).getIds();
+        long[] cutIds = Arrays.copyOfRange(ids, 0, MAX_SOURCE_LENGTH - 4);
 
-        return tokenizer.decode(cutIds, true);
+        return tokenizer.decode(cutIds);
     }
-
 }
