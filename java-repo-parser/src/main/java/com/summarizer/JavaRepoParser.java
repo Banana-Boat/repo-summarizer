@@ -1,83 +1,48 @@
 package com.summarizer;
 
-import com.alibaba.fastjson.JSON;
+import ai.djl.huggingface.tokenizers.HuggingFaceTokenizer;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.*;
-import com.github.javaparser.ast.stmt.*;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.EnumDeclaration;
+import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.TypeDeclaration;
+import com.github.javaparser.ast.stmt.BlockStmt;
+import com.github.javaparser.ast.stmt.Statement;
+import com.github.javaparser.ast.stmt.SwitchEntry;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.summarizer.pojo.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import picocli.CommandLine;
-import picocli.CommandLine.Command;
-import picocli.CommandLine.Option;
-
-@Command(name = "JavaRepoParser", mixinStandardHelpOptions = true, version = "JavaRepoParser 1.0")
-public class JavaRepoParser implements Runnable {
-    private static final Integer MAX_LLM_LENGTH = 512;
-    private static final Double MAX_BLOCK_LENGTH = MAX_LLM_LENGTH * 0.5;
+public class JavaRepoParser {
     private static final String BLOCK_PLACEHOLDER = "<BLOCK>";
-
+    private Tokenizer tokenizer;
     private Integer nodeCount = 0; // 总节点数
     private Integer blockCount = 0; // 分割的代码片段数
     private Integer cutCount = 0; // 截断的代码片段数
     private Integer totalCutCharCount = 0; // 总截断的字符数
-    private List<String> logs = new ArrayList<>(); // 截断日志
+    public List<String> logs = new ArrayList<>(); // 截断日志
 
-    @Option(names = {"-r", "--repo-path"}, description = "Path to the directory of repository", required = true)
-    private String repoPath = "";
-
-    @Option(names = {"-o", "--output-path"}, description = "Path to the output file")
-    private String outputPath = "./parse_output.json";
-
-    @Option(names = {"-l", "--log-path"}, description = "Path to the log file")
-    private String logPath = "./parse_log.txt";
-
-    public static void main(String[] args) {
-        int exitCode = new CommandLine(new JavaRepoParser()).execute(args);
-        System.exit(exitCode);
-    }
-
-    @Override
-    public void run() {
-        File dir = new File(repoPath);
-        if (!dir.isDirectory()) return;
-
-        // 写入解析结果
-        String json = JSON.toJSONString(extractRepo(dir));
-        try (FileWriter fw = new FileWriter(outputPath)) {
-            fw.write(json);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("JavaRepoParser: Result file was written to " + outputPath);
-
-        // 写入日志信息
-        logs.add(0,
-                "分割代码片段数：" + blockCount + "\n截断代码片段数：" + cutCount +
-                        "\n截断率：" + (double) cutCount / blockCount +
-                        "\n平均截断字符数：" + (double) totalCutCharCount / cutCount);
-        try (FileWriter fw = new FileWriter(logPath)) {
-            for (String log : logs) {
-                fw.write(log + "\n==================================================================\n");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("JavaRepoParser: Log file was written to " + logPath);
+    public JavaRepoParser(Tokenizer tokenizer) {
+        this.tokenizer = tokenizer;
     }
 
     public JRepo extractRepo(File dir) {
         if (!dir.isDirectory()) return null;
 
         JPackage jPackage = extractPackage(dir);
+
+        logs.add(0,
+                "分割代码片段数：" + blockCount + "\n截断代码片段数：" + cutCount +
+                        "\n不完整节点率：" + (double) cutCount / nodeCount +
+                        "\n平均截断token数：" + (double) totalCutCharCount / cutCount);
 
         return new JRepo(
                 jPackage,
@@ -167,6 +132,7 @@ public class JavaRepoParser implements Runnable {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            System.exit(1);
         }
 
         return classes;
@@ -195,7 +161,7 @@ public class JavaRepoParser implements Runnable {
 
             JCodeSnippet jCodeSnippet;
             BlockStmt body = md.getBody().get();
-            if (signature.length() + body.toString().length() > MAX_LLM_LENGTH) {
+            if (!tokenizer.isLegalSource(signature + body)) {
                 // 继续分裂用jCodeSnippet替代method节点，jCodeSnippet中nodeCount已经加过
                 jCodeSnippet = splitCodeSnippet(body, formatBlock(body.toString()), filePath);
             } else {
@@ -226,7 +192,7 @@ public class JavaRepoParser implements Runnable {
         for (Statement stmt : body.findAll(Statement.class, s -> s.getParentNode().get() == body)) {
             String blockContent = formatBlock(stmt.toString());
 
-            if (blockContent.length() > MAX_BLOCK_LENGTH) {
+            if (!tokenizer.isLegalCodeSnippet(blockContent)) {
                 switch (stmt.getClass().getSimpleName()) {
                     case "IfStmt":
                         Statement thenStmt = stmt.asIfStmt().getThenStmt();
@@ -237,7 +203,7 @@ public class JavaRepoParser implements Runnable {
                             String elseBlockContent = "else " + formatBlock(elseStmt.toString());
 
                             // 判断若then中内容替换后，if-else整体是否超过上限（因为存在递归关系）
-                            if (replaceOnce(content, ifBlockContent, BLOCK_PLACEHOLDER).length() > MAX_BLOCK_LENGTH) {
+                            if (!tokenizer.isLegalCodeSnippet(replaceOnce(content, ifBlockContent, BLOCK_PLACEHOLDER))) {
                                 // 若仍然超过则分别对then和else进行分割，并替换为两个占位符
                                 jCodeSnippets.add(splitCodeSnippet(thenStmt, ifBlockContent, filePath));
                                 jCodeSnippets.add(splitCodeSnippet(elseStmt, elseBlockContent, filePath));
@@ -259,7 +225,7 @@ public class JavaRepoParser implements Runnable {
                             for (Statement statement : entry.getStatements()) {
                                 String statementContent = formatBlock(statement.toString());
                                 // 若当前statement超过上限，则分割
-                                if (statementContent.length() > MAX_BLOCK_LENGTH) {
+                                if (!tokenizer.isLegalCodeSnippet(statementContent)) {
                                     jCodeSnippets.add(splitCodeSnippet(statement, statementContent, filePath));
                                     content = replaceOnce(content, statementContent, BLOCK_PLACEHOLDER);
                                 }
@@ -301,16 +267,18 @@ public class JavaRepoParser implements Runnable {
         }
 
         // 若分割完后仍然超过 MAX_LLM_LENGTH，则截断
-        if (content.length() > MAX_LLM_LENGTH) {
-            totalCutCharCount += content.length() - MAX_LLM_LENGTH;
+        if (!tokenizer.isLegalSource(content)) {
+            totalCutCharCount += tokenizer.getTokenNum(content) - tokenizer.getMaxSourceLength();
             cutCount++;
+
+            String cutContent = tokenizer.cutToLegalSource(content);
 
             // 记录日志信息
             logs.add(filePath + "\n" + body.getRange().get() + "\n" +
                     "cut off from: \n" + content + "\n" +
-                    "to: \n" + content.substring(0, MAX_LLM_LENGTH));
+                    "to: \n" + cutContent);
 
-            content = content.substring(0, MAX_LLM_LENGTH);
+            content = cutContent;
         }
 
         blockCount++;

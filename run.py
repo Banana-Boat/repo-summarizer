@@ -5,9 +5,11 @@ import os
 from summarizer import Summarizer
 
 
-def parse_repo(repo_path, output_path, log_path) -> int:
+def parse_repo(repo_path, tokenizer_path, output_path, log_path) -> int:
     return os.system(
-        "java -jar ./java-repo-parser.jar -r={} -o={} -l={}".format(repo_path, output_path, log_path))
+        "java -jar ./java-repo-parser.jar -r={} -t={} -o={} -l={}".format(
+            repo_path, tokenizer_path, output_path, log_path)
+    )
 
 
 # 检查路径列表中各路径包含的目录路径，若不存在则创建
@@ -27,23 +29,29 @@ def create_logger():
 
 
 if __name__ == "__main__":
+    # 创建 Logger
+    logger = create_logger()
+
     # 处理相关路径
     repo_name = "time"
     repo_path = "./repo/{}".format(repo_name)
+    tokenizer_path = "./tokenizer.json"
     parse_log_path = "./tmp/parse_log_{}.txt".format(repo_name)
     parse_output_path = "./tmp/parse_out_{}.json".format(repo_name)
     summarize_log_path = "./tmp/sum_log_{}.txt".format(repo_name)
     summarize_output_path = "./tmp/sum_out_{}.json".format(repo_name)
 
     if not os.path.exists(repo_path):
-        print("Repo's path does not exist")
+        logger.error("Repo's path does not exist")
         exit(1)
+
+    if not os.path.exists(tokenizer_path):
+        logger.error("Tokenizer.json file does not exist")
+        exit(1)
+
     exam_dir_paths([
         parse_log_path, parse_output_path, summarize_log_path, summarize_output_path
     ])
-
-    # 创建 Logger
-    logger = create_logger()
 
     # 利用java-repo-parser解析repo
     if (0 != parse_repo(repo_path, parse_output_path, parse_log_path)):

@@ -11,6 +11,7 @@ fine-tuning/model/
 
 java-repo-parser/target/
 java-repo-parser/repo/
+java-repo-parser/*.json
 
 repo/
 
