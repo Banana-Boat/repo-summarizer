@@ -32,7 +32,7 @@ class Summarizer:
             "name": "Salesforce/codet5-base-multi-sum",
             "max_source_length": 512,
             "max_target_length": 30,
-            "load_state_path": "model/pkg_0912_1113/checkpoint-best-bleu/pytorch_model.bin"
+            "load_state_path": "model/pkg_0913_1718/checkpoint-best-bleu/pytorch_model.bin"
         }
     }
 
