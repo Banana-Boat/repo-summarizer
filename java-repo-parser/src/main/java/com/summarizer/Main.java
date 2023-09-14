@@ -49,9 +49,9 @@ public class Main implements Runnable {
 
         JavaRepoParser parser = new JavaRepoParser(tokenizer);
 
-        // 写入解析结果
-        String json = JSON.toJSONString(parser.extractRepo(dir));
+        // 解析并写入解析结果
         try (FileWriter fw = new FileWriter(outputPath)) {
+            String json = JSON.toJSONString(parser.extractRepo(dir));
             fw.write(json);
             logger.info("JavaRepoParser: Result file was written to " + outputPath);
         } catch (Exception e) {

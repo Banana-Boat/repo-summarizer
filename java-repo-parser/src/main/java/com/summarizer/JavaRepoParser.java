@@ -34,10 +34,11 @@ public class JavaRepoParser {
         this.tokenizer = tokenizer;
     }
 
-    public JRepo extractRepo(File dir) {
-        if (!dir.isDirectory()) return null;
+    public JRepo extractRepo(File dir) throws Exception {
+        if (!dir.isDirectory())
+            throw new IllegalArgumentException("param is not a directory");
 
-        JPackage jPackage = extractPackage(dir);
+        JPackage jPackage = extractPackage(dir, dir.getName());
 
         logs.add(0,
                 "分割代码片段数：" + blockCount + "\n截断代码片段数：" + cutCount +
@@ -53,15 +54,22 @@ public class JavaRepoParser {
     /**
      * 提取一个目录中的所有子包 / 类 / 接口 / 枚举
      */
-    public JPackage extractPackage(File dir) {
-        if (!dir.isDirectory()) return null;
+    public JPackage extractPackage(File dir, String pkgName) throws Exception {
+        if (!dir.isDirectory())
+            throw new IllegalArgumentException("param is not a directory");
 
         ArrayList<JPackage> subPackages = new ArrayList<>();
         ArrayList<JClass> classes = new ArrayList<>();
 
-        for (File file : Objects.requireNonNull(dir.listFiles())) {
+        // 处理当前目录下只有一个子目录的情况：合并目录名，只产生一个节点
+        File[] subFiles = Objects.requireNonNull(dir.listFiles());
+        if (subFiles.length == 1 && subFiles[0].isDirectory()) {
+            return extractPackage(subFiles[0], pkgName + "." + subFiles[0].getName());
+        }
+
+        for (File file : subFiles) {
             if (file.isDirectory()) {
-                subPackages.add(extractPackage(file));
+                subPackages.add(extractPackage(file, file.getName()));
             } else {
                 if (file.getName().endsWith(".java")) {
                     classes.addAll(extractClasses(file));
@@ -71,7 +79,7 @@ public class JavaRepoParser {
 
         nodeCount++;
         return new JPackage(
-                dir.getName(),
+                pkgName,
                 dir.getPath(),
                 classes,
                 subPackages
@@ -81,10 +89,9 @@ public class JavaRepoParser {
     /**
      * 提取一个文件中的所有类 / 接口 / 枚举
      */
-    public List<JClass> extractClasses(File file) {
+    public List<JClass> extractClasses(File file) throws FileNotFoundException {
         ArrayList<JClass> classes = new ArrayList<>();
 
-        try {
             CompilationUnit cu = StaticJavaParser.parse(file);
             cu.accept(new VoidVisitorAdapter<Void>() {
                 @Override
@@ -130,10 +137,6 @@ public class JavaRepoParser {
                 }
             }, null);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
 
         return classes;
     }
