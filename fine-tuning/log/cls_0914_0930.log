@@ -1,0 +1,367 @@
+Namespace(adam_epsilon=1e-08, add_task_prefix=False, data_dir='./data', do_eval=True, do_test=True, do_train=True, early_stop_threshold=8, eval_batch_size=18, gradient_accumulation_steps=2, learning_rate=5e-05, load_model_path=None, local_rank=-1, log_dir='./log', max_source_length=512, max_target_length=30, no_cuda=False, num_train_epochs=24, output_dir='./model', seed=42, train_batch_size=36, visible_gpu='0', warm_up_ratio=0.1, weight_decay=0.0)
+Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, model_name: Salesforce/codet5-base-multi-sum
+model created!
+Total 19030 training instances 
+***** Running training *****
+  Num examples = 19030
+  Batch size = 36
+  Num epoch = 24
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 0
+  eval_ppl = 1.0091
+  global_step = 530
+  train_loss = 3.1648
+  ********************
+Previous best ppl:inf
+Achieve Best ppl:1.0091
+  ********************
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 15.19 	 Previous best bleu 0
+  ********************
+ Achieve Best bleu:15.19
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 1
+  eval_ppl = 1.00875
+  global_step = 1059
+  train_loss = 2.6574
+  ********************
+Previous best ppl:1.0091
+Achieve Best ppl:1.00875
+  ********************
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 15.28 	 Previous best bleu 15.19
+  ********************
+ Achieve Best bleu:15.28
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 2
+  eval_ppl = 1.00867
+  global_step = 1588
+  train_loss = 2.3665
+  ********************
+Previous best ppl:1.00875
+Achieve Best ppl:1.00867
+  ********************
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 15.91 	 Previous best bleu 15.28
+  ********************
+ Achieve Best bleu:15.91
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 3
+  eval_ppl = 1.00868
+  global_step = 2117
+  train_loss = 2.0816
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 16.25 	 Previous best bleu 15.91
+  ********************
+ Achieve Best bleu:16.25
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 4
+  eval_ppl = 1.00875
+  global_step = 2646
+  train_loss = 1.8398
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 16.71 	 Previous best bleu 16.25
+  ********************
+ Achieve Best bleu:16.71
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 5
+  eval_ppl = 1.00906
+  global_step = 3175
+  train_loss = 1.6305
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 15.92 	 Previous best bleu 16.71
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 6
+  eval_ppl = 1.00919
+  global_step = 3704
+  train_loss = 1.4502
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 17.07 	 Previous best bleu 16.71
+  ********************
+ Achieve Best bleu:17.07
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 7
+  eval_ppl = 1.00944
+  global_step = 4233
+  train_loss = 1.2862
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 16.88 	 Previous best bleu 17.07
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 8
+  eval_ppl = 1.00956
+  global_step = 4762
+  train_loss = 1.1478
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 17.92 	 Previous best bleu 17.07
+  ********************
+ Achieve Best bleu:17.92
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 9
+  eval_ppl = 1.00982
+  global_step = 5291
+  train_loss = 1.0268
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 18.32 	 Previous best bleu 17.92
+  ********************
+ Achieve Best bleu:18.32
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 10
+  eval_ppl = 1.00995
+  global_step = 5820
+  train_loss = 0.92
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 18.26 	 Previous best bleu 18.32
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 11
+  eval_ppl = 1.01016
+  global_step = 6349
+  train_loss = 0.827
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 18.33 	 Previous best bleu 18.32
+  ********************
+ Achieve Best bleu:18.33
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 12
+  eval_ppl = 1.01034
+  global_step = 6878
+  train_loss = 0.7493
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 19.19 	 Previous best bleu 18.33
+  ********************
+ Achieve Best bleu:19.19
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 13
+  eval_ppl = 1.01037
+  global_step = 7407
+  train_loss = 0.6775
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 18.72 	 Previous best bleu 19.19
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 14
+  eval_ppl = 1.01053
+  global_step = 7936
+  train_loss = 0.6173
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 19.58 	 Previous best bleu 19.19
+  ********************
+ Achieve Best bleu:19.58
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 15
+  eval_ppl = 1.0107
+  global_step = 8465
+  train_loss = 0.5654
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 19.53 	 Previous best bleu 19.58
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 16
+  eval_ppl = 1.01073
+  global_step = 8994
+  train_loss = 0.5213
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 19.64 	 Previous best bleu 19.58
+  ********************
+ Achieve Best bleu:19.64
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 17
+  eval_ppl = 1.01085
+  global_step = 9523
+  train_loss = 0.4835
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 19.68 	 Previous best bleu 19.64
+  ********************
+ Achieve Best bleu:19.68
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 18
+  eval_ppl = 1.01101
+  global_step = 10052
+  train_loss = 0.4531
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 20.05 	 Previous best bleu 19.68
+  ********************
+ Achieve Best bleu:20.05
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 19
+  eval_ppl = 1.01106
+  global_step = 10581
+  train_loss = 0.4231
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 20.09 	 Previous best bleu 20.05
+  ********************
+ Achieve Best bleu:20.09
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 20
+  eval_ppl = 1.0111
+  global_step = 11110
+  train_loss = 0.4018
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 20.09 	 Previous best bleu 20.09
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 21
+  eval_ppl = 1.01115
+  global_step = 11639
+  train_loss = 0.3856
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 20.2 	 Previous best bleu 20.09
+  ********************
+ Achieve Best bleu:20.2
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 22
+  eval_ppl = 1.0112
+  global_step = 12168
+  train_loss = 0.3721
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 20.33 	 Previous best bleu 20.2
+  ********************
+ Achieve Best bleu:20.33
+  ********************
+
+***** Running evaluation *****
+  Num examples = 6343
+  Batch size = 18
+  epoch = 23
+  eval_ppl = 1.0112
+  global_step = 12697
+  train_loss = 0.3644
+  ********************
+Previous best ppl:1.00867
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 20.28 	 Previous best bleu 20.33
+  ********************
+BLEU file: ./data/valid_cls.jsonl
+  bleu-4 = 20.92 
+  ********************
+BLEU file: ./data/test_cls.jsonl
+  bleu-4 = 15.42 
+  ********************
+Finish training and take 8h38m
