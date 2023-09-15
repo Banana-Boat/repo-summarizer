@@ -6,7 +6,7 @@ def flatten_pkgs(packages, prefix="", result=[]):
         full_name = f"{prefix}.{package['name']}" if prefix else package['name']
         result.append({
             "name": full_name,
-            "summarization": package['summarization']
+            "des": package['summarization']
         })
         if package['subPackages']:
             flatten_pkgs(package['subPackages'], full_name, result)

@@ -4,6 +4,7 @@
 This script was adapted from the original version by hieuhoang1972 which is part of MOSES.
 '''
 
+
 '''Provides:
 
 cook_refs(refs, n=4): Transform a list of reference sentences as strings into a form usable by cook_test().
@@ -16,12 +17,13 @@ The reason for breaking the BLEU computation into three phases cook_refs(), cook
 '''
 
 
+import os
+import json
 import xml.sax.saxutils
 import re
 import math
 import sys
 import subprocess
-import os
 nonorm = 0
 
 preserve_case = False
@@ -171,48 +173,29 @@ def splitPuncts(line):
     return ' '.join(re.findall(r"[\w]+|[^\s\w]", line))
 
 
-def computeMaps(predictions, goldfile):
-    predictionMap = {}
-    goldMap = {}
-    gf = open(goldfile, 'r')
-
-    for row in predictions:
-        cols = row.strip().split('\t')
-        if len(cols) == 1:
-            (rid, pred) = (cols[0], '')
-        else:
-            (rid, pred) = (cols[0], cols[1])
-        predictionMap[rid] = [splitPuncts(pred.strip().lower())]
-
-    for row in gf:
-        (rid, pred) = row.split('\t')
-        if rid in predictionMap:  # Only insert if the id exists for the method
-            if rid not in goldMap:
-                goldMap[rid] = []
-            goldMap[rid].append(splitPuncts(pred.strip().lower()))
-
-    # sys.stderr.write('Total: ' + str(len(goldMap)) + '\n')
-    return (goldMap, predictionMap)
-
-
-# m1 is the reference map
-# m2 is the prediction map
-def bleuFromMaps(m1, m2):
+def bleuFromObjs(golds, outs):
     score = [0] * 5
     num = 0.0
 
-    for key in m1:
-        if key in m2:
-            bl = bleu(m1[key], m2[key][0])
-            score = [score[i] + bl[i] for i in range(0, len(bl))]
-            num += 1
+    for out_obj in outs:
+        for gold_obj in golds:
+            if gold_obj['name'] == out_obj['name']:
+                ref = splitPuncts(gold_obj['des'].strip().lower())
+                candidate = splitPuncts(out_obj['des'].strip().lower())
+                bl = bleu([ref], candidate)
+                score = [score[i] + bl[i] for i in range(0, len(bl))]
+                num += 1
+                break
+
     return [s * 100.0 / num for s in score]
 
 
 if __name__ == '__main__':
-    reference_file = sys.argv[1]
-    predictions = []
-    for row in sys.stdin:
-        predictions.append(row)
-    (goldMap, predictionMap) = computeMaps(predictions, reference_file)
-    print(bleuFromMaps(goldMap, predictionMap)[0])
+    gold_file_path = "./tmp/gold_base.json"
+    out_file_path = "./tmp/out_time.json"
+
+    with open(gold_file_path, 'r') as f_gold, open(out_file_path, 'r') as f_out:
+        golds = json.load(f_gold)
+        outs = json.load(f_out)
+
+        print(bleuFromObjs(golds, outs)[0])
