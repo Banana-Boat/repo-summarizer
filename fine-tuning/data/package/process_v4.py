@@ -1,14 +1,8 @@
 import json
 import os
-import re
+from utils import formatText, add_sub_packages
 from tqdm import tqdm
 from bs4 import BeautifulSoup
-
-
-def formatText(text):
-    res = text.strip().replace('\n', ' ').replace('\t', ' ')
-    res = re.sub(r'\s+', ' ', res)
-    return res
 
 
 if __name__ == '__main__':
@@ -20,6 +14,7 @@ if __name__ == '__main__':
         if not dirname.endswith('-javadoc'):
             continue
 
+        pkgs_of_one_repo = []
         repo_name = dirname[:-8]
 
         allclasses_soup = BeautifulSoup(
@@ -43,7 +38,7 @@ if __name__ == '__main__':
                 continue
 
             pkg_des = formatText(pkg_des_div.get_text())
-            pkg_name = pkg_name_div.get_text().split('.')[-1]
+            pkg_name = pkg_name_div.get_text()
             pkg_a = os.path.join(
                 root_path, dirname, pkg_name_div.find('a').get('href'))
 
@@ -105,12 +100,17 @@ if __name__ == '__main__':
             if len(summaries) == 0:
                 continue
 
-            packages.append({
+            pkgs_of_one_repo.append({
                 'name': pkg_name,
                 'des': pkg_des,
                 'classes': summaries,
                 'repo': repo_name,
             })
+
+        # 处理一个repo中所有包之间的父子关系
+        add_sub_packages(pkgs_of_one_repo)
+
+        packages.extend(pkgs_of_one_repo)
 
     with open('./packages_v4.jsonl', 'w', encoding='utf-8') as f:
         for item in packages:
