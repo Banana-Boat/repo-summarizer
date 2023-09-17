@@ -20,6 +20,7 @@ def get_processed_data(tokenizer: MyTokenizer, filename, start_idx):
     res = []
     ignore_pkg_num = 0
     ignore_cls_num = 0
+    sub_pkg_num = 0
 
     with open(filename, "r", encoding='utf-8') as f:
         index = start_idx
@@ -29,6 +30,15 @@ def get_processed_data(tokenizer: MyTokenizer, filename, start_idx):
             obj = {}
 
             code = 'package ' + jsonl['name'] + '\n\n'
+
+            if len(jsonl['subPackages']) > 0:
+                sub_pkg_num += 1
+
+            for sub_pkg in jsonl['subPackages']:
+                code += '// ' + sub_pkg['des'] + '\n'
+                code += 'package ' + jsonl['name'] + \
+                    '.' + sub_pkg['name'] + '\n'
+
             for idx, cls in enumerate(jsonl['classes']):
                 tmp_str = ''
                 tmp_str += '// ' + cls['des'] + '\n'
@@ -44,6 +54,8 @@ def get_processed_data(tokenizer: MyTokenizer, filename, start_idx):
 
             # 忽略总token数大于上限的包
             if not tokenizer.isLegalSource(code):
+                if len(jsonl['subPackages']) > 0:
+                    sub_pkg_num -= 1
                 continue
 
             obj['index'] = index
@@ -54,30 +66,33 @@ def get_processed_data(tokenizer: MyTokenizer, filename, start_idx):
             res.append(obj)
             index += 1
 
-    return res, ignore_pkg_num, ignore_cls_num
+    return res, ignore_pkg_num, ignore_cls_num, sub_pkg_num
 
 
 if __name__ == '__main__':
     res = []
     total_ignore_pkg_num = 0  # 存在省略class的pkg总数
     total_ignore_cls_num = 0  # 被省略的class总数
+    total_sub_pkg_num = 0  # 有子包作为上下文的包总数
 
     tokenizer = MyTokenizer()
 
     for i in range(1, 5):
         filename = './packages_v{}.jsonl'.format(i)
 
-        temp_res, ignore_pkg_num, ignore_cls_num = get_processed_data(
+        temp_res, ignore_pkg_num, ignore_cls_num, sub_pkg_num = get_processed_data(
             tokenizer, filename, len(res))
 
         res.extend(temp_res)
         total_ignore_pkg_num += ignore_pkg_num
         total_ignore_cls_num += ignore_cls_num
+        total_sub_pkg_num += sub_pkg_num
 
     print('\nTotal valid package num: ' + str(len(res)))
     print('Package has ignored class: ' + str(total_ignore_pkg_num))
     print('Ignore class num per ignored package: ' +
           str(total_ignore_cls_num / total_ignore_pkg_num))
+    print('Package has sub package: ' + str(total_sub_pkg_num))
 
     # 打乱顺序
     # random.shuffle(res)
