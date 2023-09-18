@@ -31,11 +31,11 @@ def get_processed_data(tokenizer: MyTokenizer, filename, start_idx):
 
             code = jsonl['signature'] + ' {\n'
             for method in jsonl['methods']:
-                tmp_str = ''
+                tmp_str = '\t' + method['name'] + ';'
                 if method['des'] != '':
-                    tmp_str += '\t// ' + method['des'] + '\n'
+                    tmp_str += ' // ' + method['des']
                     valid_num += 1
-                tmp_str += '\t' + method['name'] + ';\n'
+                tmp_str += '\n'
 
                 # 忽略超出token限制的方法
                 # if not tokenizer.isLegalSource(code + tmp_str):

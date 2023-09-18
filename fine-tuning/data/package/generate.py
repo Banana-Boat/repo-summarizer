@@ -29,20 +29,26 @@ def get_processed_data(tokenizer: MyTokenizer, filename, start_idx):
             jsonl = json.loads(line)
             obj = {}
 
-            code = 'package ' + jsonl['name'] + '\n\n'
+            code = 'package ' + jsonl['name'] + ';\n\n'
 
             if len(jsonl['subPackages']) > 0:
                 sub_pkg_num += 1
 
             for sub_pkg in jsonl['subPackages']:
-                code += '// ' + sub_pkg['des'] + '\n'
-                code += 'package ' + jsonl['name'] + \
-                    '.' + sub_pkg['name'] + '\n'
+                tmp_str = 'package ' + jsonl['name'] + '.' + sub_pkg['name'] + \
+                    '; // ' + sub_pkg['des'] + '\n'
+
+                # 忽略超出字符限制的子包
+                if not tokenizer.isLegalSource(code + tmp_str):
+                    break
+
+                code += tmp_str
 
             for idx, cls in enumerate(jsonl['classes']):
-                tmp_str = ''
-                tmp_str += '// ' + cls['des'] + '\n'
-                tmp_str += cls['signature'] + ';\n'
+                tmp_str = cls['signature'] + ';'
+                if cls['des'] != '':
+                    tmp_str += ' // ' + cls['des']
+                tmp_str += '\n'
 
                 # 忽略超出字符限制的类
                 if not tokenizer.isLegalSource(code + tmp_str):

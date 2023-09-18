@@ -1,6 +1,6 @@
 package com.summarizer;
 
-import ai.djl.huggingface.tokenizers.HuggingFaceTokenizer;
+import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
@@ -14,9 +14,6 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.summarizer.pojo.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,14 +21,17 @@ import java.util.Objects;
 public class JavaRepoParser {
     private static final String BLOCK_PLACEHOLDER = "<BLOCK>";
     private Tokenizer tokenizer;
+    private ParserConfiguration.LanguageLevel languageLevel;
     private Integer nodeCount = 0; // 总节点数
+    private Integer ignoredFileCount = 0; // 忽略的文件数
     private Integer blockCount = 0; // 分割的代码片段数
     private Integer cutCount = 0; // 截断的代码片段数
     private Integer totalCutCharCount = 0; // 总截断的字符数
     public List<String> logs = new ArrayList<>(); // 截断日志
 
-    public JavaRepoParser(Tokenizer tokenizer) {
+    public JavaRepoParser(Tokenizer tokenizer, ParserConfiguration.LanguageLevel languageLevel) {
         this.tokenizer = tokenizer;
+        this.languageLevel = languageLevel;
     }
 
     public JRepo extractRepo(File dir) throws Exception {
@@ -41,7 +41,8 @@ public class JavaRepoParser {
         JPackage jPackage = extractPackage(dir, dir.getName());
 
         logs.add(0,
-                "分割代码片段数：" + blockCount + "\n截断代码片段数：" + cutCount +
+                "被忽略的文件数：" + ignoredFileCount +
+                        "\n分割代码片段数：" + blockCount + "\n截断代码片段数：" + cutCount +
                         "\n不完整节点率：" + (double) cutCount / nodeCount +
                         "\n平均截断token数：" + (double) totalCutCharCount / cutCount);
 
@@ -89,10 +90,15 @@ public class JavaRepoParser {
     /**
      * 提取一个文件中的所有类 / 接口 / 枚举
      */
-    public List<JClass> extractClasses(File file) throws FileNotFoundException {
+    public List<JClass> extractClasses(File file) {
         ArrayList<JClass> classes = new ArrayList<>();
 
+        try {
+            StaticJavaParser.setConfiguration(
+                    new ParserConfiguration().setLanguageLevel(languageLevel)
+            );
             CompilationUnit cu = StaticJavaParser.parse(file);
+
             cu.accept(new VoidVisitorAdapter<Void>() {
                 @Override
                 public void visit(CompilationUnit cu, Void arg) {
@@ -136,6 +142,10 @@ public class JavaRepoParser {
                     }
                 }
             }, null);
+        } catch (Exception e) {
+            logs.add(file.getPath() + " was ignored for:\n" + e.getMessage());
+            ignoredFileCount++;
+        }
 
 
         return classes;

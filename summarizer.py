@@ -3,7 +3,7 @@ from typing import Tuple
 import torch
 from enum import Enum
 from tqdm import tqdm
-from transformers import (AutoTokenizer, RobertaTokenizer, T5Config,
+from transformers import (AutoTokenizer, T5Config,
                           T5ForConditionalGeneration)
 
 
@@ -32,7 +32,7 @@ class Summarizer:
             "name": "Salesforce/codet5-base-multi-sum",
             "max_source_length": 512,
             "max_target_length": 30,
-            "load_state_path": "model/pkg_0913_1718/checkpoint-best-bleu/pytorch_model.bin"
+            "load_state_path": "model/pkg_0917_1057/checkpoint-best-bleu/pytorch_model.bin"
         }
     }
 
@@ -64,6 +64,14 @@ class Summarizer:
             self.model_dict[tag]["tokenizer"] = tokenizer
 
             self.logger.info("Model for {} loaded successfully".format(tag))
+
+    # 判断输入token数是否合法
+    def isLegalSource(self, source, model_tag: MODEL_TAG):
+        model_obj = self.model_dict[model_tag]
+
+        encoded = model_obj['tokenizer'].encode(
+            source, add_special_tokens=True)
+        return len(encoded) <= model_obj['max_source_length']
 
     def summarize_by_llm(self, source: str, model_tag: MODEL_TAG) -> str:
         model_obj = self.model_dict[model_tag]
@@ -136,9 +144,14 @@ class Summarizer:
 
             for method in cls_json["methods"]:
                 method_sum = self.summarize_method(method)
-                if method_sum != "":
-                    source += "\t// " + method_sum + "\n"
-                source += "\t" + method["signature"] + ";\n"
+                tmp_str = "\t" + method["signature"] + \
+                    "; // " + method_sum + "\n"
+
+                # 忽略超出token限制的方法
+                if not self.isLegalSource(source + tmp_str, MODEL_TAG.CLS):
+                    break
+
+                source += tmp_str
 
             source += "}"
 
@@ -157,7 +170,6 @@ class Summarizer:
 
     def summarize_pkg(self, pkg_json) -> dict:
         # TODO:
-        #   将子包也作为摘要生成的上下文；
         #   是否需要设计prompt
 
         # 递归处理子包
@@ -165,21 +177,35 @@ class Summarizer:
         for sub_pkg in pkg_json["subPackages"]:
             sub_pkg_summaries.append(self.summarize_pkg(sub_pkg))
 
-        # 根据包内类生成当前包的摘要
-        source = ""
+        # 根据子包与包内类的摘要生成当前包的摘要
         summarization = ""
-        if len(pkg_json["classes"]) > 0:
-            for idx, cls in enumerate(pkg_json["classes"]):
-                cls_sum = self.summarize_cls(cls)
-                if cls_sum != "":
-                    source += "// " + cls_sum + "\n"
-                source += cls["signature"]
-                if idx != len(pkg_json["classes"]) - 1:
-                    source += "\n"
+        source = 'package ' + pkg_json['name'] + ';\n\n'
 
-            summarization = self.summarize_by_llm(source, MODEL_TAG.PKG)
-        else:
-            summarization = "*** No enough context for summarization ***"
+        for sub_pkg in sub_pkg_summaries:
+            tmp_str = 'package ' + \
+                pkg_json['name'] + '.' + sub_pkg['name'] + \
+                '; // ' + sub_pkg['summarization'] + '\n'
+
+            # 忽略超出字符限制的子包
+            if not self.isLegalSource(source + tmp_str, MODEL_TAG.PKG):
+                break
+
+            source += tmp_str
+
+        for cls in pkg_json["classes"]:
+            tmp_str = ""
+            cls_sum = self.summarize_cls(cls)
+            tmp_str += cls["signature"] + ";"
+            if cls_sum != "":
+                tmp_str += " // " + cls_sum
+            tmp_str += "\n"
+
+            if not self.isLegalSource(source + tmp_str, MODEL_TAG.PKG):
+                break
+
+            source += tmp_str
+
+        summarization = self.summarize_by_llm(source, MODEL_TAG.PKG)
 
         self.sum_logs.append(
             "{}\n{}\n<=\n{}".format("PACKAGE======================================================",

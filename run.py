@@ -54,7 +54,7 @@ if __name__ == "__main__":
     ])
 
     # 利用java-repo-parser解析repo
-    if (0 != parse_repo(repo_path, parse_output_path, parse_log_path)):
+    if (0 != parse_repo(repo_path, tokenizer_path, parse_output_path, parse_log_path)):
         logging.error("Failed to parse repo")
         exit(1)
 
