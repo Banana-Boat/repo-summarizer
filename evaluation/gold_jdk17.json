@@ -1,0 +1,890 @@
+[
+    {
+        "name": "com.sun.jarsigner",
+        "des": "This package comprises the interfaces and classes used to define the signing mechanism used by the jarsigner tool."
+    },
+    {
+        "name": "com.sun.java.accessibility.util",
+        "des": "Provides a collection of interfaces and classes that compose the Java Accessibility Utilities."
+    },
+    {
+        "name": "com.sun.jdi",
+        "des": "This is the core package of the Java Debug Interface (JDI), it defines mirrors for values, types, and the target VirtualMachine itself - as well bootstrapping facilities."
+    },
+    {
+        "name": "com.sun.jdi.connect",
+        "des": "This package defines connections between the virtual machine using the JDI and the target virtual machine."
+    },
+    {
+        "name": "com.sun.jdi.connect.spi",
+        "des": "This package comprises the interfaces and classes used to develop new TransportService implementations."
+    },
+    {
+        "name": "com.sun.jdi.event",
+        "des": "This package defines JDI events and event processing."
+    },
+    {
+        "name": "com.sun.jdi.request",
+        "des": "This package is used to request that a JDI event be sent under specified conditions."
+    },
+    {
+        "name": "com.sun.management",
+        "des": "This package contains the JDK's extension to the standard implementation of the java.lang.management API and also defines the management interface for some other components of the platform."
+    },
+    {
+        "name": "com.sun.net.httpserver",
+        "des": "Provides a simple high-level Http server API, which can be used to build embedded HTTP servers."
+    },
+    {
+        "name": "com.sun.net.httpserver.spi",
+        "des": "Provides a pluggable service provider interface, which allows the HTTP server implementation to be replaced with other implementations."
+    },
+    {
+        "name": "com.sun.nio.sctp",
+        "des": "A Java API for Stream Control Transport Protocol."
+    },
+    {
+        "name": "com.sun.security.auth",
+        "des": "Provides implementations of Principal."
+    },
+    {
+        "name": "com.sun.security.auth.callback",
+        "des": "Provides an implementation of CallbackHandler."
+    },
+    {
+        "name": "com.sun.security.auth.login",
+        "des": "Provides an implementation of Configuration."
+    },
+    {
+        "name": "com.sun.security.auth.module",
+        "des": "Provides implementations of LoginModule."
+    },
+    {
+        "name": "com.sun.security.jgss",
+        "des": "This package defines classes and interfaces for the JDK extensions to the GSS-API."
+    },
+    {
+        "name": "com.sun.source.doctree",
+        "des": "Provides interfaces to represent documentation comments as abstract syntax trees (AST)."
+    },
+    {
+        "name": "com.sun.source.tree",
+        "des": "Provides interfaces to represent source code as abstract syntax trees (AST)."
+    },
+    {
+        "name": "com.sun.source.util",
+        "des": "Provides utilities for operations on abstract syntax trees (AST)."
+    },
+    {
+        "name": "com.sun.tools.attach",
+        "des": "Provides the API to attach to a Java virtual machine."
+    },
+    {
+        "name": "com.sun.tools.attach.spi",
+        "des": "Only developers who are defining new attach providers should need to make direct use of this package."
+    },
+    {
+        "name": "com.sun.tools.javac",
+        "des": "This package provides a legacy entry point for the javac tool."
+    },
+    {
+        "name": "com.sun.tools.jconsole",
+        "des": "This package contains the JConsole API."
+    },
+    {
+        "name": "java.applet",
+        "des": "Provides the classes necessary to create an applet and the classes an applet uses to communicate with its applet context."
+    },
+    {
+        "name": "java.awt",
+        "des": "Contains all of the classes for creating user interfaces and for painting graphics and images."
+    },
+    {
+        "name": "java.awt.color",
+        "des": "Provides classes for color spaces."
+    },
+    {
+        "name": "java.awt.datatransfer",
+        "des": "Provides interfaces and classes for transferring data between and within applications."
+    },
+    {
+        "name": "java.awt.desktop",
+        "des": "Provides interfaces and classes for interaction with various desktop capabilities."
+    },
+    {
+        "name": "java.awt.dnd",
+        "des": "Drag and Drop is a direct manipulation gesture found in many Graphical User Interface systems that provides a mechanism to transfer information between two entities logically associated with presentation elements in the GUI."
+    },
+    {
+        "name": "java.awt.event",
+        "des": "Provides interfaces and classes for dealing with different types of events fired by AWT components."
+    },
+    {
+        "name": "java.awt.font",
+        "des": "Provides classes and interface relating to fonts."
+    },
+    {
+        "name": "java.awt.geom",
+        "des": "Provides the Java 2D classes for defining and performing operations on objects related to two-dimensional geometry."
+    },
+    {
+        "name": "java.awt.im",
+        "des": "Provides classes and interfaces for the input method framework."
+    },
+    {
+        "name": "java.awt.im.spi",
+        "des": "Provides interfaces that enable the development of input methods that can be used with any Java runtime environment."
+    },
+    {
+        "name": "java.awt.image",
+        "des": "Provides classes for creating and modifying images."
+    },
+    {
+        "name": "java.awt.image.renderable",
+        "des": "Provides classes and interfaces for producing rendering-independent images."
+    },
+    {
+        "name": "java.awt.print",
+        "des": "Provides classes and interfaces for a general printing API."
+    },
+    {
+        "name": "java.beans",
+        "des": "Contains classes related to developing beans -- components based on the JavaBeans architecture."
+    },
+    {
+        "name": "java.beans.beancontext",
+        "des": "Provides classes and interfaces relating to bean context."
+    },
+    {
+        "name": "java.io",
+        "des": "Provides for system input and output through data streams, serialization and the file system."
+    },
+    {
+        "name": "java.lang",
+        "des": "Provides classes that are fundamental to the design of the Java programming language."
+    },
+    {
+        "name": "java.lang.annotation",
+        "des": "Provides library support for the Java programming language annotation facility."
+    },
+    {
+        "name": "java.lang.constant",
+        "des": "Classes and interfaces to represent nominal descriptors for run-time entities such as classes or method handles, and classfile entities such as constant pool entries or invokedynamic call sites."
+    },
+    {
+        "name": "java.lang.instrument",
+        "des": "Provides services that allow Java programming language agents to instrument programs running on the JVM."
+    },
+    {
+        "name": "java.lang.invoke",
+        "des": "The java.lang.invoke package provides low-level primitives for interacting with the Java Virtual Machine."
+    },
+    {
+        "name": "java.lang.management",
+        "des": "Provides the management interfaces for monitoring and management of the Java virtual machine and other components in the Java runtime."
+    },
+    {
+        "name": "java.lang.module",
+        "des": "Classes to support module descriptors and creating configurations of modules by means of resolution and service binding."
+    },
+    {
+        "name": "java.lang.ref",
+        "des": "Provides reference-object classes, which support a limited degree of interaction with the garbage collector."
+    },
+    {
+        "name": "java.lang.reflect",
+        "des": "Provides classes and interfaces for obtaining reflective information about classes and objects."
+    },
+    {
+        "name": "java.lang.runtime",
+        "des": "The java.lang.runtime package provides low-level runtime support for the Java language."
+    },
+    {
+        "name": "java.math",
+        "des": "Provides classes for performing arbitrary-precision integer arithmetic (BigInteger) and arbitrary-precision decimal arithmetic (BigDecimal)."
+    },
+    {
+        "name": "java.net",
+        "des": "Provides the classes for implementing networking applications."
+    },
+    {
+        "name": "java.net.http",
+        "des": "HTTP Client and WebSocket APIs"
+    },
+    {
+        "name": "java.net.spi",
+        "des": "Service-provider classes for the java.net package."
+    },
+    {
+        "name": "java.nio",
+        "des": "Defines buffers, which are containers for data, and provides an overview of the other NIO packages."
+    },
+    {
+        "name": "java.nio.channels",
+        "des": "Defines channels, which represent connections to entities that are capable of performing I/O operations, such as files and sockets; defines selectors, for multiplexed, non-blocking I/O operations."
+    },
+    {
+        "name": "java.nio.channels.spi",
+        "des": "Service-provider classes for the java.nio.channels package."
+    },
+    {
+        "name": "java.nio.charset",
+        "des": "Defines charsets, decoders, and encoders, for translating between bytes and Unicode characters."
+    },
+    {
+        "name": "java.nio.charset.spi",
+        "des": "Service-provider classes for the java.nio.charset package."
+    },
+    {
+        "name": "java.nio.file",
+        "des": "Defines interfaces and classes for the Java virtual machine to access files, file attributes, and file systems."
+    },
+    {
+        "name": "java.nio.file.attribute",
+        "des": "Interfaces and classes providing access to file and file system attributes."
+    },
+    {
+        "name": "java.nio.file.spi",
+        "des": "Service-provider classes for the java.nio.file package."
+    },
+    {
+        "name": "java.rmi",
+        "des": "Provides the RMI package."
+    },
+    {
+        "name": "java.rmi.dgc",
+        "des": "Provides classes and interface for RMI distributed garbage-collection (DGC)."
+    },
+    {
+        "name": "java.rmi.registry",
+        "des": "Provides a class and two interfaces for the RMI registry."
+    },
+    {
+        "name": "java.rmi.server",
+        "des": "Provides classes and interfaces for supporting the server side of RMI."
+    },
+    {
+        "name": "java.security",
+        "des": "Provides the classes and interfaces for the security framework."
+    },
+    {
+        "name": "java.security.cert",
+        "des": "Provides classes and interfaces for parsing and managing certificates, certificate revocation lists (CRLs), and certification paths."
+    },
+    {
+        "name": "java.security.interfaces",
+        "des": "Provides interfaces for generating RSA (Rivest, Shamir and Adleman AsymmetricCipher algorithm) keys as defined in the RSA Laboratory Technical Note PKCS#1, and DSA (Digital Signature Algorithm) keys as defined in NIST's FIPS-186."
+    },
+    {
+        "name": "java.security.spec",
+        "des": "Provides classes and interfaces for key specifications and algorithm parameter specifications."
+    },
+    {
+        "name": "java.sql",
+        "des": "Provides the API for accessing and processing data stored in a data source (usually a relational database) using the Java programming language."
+    },
+    {
+        "name": "java.text",
+        "des": "Provides classes and interfaces for handling text, dates, numbers, and messages in a manner independent of natural languages."
+    },
+    {
+        "name": "java.text.spi",
+        "des": "Service provider classes for the classes in the java.text package."
+    },
+    {
+        "name": "java.time",
+        "des": "The main API for dates, times, instants, and durations."
+    },
+    {
+        "name": "java.time.chrono",
+        "des": "Generic API for calendar systems other than the default ISO."
+    },
+    {
+        "name": "java.time.format",
+        "des": "Provides classes to print and parse dates and times."
+    },
+    {
+        "name": "java.time.temporal",
+        "des": "Access to date and time using fields and units, and date time adjusters."
+    },
+    {
+        "name": "java.time.zone",
+        "des": "Support for time-zones and their rules."
+    },
+    {
+        "name": "java.util",
+        "des": "Contains the collections framework, some internationalization support classes, a service loader, properties, random number generation, string parsing and scanning classes, base64 encoding and decoding, a bit array, and several miscellaneous utility classes."
+    },
+    {
+        "name": "java.util.concurrent",
+        "des": "Utility classes commonly useful in concurrent programming."
+    },
+    {
+        "name": "java.util.concurrent.atomic",
+        "des": "A small toolkit of classes that support lock-free thread-safe programming on single variables."
+    },
+    {
+        "name": "java.util.concurrent.locks",
+        "des": "Interfaces and classes providing a framework for locking and waiting for conditions that is distinct from built-in synchronization and monitors."
+    },
+    {
+        "name": "java.util.function",
+        "des": "Functional interfaces provide target types for lambda expressions and method references."
+    },
+    {
+        "name": "java.util.jar",
+        "des": "Provides classes for reading and writing the JAR (Java ARchive) file format, which is based on the standard ZIP file format with an optional manifest file."
+    },
+    {
+        "name": "java.util.logging",
+        "des": "Provides the classes and interfaces of the Java 2 platform's core logging facilities."
+    },
+    {
+        "name": "java.util.prefs",
+        "des": "This package allows applications to store and retrieve user and system preference and configuration data."
+    },
+    {
+        "name": "java.util.random",
+        "des": "This package contains classes and interfaces that support a generic API for random number generation."
+    },
+    {
+        "name": "java.util.regex",
+        "des": "Classes for matching character sequences against patterns specified by regular expressions."
+    },
+    {
+        "name": "java.util.spi",
+        "des": "Service provider classes for the classes in the java.util package."
+    },
+    {
+        "name": "java.util.stream",
+        "des": "Classes to support functional-style operations on streams of elements, such as map-reduce transformations on collections."
+    },
+    {
+        "name": "java.util.zip",
+        "des": "Provides classes for reading and writing the standard ZIP and GZIP file formats."
+    },
+    {
+        "name": "javax.accessibility",
+        "des": "Defines a contract between user-interface components and an assistive technology that provides access to those components."
+    },
+    {
+        "name": "javax.annotation.processing",
+        "des": "Facilities for declaring annotation processors and for allowing annotation processors to communicate with an annotation processing tool environment."
+    },
+    {
+        "name": "javax.crypto",
+        "des": "Provides the classes and interfaces for cryptographic operations."
+    },
+    {
+        "name": "javax.crypto.interfaces",
+        "des": "Provides interfaces for Diffie-Hellman keys as defined in RSA Laboratories' PKCS #3."
+    },
+    {
+        "name": "javax.crypto.spec",
+        "des": "Provides classes and interfaces for key specifications and algorithm parameter specifications."
+    },
+    {
+        "name": "javax.imageio",
+        "des": "The main package of the Java Image I/O API."
+    },
+    {
+        "name": "javax.imageio.event",
+        "des": "A package of the Java Image I/O API dealing with synchronous notification of events during the reading and writing of images."
+    },
+    {
+        "name": "javax.imageio.metadata",
+        "des": "A package of the Java Image I/O API dealing with reading and writing metadata."
+    },
+    {
+        "name": "javax.imageio.plugins.bmp",
+        "des": "Package containing the public classes used by the built-in BMP plug-in."
+    },
+    {
+        "name": "javax.imageio.plugins.jpeg",
+        "des": "Classes supporting the built-in JPEG plug-in."
+    },
+    {
+        "name": "javax.imageio.plugins.tiff",
+        "des": "Public classes used by the built-in TIFF plug-ins."
+    },
+    {
+        "name": "javax.imageio.spi",
+        "des": "A package of the Java Image I/O API containing the plug-in interfaces for readers, writers, transcoders, and streams, and a runtime registry."
+    },
+    {
+        "name": "javax.imageio.stream",
+        "des": "A package of the Java Image I/O API dealing with low-level I/O from files and streams."
+    },
+    {
+        "name": "javax.lang.model",
+        "des": "Types and hierarchies of packages comprising a Java language model, a model of the declarations and types of the Java programming language."
+    },
+    {
+        "name": "javax.lang.model.element",
+        "des": "Interfaces used to model elements of the Java programming language."
+    },
+    {
+        "name": "javax.lang.model.type",
+        "des": "Interfaces used to model Java programming language types."
+    },
+    {
+        "name": "javax.lang.model.util",
+        "des": "Utilities to assist in the processing of program elements and types."
+    },
+    {
+        "name": "javax.management",
+        "des": "Provides the core classes for the Java Management Extensions."
+    },
+    {
+        "name": "javax.management.loading",
+        "des": "Provides the classes which implement advanced dynamic loading."
+    },
+    {
+        "name": "javax.management.modelmbean",
+        "des": "Provides the definition of the ModelMBean classes."
+    },
+    {
+        "name": "javax.management.monitor",
+        "des": "Provides the definition of the monitor classes."
+    },
+    {
+        "name": "javax.management.openmbean",
+        "des": "Provides the open data types and Open MBean descriptor classes."
+    },
+    {
+        "name": "javax.management.relation",
+        "des": "Provides the definition of the Relation Service."
+    },
+    {
+        "name": "javax.management.remote",
+        "des": "Interfaces for remote access to JMX MBean servers."
+    },
+    {
+        "name": "javax.management.remote.rmi",
+        "des": "The RMI connector is a connector for the JMX Remote API that uses RMI to transmit client requests to a remote MBean server."
+    },
+    {
+        "name": "javax.management.timer",
+        "des": "Provides the definition of the Timer MBean."
+    },
+    {
+        "name": "javax.naming",
+        "des": "Provides the classes and interfaces for accessing naming services."
+    },
+    {
+        "name": "javax.naming.directory",
+        "des": "Extends the javax.naming package to provide functionality for accessing directory services."
+    },
+    {
+        "name": "javax.naming.event",
+        "des": "Provides support for event notification when accessing naming and directory services."
+    },
+    {
+        "name": "javax.naming.ldap",
+        "des": "Provides support for LDAPv3 extended operations and controls."
+    },
+    {
+        "name": "javax.naming.spi",
+        "des": "Provides the means for dynamically plugging in support for accessing naming and directory services through the javax.naming and related packages."
+    },
+    {
+        "name": "javax.net",
+        "des": "Provides classes for networking applications."
+    },
+    {
+        "name": "javax.net.ssl",
+        "des": "Provides classes for the secure socket package."
+    },
+    {
+        "name": "javax.print",
+        "des": "Provides the principal classes and interfaces for the Java Print Service API."
+    },
+    {
+        "name": "javax.print.attribute",
+        "des": "Provides classes and interfaces that describe the types of Java Print Service attributes and how they can be collected into attribute sets."
+    },
+    {
+        "name": "javax.print.attribute.standard",
+        "des": "Package javax.print.attribute.standard contains classes for specific printing attributes."
+    },
+    {
+        "name": "javax.print.event",
+        "des": "Package javax.print.event contains event classes and listener interfaces."
+    },
+    {
+        "name": "javax.rmi.ssl",
+        "des": "Provides implementations of RMIClientSocketFactory and RMIServerSocketFactory over the Secure Sockets Layer (SSL) or Transport Layer Security (TLS) protocols."
+    },
+    {
+        "name": "javax.script",
+        "des": "The scripting API consists of interfaces and classes that define Java Scripting Engines and provides a framework for their use in Java applications."
+    },
+    {
+        "name": "javax.security.auth",
+        "des": "This package provides a framework for authentication and authorization."
+    },
+    {
+        "name": "javax.security.auth.callback",
+        "des": "This package provides the classes necessary for services to interact with applications in order to retrieve information (authentication data including usernames or passwords, for example) or to display information (error and warning messages, for example)."
+    },
+    {
+        "name": "javax.security.auth.kerberos",
+        "des": "This package contains utility classes related to the Kerberos network authentication protocol."
+    },
+    {
+        "name": "javax.security.auth.login",
+        "des": "This package provides a pluggable authentication framework."
+    },
+    {
+        "name": "javax.security.auth.spi",
+        "des": "This package provides the interface to be used for implementing pluggable authentication modules."
+    },
+    {
+        "name": "javax.security.auth.x500",
+        "des": "This package contains the classes that should be used to store X500 Principal and X500 Private Credentials in a Subject."
+    },
+    {
+        "name": "javax.security.cert",
+        "des": "Provides classes for public key certificates."
+    },
+    {
+        "name": "javax.security.sasl",
+        "des": "Contains class and interfaces for supporting SASL."
+    },
+    {
+        "name": "javax.smartcardio",
+        "des": "Java™ Smart Card I/O API."
+    },
+    {
+        "name": "javax.sound.midi",
+        "des": "Provides interfaces and classes for I/O, sequencing, and synthesis of MIDI (Musical Instrument Digital Interface) data."
+    },
+    {
+        "name": "javax.sound.midi.spi",
+        "des": "Supplies interfaces for service providers to implement when offering new MIDI devices, MIDI file readers and writers, or sound bank readers."
+    },
+    {
+        "name": "javax.sound.sampled",
+        "des": "Provides interfaces and classes for capture, processing, and playback of sampled audio data."
+    },
+    {
+        "name": "javax.sound.sampled.spi",
+        "des": "Supplies abstract classes for service providers to subclass when offering new audio devices, sound file readers and writers, or audio format converters."
+    },
+    {
+        "name": "javax.sql",
+        "des": "Provides the API for server side data source access and processing from the Java programming language."
+    },
+    {
+        "name": "javax.sql.rowset",
+        "des": "Standard interfaces and base classes for JDBC RowSet implementations."
+    },
+    {
+        "name": "javax.sql.rowset.serial",
+        "des": "Provides utility classes to allow serializable mappings between SQL types and data types in the Java programming language."
+    },
+    {
+        "name": "javax.sql.rowset.spi",
+        "des": "The standard classes and interfaces that a third party vendor has to use in its implementation of a synchronization provider."
+    },
+    {
+        "name": "javax.swing",
+        "des": "Provides a set of \"lightweight\" (all-Java language) components that, to the maximum degree possible, work the same on all platforms."
+    },
+    {
+        "name": "javax.swing.border",
+        "des": "Provides classes and interface for drawing specialized borders around a Swing component."
+    },
+    {
+        "name": "javax.swing.colorchooser",
+        "des": "Contains classes and interfaces used by the JColorChooser component."
+    },
+    {
+        "name": "javax.swing.event",
+        "des": "Provides for events fired by Swing components."
+    },
+    {
+        "name": "javax.swing.filechooser",
+        "des": "Contains classes and interfaces used by the JFileChooser component."
+    },
+    {
+        "name": "javax.swing.plaf",
+        "des": "Provides one interface and many abstract classes that Swing uses to provide its pluggable look-and-feel capabilities."
+    },
+    {
+        "name": "javax.swing.plaf.basic",
+        "des": "Provides user interface objects built according to the Basic look and feel."
+    },
+    {
+        "name": "javax.swing.plaf.metal",
+        "des": "Provides user interface objects built according to the Java look and feel (once codenamed Metal), which is the default look and feel."
+    },
+    {
+        "name": "javax.swing.plaf.multi",
+        "des": "Provides user interface objects that combine two or more look and feels."
+    },
+    {
+        "name": "javax.swing.plaf.nimbus",
+        "des": "Provides user interface objects built according to the cross-platform Nimbus look and feel."
+    },
+    {
+        "name": "javax.swing.plaf.synth",
+        "des": "Synth is a skinnable look and feel in which all painting is delegated."
+    },
+    {
+        "name": "javax.swing.table",
+        "des": "Provides classes and interfaces for dealing with javax.swing.JTable."
+    },
+    {
+        "name": "javax.swing.text",
+        "des": "Provides classes and interfaces that deal with editable and noneditable text components."
+    },
+    {
+        "name": "javax.swing.text.html",
+        "des": "Provides the class HTMLEditorKit and supporting classes for creating HTML text editors."
+    },
+    {
+        "name": "javax.swing.text.html.parser",
+        "des": "Provides the default HTML parser, along with support classes."
+    },
+    {
+        "name": "javax.swing.text.rtf",
+        "des": "Provides a class (RTFEditorKit) for creating Rich-Text-Format text editors."
+    },
+    {
+        "name": "javax.swing.tree",
+        "des": "Provides classes and interfaces for dealing with javax.swing.JTree."
+    },
+    {
+        "name": "javax.swing.undo",
+        "des": "Allows developers to provide support for undo/redo in applications such as text editors."
+    },
+    {
+        "name": "javax.tools",
+        "des": "Provides interfaces for tools which can be invoked from a program, for example, compilers."
+    },
+    {
+        "name": "javax.transaction.xa",
+        "des": "Provides the API that defines the contract between the transaction manager and the resource manager, which allows the transaction manager to enlist and delist resource objects (supplied by the resource manager driver) in JTA transactions."
+    },
+    {
+        "name": "javax.xml",
+        "des": "Defines constants for XML processing."
+    },
+    {
+        "name": "javax.xml.catalog",
+        "des": "Provides the classes for implementing XML Catalogs OASIS Standard V1.1, 7 October 2005."
+    },
+    {
+        "name": "javax.xml.crypto",
+        "des": "Common classes for XML cryptography."
+    },
+    {
+        "name": "javax.xml.crypto.dom",
+        "des": "DOM-specific classes for the javax.xml.crypto package."
+    },
+    {
+        "name": "javax.xml.crypto.dsig",
+        "des": "Classes for generating and validating XML digital signatures."
+    },
+    {
+        "name": "javax.xml.crypto.dsig.dom",
+        "des": "DOM-specific classes for the javax.xml.crypto.dsig package."
+    },
+    {
+        "name": "javax.xml.crypto.dsig.keyinfo",
+        "des": "Classes for parsing and processing KeyInfo elements and structures."
+    },
+    {
+        "name": "javax.xml.crypto.dsig.spec",
+        "des": "Parameter classes for XML digital signatures."
+    },
+    {
+        "name": "javax.xml.datatype",
+        "des": "Defines XML/Java Type Mappings."
+    },
+    {
+        "name": "javax.xml.namespace",
+        "des": "Defines XML Namespace processing."
+    },
+    {
+        "name": "javax.xml.parsers",
+        "des": "Provides the classes for processing XML documents with a SAX (Simple API for XML) parser or a DOM (Document Object Model) Document builder."
+    },
+    {
+        "name": "javax.xml.stream",
+        "des": "Defines interfaces and classes for the Streaming API for XML (StAX)."
+    },
+    {
+        "name": "javax.xml.stream.events",
+        "des": "Defines event interfaces for the Streaming API for XML (StAX)."
+    },
+    {
+        "name": "javax.xml.stream.util",
+        "des": "Provides utility classes for the Streaming API for XML (StAX)."
+    },
+    {
+        "name": "javax.xml.transform",
+        "des": "Defines the generic APIs for processing transformation instructions, and performing a transformation from source to result."
+    },
+    {
+        "name": "javax.xml.transform.dom",
+        "des": "Provides DOM specific transformation classes."
+    },
+    {
+        "name": "javax.xml.transform.sax",
+        "des": "Provides SAX specific transformation classes."
+    },
+    {
+        "name": "javax.xml.transform.stax",
+        "des": "Provides StAX specific transformation classes."
+    },
+    {
+        "name": "javax.xml.transform.stream",
+        "des": "Provides stream and URI specific transformation classes."
+    },
+    {
+        "name": "javax.xml.validation",
+        "des": "Provides an API for validation of XML documents."
+    },
+    {
+        "name": "javax.xml.xpath",
+        "des": "Provides an object-model neutral API for the evaluation of XPath expressions and access to the evaluation environment."
+    },
+    {
+        "name": "jdk.dynalink",
+        "des": "Contains interfaces and classes that are used to link an invokedynamic call site."
+    },
+    {
+        "name": "jdk.dynalink.beans",
+        "des": "Contains the linker for ordinary Java objects."
+    },
+    {
+        "name": "jdk.dynalink.linker",
+        "des": "Contains interfaces and classes needed by language runtimes to implement their own language-specific object models and type conversions."
+    },
+    {
+        "name": "jdk.dynalink.linker.support",
+        "des": "Contains classes that make it more convenient for language runtimes to implement their own language-specific object models and type conversions by providing basic implementations of some classes as well as various utilities."
+    },
+    {
+        "name": "jdk.dynalink.support",
+        "des": "Contains classes that make using Dynalink more convenient by providing basic implementations of some classes as well as various utilities."
+    },
+    {
+        "name": "jdk.incubator.foreign",
+        "des": "Classes to support low-level and efficient foreign memory/function access, directly from Java."
+    },
+    {
+        "name": "jdk.incubator.vector",
+        "des": "Incubating Feature. Will be removed in a future release."
+    },
+    {
+        "name": "jdk.javadoc.doclet",
+        "des": "The Doclet API provides an environment which, in conjunction with the Language Model API and Compiler Tree API, allows clients to inspect the source-level structures of programs and libraries, including API comments embedded in the source."
+    },
+    {
+        "name": "jdk.jfr",
+        "des": "This package provides classes to create events and control Flight Recorder."
+    },
+    {
+        "name": "jdk.jfr.consumer",
+        "des": "This package contains classes for consuming Flight Recorder data."
+    },
+    {
+        "name": "jdk.jshell",
+        "des": "Provides interfaces for creating tools, such as a Read-Eval-Print Loop (REPL), which interactively evaluate \"snippets\" of Java programming language code."
+    },
+    {
+        "name": "jdk.jshell.execution",
+        "des": "Provides implementation support for building JShell execution engines."
+    },
+    {
+        "name": "jdk.jshell.spi",
+        "des": "Defines the Service Provider Interface for pluggable JShell execution engines."
+    },
+    {
+        "name": "jdk.jshell.tool",
+        "des": "Provides a mechanism to launch an instance of a Java shell tool."
+    },
+    {
+        "name": "jdk.management.jfr",
+        "des": "This package contains classes to control and monitor Flight Recorder over Java Management Extensions (JMX)."
+    },
+    {
+        "name": "jdk.net",
+        "des": "Platform specific socket options for the java.net and java.nio.channels socket classes."
+    },
+    {
+        "name": "jdk.nio",
+        "des": "Defines JDK-specific channel APIs."
+    },
+    {
+        "name": "jdk.security.jarsigner",
+        "des": "This package defines APIs for signing jar files."
+    },
+    {
+        "name": "netscape.javascript",
+        "des": "Provides Java code the ability to access the JavaScript engine and the HTML DOM in the web browser."
+    },
+    {
+        "name": "org.ietf.jgss",
+        "des": "This package presents a framework that allows application developers to make use of security services like authentication, data integrity and data confidentiality from a variety of underlying security mechanisms like Kerberos, using a unified API."
+    },
+    {
+        "name": "org.w3c.dom",
+        "des": "Provides the interfaces for the Document Object Model (DOM)."
+    },
+    {
+        "name": "org.w3c.dom.bootstrap",
+        "des": "Provides a factory for obtaining instances of DOMImplementation."
+    },
+    {
+        "name": "org.w3c.dom.css",
+        "des": "Provides interfaces for DOM Level 2 Style Specification."
+    },
+    {
+        "name": "org.w3c.dom.events",
+        "des": "Provides interfaces for DOM Level 2 Events."
+    },
+    {
+        "name": "org.w3c.dom.html",
+        "des": "Provides interfaces for DOM Level 2 HTML Specification."
+    },
+    {
+        "name": "org.w3c.dom.ls",
+        "des": "Provides interfaces for DOM Level 3 Load and Save."
+    },
+    {
+        "name": "org.w3c.dom.ranges",
+        "des": "Provides interfaces for DOM Level 2 Range."
+    },
+    {
+        "name": "org.w3c.dom.stylesheets",
+        "des": "Provides interfaces for DOM Level 2 Style Specification."
+    },
+    {
+        "name": "org.w3c.dom.traversal",
+        "des": "Provides interfaces for DOM Level 2 Traversal."
+    },
+    {
+        "name": "org.w3c.dom.views",
+        "des": "Provides interfaces for DOM Level 2 Views."
+    },
+    {
+        "name": "org.w3c.dom.xpath",
+        "des": "Provides interfaces for DOM Level 3 XPath Specification."
+    },
+    {
+        "name": "org.xml.sax",
+        "des": "Provides the interfaces for the Simple API for XML (SAX)."
+    },
+    {
+        "name": "org.xml.sax.ext",
+        "des": "Provides interfaces to SAX2 facilities that conformant SAX drivers won't necessarily support."
+    },
+    {
+        "name": "org.xml.sax.helpers",
+        "des": "Provides helper classes, including support for bootstrapping SAX-based applications."
+    }
+]

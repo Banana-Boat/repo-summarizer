@@ -15,10 +15,11 @@ java-repo-parser/*.json
 
 evaluation/javadocs/
 evaluation/tmp/
+evaluation/out/
 
 repo/
 
-tmp/
+result/
 
 model/
 ################################################

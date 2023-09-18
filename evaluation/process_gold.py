@@ -11,18 +11,15 @@ def formatText(text):
 
 
 if __name__ == '__main__':
-    repo_name = 'base'
-
     file_path = os.path.abspath(
-        './javadocs/jdk-17.0.8/api/java.{}/module-summary.html'.format(repo_name))
+        './javadocs/jdk-17.0.8/api/allpackages-index.html')
 
     packages = []
 
     allclasses_soup = BeautifulSoup(
         open(os.path.join(file_path), "r", encoding='utf-8'), 'html.parser')
 
-    pkg_summary_tables = allclasses_soup.find(
-        'div', id='package-summary-table').find('div', class_='summary-table')
+    pkg_summary_tables = allclasses_soup.find('div', class_='summary-table')
 
     for div in pkg_summary_tables.find_all('div', class_='table-header'):
         div.decompose()
@@ -43,5 +40,5 @@ if __name__ == '__main__':
             'des': pkg_des
         })
 
-    with open('./tmp/gold_{}.json'.format(repo_name), 'w', encoding='utf-8') as f:
+    with open('./gold_jdk17.json', 'w', encoding='utf-8') as f:
         f.write(json.dumps(packages, ensure_ascii=False))

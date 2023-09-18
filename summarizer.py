@@ -13,6 +13,9 @@ class MODEL_TAG(Enum):
     PKG = "PKG"
 
 
+NO_SUMMARY = "*** No enough context for summarization ***"
+
+
 class Summarizer:
     sum_logs = []
 
@@ -32,7 +35,7 @@ class Summarizer:
             "name": "Salesforce/codet5-base-multi-sum",
             "max_source_length": 512,
             "max_target_length": 30,
-            "load_state_path": "model/pkg_0917_1057/checkpoint-best-bleu/pytorch_model.bin"
+            "load_state_path": "model/pkg_0918_1328/checkpoint-best-bleu/pytorch_model.bin"
         }
     }
 
@@ -169,8 +172,7 @@ class Summarizer:
         return summarization
 
     def summarize_pkg(self, pkg_json) -> dict:
-        # TODO:
-        #   是否需要设计prompt
+        valid_context_num = 0  # 有效的上下文信息数量
 
         # 递归处理子包
         sub_pkg_summaries = []
@@ -182,6 +184,9 @@ class Summarizer:
         source = 'package ' + pkg_json['name'] + ';\n\n'
 
         for sub_pkg in sub_pkg_summaries:
+            if sub_pkg['summarization'] == NO_SUMMARY:
+                continue
+
             tmp_str = 'package ' + \
                 pkg_json['name'] + '.' + sub_pkg['name'] + \
                 '; // ' + sub_pkg['summarization'] + '\n'
@@ -190,6 +195,7 @@ class Summarizer:
             if not self.isLegalSource(source + tmp_str, MODEL_TAG.PKG):
                 break
 
+            valid_context_num += 1
             source += tmp_str
 
         for cls in pkg_json["classes"]:
@@ -203,9 +209,13 @@ class Summarizer:
             if not self.isLegalSource(source + tmp_str, MODEL_TAG.PKG):
                 break
 
+            valid_context_num += 1
             source += tmp_str
 
-        summarization = self.summarize_by_llm(source, MODEL_TAG.PKG)
+        if valid_context_num == 0:
+            summarization = NO_SUMMARY
+        else:
+            summarization = self.summarize_by_llm(source, MODEL_TAG.PKG)
 
         self.sum_logs.append(
             "{}\n{}\n<=\n{}".format("PACKAGE======================================================",

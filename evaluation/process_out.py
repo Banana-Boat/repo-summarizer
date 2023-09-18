@@ -20,10 +20,10 @@ if __name__ == '__main__':
     pkgs = []
     flattened_pkgs = []
 
-    with open("../tmp/sum_out_{}.json".format(repo_name), mode="r") as f_input:
+    with open("../result/sum_out_{}.json".format(repo_name), mode="r") as f_input:
         pkgs = json.load(f_input)
 
     flattened_pkgs = flatten_pkgs([pkgs])
 
-    with open('./tmp/out_{}.json'.format(repo_name), mode='w') as f_output:
+    with open('./out/out_{}.json'.format(repo_name), mode='w') as f_output:
         json.dump(flattened_pkgs, f_output, indent=4)
