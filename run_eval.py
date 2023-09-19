@@ -27,18 +27,19 @@ if __name__ == "__main__":
     result_root_path = "./result"
     tokenizer_path = "./tokenizer.json"
 
-    # 清空result目录中的内容
-    os.system("rm -rf {}/*".format(result_root_path))
-
     # 创建 Logger
     logger = create_logger()
 
     # 创建 Summarizer
     summarizer = Summarizer(logger)
 
-    dirs = os.listdir(repo_root_path)
+    # 处理result目录
+    if not os.path.exists(result_root_path):
+        os.mkdir(result_root_path)
+    else:
+        os.system("rm -rf {}/*".format(result_root_path))
 
-    for dir in tqdm(dirs, desc="Processing modules..."):
+    for dir in tqdm(os.listdir(repo_root_path), desc="Processing modules..."):
         os.mkdir(os.path.join(result_root_path, dir))
 
         for sub_dir in os.listdir(os.path.join(repo_root_path, dir)):
