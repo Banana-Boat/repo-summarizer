@@ -14,8 +14,6 @@ java-repo-parser/repo/
 java-repo-parser/*.json
 
 evaluation/javadocs/
-evaluation/tmp/
-evaluation/out/
 
 repo/
 

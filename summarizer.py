@@ -142,11 +142,12 @@ class Summarizer:
     def summarize_cls(self, cls_json) -> str:
         source = cls_json["signature"]
         summarization = ""
+        ignore_log = ""
 
         if len(cls_json["methods"]) > 0:
             source += " {\n"
 
-            for method in cls_json["methods"]:
+            for idx, method in enumerate(cls_json["methods"]):
                 method_sum = self.summarize_method(method)
                 tmp_str = "\t" + method["signature"] + \
                     "; // " + method_sum + "\n"
@@ -154,6 +155,9 @@ class Summarizer:
                 # 忽略超出token限制的方法
                 if not self.isLegalSource(source + tmp_str, MODEL_TAG.CLS):
                     # 由于省略了一些节点，进度条更新可能存在问题
+
+                    ignore_log += "\nNumber of ignored method: " + \
+                        str(len(cls_json["methods"]) - 1 - idx)
                     break
 
                 source += tmp_str
@@ -163,7 +167,7 @@ class Summarizer:
             summarization = self.summarize_by_llm(source, MODEL_TAG.CLS)
             self.sum_logs.append(
                 "{}\n{}\n<=\n{}".format("CLASS======================================================",
-                                        summarization, source))
+                                        summarization, source) + ignore_log)
         else:
             self.sum_logs.append(
                 "{}\n{}\n<=\n{}".format("CLASS======================================================",
@@ -183,9 +187,10 @@ class Summarizer:
 
         # 根据子包与包内类的摘要生成当前包的摘要
         summarization = ""
+        ignore_log = ""
         source = 'package ' + pkg_json['name'] + ';\n\n'
 
-        for sub_pkg in sub_pkg_summaries:
+        for idx, sub_pkg in enumerate(sub_pkg_summaries):
             if sub_pkg['summarization'] == NO_SUMMARY:
                 continue
 
@@ -195,12 +200,14 @@ class Summarizer:
 
             # 忽略超出字符限制的子包
             if not self.isLegalSource(source + tmp_str, MODEL_TAG.PKG):
+                ignore_log += "\nNumber of ignored sub-package: " + \
+                    str(len(sub_pkg_summaries) - 1 - idx)
                 break
 
             valid_context_num += 1
             source += tmp_str
 
-        for cls in pkg_json["classes"]:
+        for idx, cls in enumerate(pkg_json["classes"]):
             tmp_str = ""
             cls_sum = self.summarize_cls(cls)
             tmp_str += cls["signature"] + ";"
@@ -210,6 +217,9 @@ class Summarizer:
 
             if not self.isLegalSource(source + tmp_str, MODEL_TAG.PKG):
                 # 由于省略了一些节点，进度条更新可能存在问题
+
+                ignore_log += "\nNumber of ignored class: " + \
+                    str(len(pkg_json["classes"]) - 1 - idx)
                 break
 
             valid_context_num += 1
@@ -220,9 +230,8 @@ class Summarizer:
         else:
             summarization = self.summarize_by_llm(source, MODEL_TAG.PKG)
 
-        self.sum_logs.append(
-            "{}\n{}\n<=\n{}".format("PACKAGE======================================================",
-                                    summarization, source))
+        self.sum_logs.append("{}\n{}\n<=\n{}".format("PACKAGE======================================================",
+                                                     summarization, source) + ignore_log)
         self.pbar.update(1)
 
         return {
