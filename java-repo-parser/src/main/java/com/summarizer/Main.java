@@ -56,7 +56,6 @@ public class Main implements Runnable {
         try (FileWriter fw = new FileWriter(outputPath)) {
             String json = JSON.toJSONString(parser.extractRepo(dir));
             fw.write(json);
-            logger.info("JavaRepoParser: Result file was written to " + outputPath);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
@@ -68,7 +67,6 @@ public class Main implements Runnable {
             for (String log : parser.logs) {
                 fw.write(log + "\n==================================================================\n");
             }
-            logger.info("JavaRepoParser: Log file was written to " + logPath);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);

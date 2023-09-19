@@ -126,7 +126,8 @@ class Summarizer:
         # 按顺序对code_snippet进行摘要，替换source中的<BLOCK>
         for code_snippet in method_json["codeSnippets"]:
             code_snippet_sum = self.summarize_code_snippet(code_snippet)
-            source = source.replace("<BLOCK>", "// " + code_snippet_sum, 1)
+            source = source.replace(
+                "<BLOCK>", "// " + code_snippet_sum + '\n', 1)
 
         summarization = self.summarize_by_llm(source, MODEL_TAG.CODE)
 
@@ -152,6 +153,7 @@ class Summarizer:
 
                 # 忽略超出token限制的方法
                 if not self.isLegalSource(source + tmp_str, MODEL_TAG.CLS):
+                    # 由于省略了一些节点，进度条更新可能存在问题
                     break
 
                 source += tmp_str
@@ -207,6 +209,7 @@ class Summarizer:
             tmp_str += "\n"
 
             if not self.isLegalSource(source + tmp_str, MODEL_TAG.PKG):
+                # 由于省略了一些节点，进度条更新可能存在问题
                 break
 
             valid_context_num += 1
@@ -230,7 +233,8 @@ class Summarizer:
 
     def summarize_repo(self, repo_json) -> Tuple[list, dict]:
         with tqdm(total=repo_json['nodeCount']) as pbar:
-            pbar.set_description("Summarizing repo...")
+            pbar.set_description("Summarizing repo({})".format(
+                repo_json['mainPackage']['path']))
             self.pbar = pbar
 
             return self.sum_logs, self.summarize_pkg(repo_json['mainPackage'])

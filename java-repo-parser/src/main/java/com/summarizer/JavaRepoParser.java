@@ -44,7 +44,7 @@ public class JavaRepoParser {
                 "被忽略的文件数：" + ignoredFileCount +
                         "\n分割代码片段数：" + blockCount + "\n截断代码片段数：" + cutCount +
                         "\n不完整节点率：" + (double) cutCount / nodeCount +
-                        "\n平均截断token数：" + (double) totalCutCharCount / cutCount);
+                        "\n平均截断token数：" + (cutCount != 0 ? (double) totalCutCharCount / cutCount : "/"));
 
         return new JRepo(
                 jPackage,
