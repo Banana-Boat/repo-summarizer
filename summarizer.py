@@ -157,7 +157,7 @@ class Summarizer:
                     # 由于省略了一些节点，进度条更新可能存在问题
 
                     ignore_log += "\nNumber of ignored method: " + \
-                        str(len(cls_json["methods"]) - 1 - idx)
+                        str(len(cls_json["methods"]) - idx)
                     break
 
                 source += tmp_str
@@ -201,7 +201,7 @@ class Summarizer:
             # 忽略超出字符限制的子包
             if not self.isLegalSource(source + tmp_str, MODEL_TAG.PKG):
                 ignore_log += "\nNumber of ignored sub-package: " + \
-                    str(len(sub_pkg_summaries) - 1 - idx)
+                    str(len(sub_pkg_summaries) - idx)
                 break
 
             valid_context_num += 1
@@ -219,7 +219,7 @@ class Summarizer:
                 # 由于省略了一些节点，进度条更新可能存在问题
 
                 ignore_log += "\nNumber of ignored class: " + \
-                    str(len(pkg_json["classes"]) - 1 - idx)
+                    str(len(pkg_json["classes"]) - idx)
                 break
 
             valid_context_num += 1
