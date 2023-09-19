@@ -191,8 +191,8 @@ def bleuFromObjs(golds, outs):
 
 
 if __name__ == '__main__':
-    gold_file_path = "./tmp/gold_base.json"
-    out_file_path = "./tmp/out_time.json"
+    gold_file_path = "./gold_jdk17.json"
+    out_file_path = "./out_jdk17.json"
 
     with open(gold_file_path, 'r') as f_gold, open(out_file_path, 'r') as f_out:
         golds = json.load(f_gold)

@@ -36,10 +36,10 @@ if __name__ == "__main__":
     repo_name = "time"
     repo_path = "./repo/{}".format(repo_name)
     tokenizer_path = "./tokenizer.json"
-    parse_log_path = "./tmp/parse_log_{}.txt".format(repo_name)
-    parse_output_path = "./tmp/parse_out_{}.json".format(repo_name)
-    summarize_log_path = "./tmp/sum_log_{}.txt".format(repo_name)
-    summarize_output_path = "./tmp/sum_out_{}.json".format(repo_name)
+    parse_log_path = "./result/parse_log_{}.txt".format(repo_name)
+    parse_output_path = "./result/parse_out_{}.json".format(repo_name)
+    summarize_log_path = "./result/sum_log_{}.txt".format(repo_name)
+    summarize_output_path = "./result/sum_out_{}.json".format(repo_name)
 
     if not os.path.exists(repo_path):
         logger.error("Repo's path does not exist")

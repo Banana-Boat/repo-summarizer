@@ -1,4 +1,5 @@
 import json
+import os
 
 
 def flatten_pkgs(packages, prefix="", result=[]):
@@ -15,15 +16,18 @@ def flatten_pkgs(packages, prefix="", result=[]):
 
 
 if __name__ == '__main__':
-    repo_name = "time"
 
-    pkgs = []
     flattened_pkgs = []
+    result_root_path = "../result"
 
-    with open("../result/sum_out_{}.json".format(repo_name), mode="r") as f_input:
-        pkgs = json.load(f_input)
+    for dir in os.listdir(result_root_path):
+        for file in os.listdir(os.path.join(result_root_path, dir)):
+            if file.startswith("sum_out_"):
+                file_path = os.path.join(result_root_path, dir, file)
+                with open(file_path, mode="r") as f_input:
+                    pkgs = json.load(f_input)
 
-    flattened_pkgs = flatten_pkgs([pkgs])
+                    flattened_pkgs.extend(flatten_pkgs([pkgs]))
 
-    with open('./out/out_{}.json'.format(repo_name), mode='w') as f_output:
-        json.dump(flattened_pkgs, f_output, indent=4)
+    with open('./out_jdk17.json', mode='w') as f_output:
+        json.dump(flattened_pkgs, f_output)
