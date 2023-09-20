@@ -14,10 +14,11 @@ java-repo-parser/repo/
 java-repo-parser/*.json
 
 evaluation/javadocs/
+evaluation/result*.zip
 
 repo/
 
-result*
+result/
 
 model/
 ################################################
