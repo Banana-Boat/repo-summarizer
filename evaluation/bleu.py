@@ -174,12 +174,14 @@ def splitPuncts(line):
 
 
 def bleuFromObjs(golds, outs):
+    hit_count = 0
     score = [0] * 5
     num = 0.0
 
     for out_obj in outs:
         for gold_obj in golds:
             if gold_obj['name'] == out_obj['name']:
+                hit_count += 1
                 ref = splitPuncts(gold_obj['des'].strip().lower())
                 candidate = splitPuncts(out_obj['des'].strip().lower())
                 bl = bleu([ref], candidate)
@@ -187,7 +189,7 @@ def bleuFromObjs(golds, outs):
                 num += 1
                 break
 
-    return [s * 100.0 / num for s in score]
+    return hit_count, [s * 100.0 / num for s in score]
 
 
 if __name__ == '__main__':
@@ -198,4 +200,6 @@ if __name__ == '__main__':
         golds = json.load(f_gold)
         outs = json.load(f_out)
 
-        print(bleuFromObjs(golds, outs)[0])
+        hit_count, score = bleuFromObjs(golds, outs)
+
+        print("有效Package数：{}\nBLEU-4：{}".format(hit_count, score[0]))

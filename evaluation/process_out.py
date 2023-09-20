@@ -2,7 +2,7 @@ import json
 import os
 
 
-def flatten_pkgs(packages, prefix="", result=[]):
+def flatten_pkgs(packages, prefix, result):
     for package in packages:
         full_name = f"{prefix}.{package['name']}" if prefix else package['name']
         result.append({
@@ -17,17 +17,20 @@ def flatten_pkgs(packages, prefix="", result=[]):
 
 if __name__ == '__main__':
 
-    flattened_pkgs = []
-    result_root_path = "../result"
+    result = []
+    result_root_path = "./result_jdk-17-35_cls_0914_0930_pkg_0918_1328"
 
     for dir in os.listdir(result_root_path):
+        if not os.path.isdir(os.path.join(result_root_path, dir)):
+            continue
+
         for file in os.listdir(os.path.join(result_root_path, dir)):
             if file.startswith("sum_out_"):
                 file_path = os.path.join(result_root_path, dir, file)
                 with open(file_path, mode="r") as f_input:
-                    pkgs = json.load(f_input)
+                    pkgs = [json.load(f_input)]
 
-                    flattened_pkgs.extend(flatten_pkgs([pkgs]))
+                    flatten_pkgs(pkgs, "", result)
 
     with open('./out_jdk17.json', mode='w') as f_output:
-        json.dump(flattened_pkgs, f_output)
+        json.dump(result, f_output)
