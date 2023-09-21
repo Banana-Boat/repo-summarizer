@@ -35,7 +35,7 @@ flowchart LR
   Summarizing-Pipeline -.Save as.-> id_sum_out[/"Result File\n(*.json)"/]
 ```
 
-- 在 Java 语言为主导的项目中，通常一个类（Class）对应一个`.java`文件，一个包（Package）则对应一个文件目录，并且一个包中可以存在子包，符合磁盘中实际存放的物理结构。同时得益于 Javadoc，Java 类与包的注释说明抓取便利，故**采用 Java 作为目标语言**。
+- 在 Java 语言为主导的项目中，通常一个类（Class）对应一个`.java`文件，一个包（Package）则对应一个文件目录，并且一个包中可以存在子包，符合磁盘中实际存放的物理结构。同时得益于 Javadoc，java 类与包的注释说明抓取便利，故**采用 Java 作为目标语言**。
 
 - Java Repo Parser：**将整个 Repo 解析为树状结构**，包含以下节点类型：
 
@@ -53,12 +53,12 @@ flowchart LR
 
   由于 LLM 存在输入 Token 上限，故将 Java 代码拆分为不超过一定大小的片段。
 
+- 对 Class 进行摘要时，使用生成的方法摘要替换方法体；对 Package 进行摘要时，使用生成的类摘要与子包摘要替换实际内容。
+
 - LLM for Code Snippet Sum：直接使用 **Salesforce/codet5-base-multi-sum 模型**
-
 - LLM for Class Sum / LLM for Package Sum：在 Salesforce/codet5-base-multi-sum 基础上进行微调
-
-  - 对 Class 进行摘要的模型使用来源于 308 个开源项目的 32184 条数据进行微调（6:2:2）
-  - 对 Package 进行摘要的模型使用来源于 308 个开源项目的 3903 条数据进行微调（6:2:2）
+  - 对 Class 进行摘要的模型使用来源于**308 个开源项目的 32184 条数据**进行微调（6:2:2）
+  - 对 Package 进行摘要的模型使用来源于**308 个开源项目的 3903 条数据**进行微调（6:2:2）
 
 ## 方法验证
 

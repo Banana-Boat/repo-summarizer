@@ -76,7 +76,7 @@ if __name__ == '__main__':
     print('\nTotal num: ' + str(len(res)))
 
     # 打乱顺序
-    # random.shuffle(res)
+    random.shuffle(res)
 
     # 将res拆分为train, valid, test，比例为6:2:2
     train_num = int(len(res) * 0.6)
