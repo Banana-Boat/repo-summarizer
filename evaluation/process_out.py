@@ -18,7 +18,7 @@ def flatten_pkgs(packages, prefix, result):
 if __name__ == '__main__':
 
     result = []
-    result_root_path = "./result_jdk-17-35_cls_0914_0930_pkg_0918_1328"
+    result_root_path = "../result"
 
     for dir in os.listdir(result_root_path):
         if not os.path.isdir(os.path.join(result_root_path, dir)):
