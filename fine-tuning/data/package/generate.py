@@ -29,9 +29,10 @@ def get_processed_data(tokenizer: MyTokenizer, filename, start_idx):
             jsonl = json.loads(line)
             obj = {}
 
-            code = 'package ' + jsonl['name'] + ';\n\n'
+            code = 'Package: ' + jsonl['name'] + '\n'
 
             if len(jsonl['subPackages']) > 0:
+                code += '\nSub Packages: \n'
                 sub_pkg_num += 1
 
             for sub_pkg in jsonl['subPackages']:
@@ -43,6 +44,9 @@ def get_processed_data(tokenizer: MyTokenizer, filename, start_idx):
                     break
 
                 code += tmp_str
+
+            if len(jsonl['classes']) > 0:
+                code += '\nClasses and Interfaces: \n'
 
             for idx, cls in enumerate(jsonl['classes']):
                 tmp_str = cls['signature'] + ';'

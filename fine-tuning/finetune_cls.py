@@ -525,7 +525,8 @@ if __name__ == "__main__":
         os.makedirs(my_args.log_dir)
     handler = logging.FileHandler(
         my_args.log_dir +
-        "/cls_{}.log".format(datetime.datetime.now().strftime("%m%d_%H%M")),
+        "/finetune_cls_{}.log".format(
+            datetime.datetime.now().strftime("%m%d_%H%M")),
         "w", encoding="utf-8"
     )
     handler.setLevel(logging.INFO)

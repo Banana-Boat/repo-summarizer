@@ -52,24 +52,6 @@ def read_examples(filename, args):
     return examples
 
 
-class InputFeatures(object):
-    """A single training/test features for an example."""
-
-    def __init__(self,
-                 example_id,
-                 source_ids,
-                 target_ids,
-                 source_mask,
-                 target_mask,
-
-                 ):
-        self.example_id = example_id
-        self.source_ids = source_ids
-        self.target_ids = target_ids
-        self.source_mask = source_mask
-        self.target_mask = target_mask
-
-
 def convert_examples_to_features(examples, tokenizer, args, stage=None):
     # collect texts
     codes = []
@@ -91,30 +73,23 @@ def convert_examples_to_features(examples, tokenizer, args, stage=None):
         target_nl, padding=True, verbose=False, add_special_tokens=True,
         truncation=True, max_length=args.max_source_length, return_tensors='pt')
 
-    return {'source_ids':encoded_codes['input_ids'], 'target_ids':encoded_targets['input_ids'],
-            'source_mask':encoded_codes['attention_mask'], 'target_mask':encoded_targets['attention_mask']}
+    return {'source_ids': encoded_codes['input_ids'], 'target_ids': encoded_targets['input_ids'],
+            'source_mask': encoded_codes['attention_mask'], 'target_mask': encoded_targets['attention_mask']}
 
 
-def read_prompt_examples(filename):
+def read_pkg_prompt_examples(filename):
     """Read examples from filename."""
     examples = []
     with open(filename, encoding="utf-8") as f:
-        for idx, line in enumerate(f):
+        for line in f:
             line = line.strip()
             js = json.loads(line)
-            if 'idx' not in js:
-                js['idx'] = idx
-            code = ' '.join(js['code_tokens']).replace('\n', ' ')
-            code = ' '.join(code.strip().split())
-            nl = ' '.join(js['docstring_tokens']).replace('\n', '')
-            nl = ' '.join(nl.strip().split())
-            # code = js['code'].replace('\n', ' ').strip()
-            # nl = js['docstring'].replace('\n', ' ').strip()
+
             examples.append(
                 InputExample(
-                    guid=idx,
-                    text_a= code,
-                    tgt_text= nl,
+                    guid=js['index'],
+                    text_a=js['code'],
+                    tgt_text=js['des'],
                 )
             )
 

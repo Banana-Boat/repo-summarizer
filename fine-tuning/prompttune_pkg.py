@@ -31,14 +31,16 @@ import logging
 import argparse
 import numpy as np
 from io import open
+
+from openprompt import PromptDataLoader, PromptForGeneration
+from openprompt.plms import T5TokenizerWrapper
+from openprompt.prompts import SoftTemplate
 from tqdm import tqdm
-from torch.utils.data import DataLoader, SequentialSampler, RandomSampler, TensorDataset
-from torch.utils.data.distributed import DistributedSampler
 from transformers import (AdamW, get_linear_schedule_with_warmup,
-                          RobertaConfig, RobertaModel, RobertaTokenizer, T5Config, T5ForConditionalGeneration)
+                          RobertaTokenizer, T5Config, T5ForConditionalGeneration)
 
 import bleu
-from utils import read_examples, convert_examples_to_features, get_elapse_time
+from utils import read_pkg_prompt_examples, get_elapse_time
 
 
 def set_seed(seed=42):
@@ -151,9 +153,20 @@ def main(args):
 
     # read model --------------------------------------------------------------
     model_config = T5Config.from_pretrained(model_name)
-    model = T5ForConditionalGeneration.from_pretrained(
+    plm = T5ForConditionalGeneration.from_pretrained(
         model_name, config=model_config)
     tokenizer = RobertaTokenizer.from_pretrained(model_name)
+    WrapperClass = T5TokenizerWrapper
+
+    # define template
+    template_text = '{"placeholder":"text_a"}\n' + 'Summarization: {"mask"}'
+    promptTemplate = SoftTemplate(model=plm, tokenizer=tokenizer,
+                                  text=template_text, initialize_from_vocab=True,
+                                  num_tokens=50)
+
+    # get model
+    model = PromptForGeneration(plm=plm, template=promptTemplate, freeze_plm=False, tokenizer=tokenizer,
+                                plm_eval_mode=False)
 
     if args.load_model_path is not None:
         logger.info("reload model from {}".format(args.load_model_path))
@@ -182,27 +195,24 @@ def main(args):
     # train part --------------------------------------------------------------
     if args.do_train:
         # Prepare training data loader
-        train_examples = read_examples(train_filename, args)
-        logger.info("Total {} training instances ".format(len(train_examples)))
-        train_features = convert_examples_to_features(
-            train_examples, tokenizer, args, stage='train')
+        train_examples = read_pkg_prompt_examples(train_filename)
 
-        all_source_ids = train_features['source_ids']
-        all_source_mask = train_features['source_mask']
-        all_target_ids = train_features['target_ids']
-        all_target_mask = train_features['target_mask']
+        # take an example
+        wrapped_example = promptTemplate.wrap_one_example(train_examples[0])
+        logger.info(wrapped_example)
 
-        train_data = TensorDataset(
-            all_source_ids, all_source_mask, all_target_ids, all_target_mask)
-
-        if args.local_rank == -1:
-            train_sampler = RandomSampler(train_data)
-        else:
-            train_sampler = DistributedSampler(train_data)
-
-        train_dataloader = DataLoader(train_data, sampler=train_sampler,
-                                      batch_size=args.train_batch_size // args.gradient_accumulation_steps,
-                                      num_workers=2)
+        train_dataloader = PromptDataLoader(
+            dataset=train_examples,
+            tokenizer=tokenizer,
+            template=promptTemplate,
+            tokenizer_wrapper_class=WrapperClass,
+            max_seq_length=args.max_source_length,
+            decoder_max_length=args.max_target_length,
+            shuffle=True,
+            teacher_forcing=True,
+            predict_eos_token=True,
+            batch_size=args.train_batch_size
+        )
 
         # Prepare optimizer and schedule (linear warmup and decay)
         no_decay = ['bias', 'LayerNorm.weight']
@@ -227,10 +237,12 @@ def main(args):
         logger.info("  Batch size = %d", args.train_batch_size)
         logger.info("  Num epoch = %d", args.num_train_epochs)
 
-        # used to save tokenized data
-        dev_dataset = {}
+        # used to save tokenized development data
         nb_tr_examples, nb_tr_steps, global_step, best_bleu, best_loss = 0, 0, 0, 0, 1e6
         early_stop_threshold = args.early_stop_threshold
+
+        eval_dataloader = None
+        dev_dataloader = None
 
         early_stop_count = 0
         for epoch in range(args.num_train_epochs):
@@ -243,18 +255,9 @@ def main(args):
             bar = tqdm(train_dataloader, total=len(train_dataloader))
 
             for batch in bar:
-                batch = tuple(t.to(device) for t in batch)
-                source_ids, source_mask, target_ids, target_mask = batch
+                batch = batch.to(device)
 
-                labels = [
-                    [(label if label != tokenizer.pad_token_id else -100) for label in labels_example] for
-                    labels_example in target_ids
-                ]
-                labels = torch.tensor(labels).to(device)
-
-                out = model(input_ids=source_ids,
-                            attention_mask=source_mask, labels=labels)
-                loss = out.loss
+                loss = model(batch)
 
                 if args.n_gpu > 1:
                     loss = loss.mean()  # mean() to average on multi-gpu.
@@ -267,7 +270,6 @@ def main(args):
                 bar.set_description(
                     "epoch {} loss {}".format(epoch, train_loss))
 
-                nb_tr_examples += source_ids.size(0)
                 nb_tr_steps += 1
                 loss.backward()
 
@@ -285,55 +287,43 @@ def main(args):
                 # Eval model with dev dataset
                 nb_tr_examples, nb_tr_steps = 0, 0
 
-                if 'dev_loss' in dev_dataset:
-                    eval_examples, eval_data = dev_dataset['dev_loss']
+                if eval_dataloader is None:
+                    # Prepare training data loader
+                    eval_examples = read_pkg_prompt_examples(dev_filename)
+
+                    eval_dataloader = PromptDataLoader(
+                        dataset=eval_examples,
+                        tokenizer=tokenizer,
+                        template=promptTemplate,
+                        tokenizer_wrapper_class=WrapperClass,
+                        max_seq_length=args.max_source_length,
+                        decoder_max_length=args.max_target_length,
+                        shuffle=False,
+                        teacher_forcing=False,
+                        predict_eos_token=True,
+                        batch_size=args.eval_batch_size
+                    )
                 else:
-                    eval_examples = read_examples(dev_filename, args)
-                    eval_features = convert_examples_to_features(
-                        eval_examples, tokenizer, args, stage='dev')
-
-                    all_source_ids = eval_features['source_ids']
-                    all_source_mask = eval_features['source_mask']
-                    all_target_ids = eval_features['target_ids']
-                    all_target_mask = eval_features['target_mask']
-
-                    eval_data = TensorDataset(
-                        all_source_ids, all_source_mask, all_target_ids, all_target_mask)
-                    dev_dataset['dev_loss'] = eval_examples, eval_data
-
-                eval_sampler = SequentialSampler(eval_data)
-                eval_dataloader = DataLoader(eval_data, sampler=eval_sampler, batch_size=args.eval_batch_size,
-                                             num_workers=2)
+                    pass
 
                 logger.info("\n***** Running evaluation *****")
-                logger.info("  Num examples = %d", len(eval_examples))
+                logger.info("  Num examples = %d", len(
+                    eval_dataloader) * args.eval_batch_size)
                 logger.info("  Batch size = %d", args.eval_batch_size)
 
                 # Start Evaluating model
                 model.eval()
-                eval_loss, tokens_num = 0, 0
+                eval_loss = 0
 
                 for batch in eval_dataloader:
-                    batch = tuple(t.to(device) for t in batch)
-                    source_ids, source_mask, target_ids, target_mask = batch
+                    batch = batch.to(device)
 
                     with torch.no_grad():
-                        labels = [
-                            [(label if label != tokenizer.pad_token_id else -100) for label in labels_example] for
-                            labels_example in target_ids
-                        ]
-                        labels = torch.tensor(labels).to(device)
-
-                        tokens_num += torch.tensor([(labels_example != -100).sum().item()
-                                                   for labels_example in labels]).sum().item()
-
-                        loss = model(
-                            input_ids=source_ids, attention_mask=source_mask, labels=labels).loss
+                        loss = model(batch)
 
                     eval_loss += loss.sum().item()
 
                 # print loss of dev dataset
-                eval_loss = eval_loss/tokens_num
                 result = {'epoch': epoch,
                           'eval_ppl': round(np.exp(eval_loss), 5),
                           'global_step': global_step + 1,
@@ -378,8 +368,8 @@ def main(args):
                     torch.save(model_to_save.state_dict(), output_model_file)
 
                 # Calculate bleu
-                this_bleu, dev_dataset = calculate_bleu(
-                    dev_filename, args, tokenizer, device, model, is_test=False, dev_dataset=dev_dataset, best_bleu=best_bleu)
+                this_bleu, dev_dataloader = calculate_bleu(
+                    dev_filename, args, tokenizer, device, model, promptTemplate, WrapperClass, is_test=False, dev_dataloader=dev_dataloader, best_bleu=best_bleu)
 
                 if this_bleu > best_bleu:
                     this_epoch_best = True
@@ -409,6 +399,16 @@ def main(args):
 
     # use dev file and test file ( if exist) to calculate bleu
     if args.do_test:
+        # read model
+        output_dir = os.path.join(args.output_dir, 'checkpoint-best-bleu')
+        if not os.path.exists(output_dir):
+            raise Exception("Best bleu model does not exist!")
+
+        model.load_state_dict(torch.load(
+            os.path.join(output_dir, "pytorch_model.bin")))
+        logger.info("reload model from {}".format(args.load_model_path))
+        model.eval()
+
         files = []
         if dev_filename is not None:
             files.append(dev_filename)
@@ -416,19 +416,19 @@ def main(args):
             files.append(test_filename)
 
         for idx, file in enumerate(files):
-            calculate_bleu(file, args, tokenizer, device, model,
-                           file_postfix=str(idx), is_test=True)
+            calculate_bleu(file, args, tokenizer, device, model, promptTemplate,
+                           WrapperClass, out_filename=str(idx), is_test=True)
 
 
-def calculate_bleu(file_name, args, tokenizer, device, model, file_postfix=None, is_test=False, dev_dataset=None,
+def calculate_bleu(file_name, args, tokenizer, device, model, promptTemplate, WrapperClass, out_filename=None, is_test=False, dev_dataloader=None,
                    best_bleu=None):
     logger.info("BLEU file: {}".format(file_name))
 
     # whether append postfix to result file
-    if file_postfix is not None:
-        file_postfix = "_" + file_postfix
+    if out_filename is not None:
+        out_filename = "_" + out_filename
     else:
-        file_postfix = ""
+        out_filename = ""
 
     if is_test:
         file_prefix = "test"
@@ -436,64 +436,59 @@ def calculate_bleu(file_name, args, tokenizer, device, model, file_postfix=None,
         file_prefix = "dev"
 
     # if dev dataset has been saved
-    if (not is_test) and ('dev_bleu' in dev_dataset):
-        eval_examples, eval_data = dev_dataset['dev_bleu']
+    if (not is_test) and (dev_dataloader is not None):
+        eval_dataloader = dev_dataloader
     else:
         # read texts
-        eval_examples = read_examples(file_name, args)
+        eval_examples = read_pkg_prompt_examples(file_name)
 
         # only use a part for dev
         if not is_test:
             eval_examples = random.sample(
                 eval_examples, min(1000, len(eval_examples)))
 
-        # tokenize data
-        eval_features = convert_examples_to_features(
-            eval_examples, tokenizer, args, stage='test')
-
-        all_source_ids = eval_features['source_ids']
-        all_source_mask = eval_features['source_mask']
-
-        eval_data = TensorDataset(all_source_ids, all_source_mask)
-
-        if not is_test:
-            dev_dataset['dev_bleu'] = eval_examples, eval_data
-
-    # get dataloader
-    eval_sampler = SequentialSampler(eval_data)
-    eval_dataloader = DataLoader(eval_data, sampler=eval_sampler, batch_size=args.eval_batch_size,
-                                 num_workers=2)
+        eval_dataloader = PromptDataLoader(
+            dataset=eval_examples,
+            tokenizer=tokenizer,
+            template=promptTemplate,
+            tokenizer_wrapper_class=WrapperClass,
+            max_seq_length=args.max_source_length,
+            decoder_max_length=args.max_target_length,
+            shuffle=False,
+            teacher_forcing=False,
+            predict_eos_token=True,
+            batch_size=args.eval_batch_size
+        )
 
     model.eval()
 
     # generate texts by source
     generated_texts = []
+    groundtruth_sentence = []
+    guids = []
     for batch in tqdm(eval_dataloader, total=len(eval_dataloader)):
-        batch = tuple(t.to(device) for t in batch)
-        source_ids, source_mask = batch
+        batch = batch.to(device)
         with torch.no_grad():
-            generated_texts_ids = model.generate(input_ids=source_ids, attention_mask=source_mask,
-                                                 max_length=args.max_target_length)
+            _, output_sentence = model.generate(batch)
 
-            for text_ids in generated_texts_ids:
-                text = tokenizer.decode(
-                    text_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)
-                generated_texts.append(text)
+            generated_texts.extend(output_sentence)
+            groundtruth_sentence.extend(batch['tgt_text'])
+            guids.extend(batch['guid'])
 
     # write to file
     predictions = []
 
-    with open(os.path.join(args.output_dir, file_prefix + "{}.output".format(file_postfix)), 'w') as f, open(
-            os.path.join(args.output_dir, file_prefix + "{}.gold".format(file_postfix)), 'w') as f1:
+    with open(os.path.join(args.output_dir, file_prefix + "{}.output".format(out_filename)), 'w') as f, open(
+            os.path.join(args.output_dir, file_prefix + "{}.gold".format(out_filename)), 'w') as f1:
 
-        for ref, gold in zip(generated_texts, eval_examples):
-            predictions.append(str(gold.idx) + '\t' + ref)
-            f.write(str(gold.idx) + '\t' + ref + '\n')
-            f1.write(str(gold.idx) + '\t' + gold.target + '\n')
+        for ref, gold, idx in zip(generated_texts, groundtruth_sentence, guids):
+            predictions.append(str(idx) + '\t' + ref)
+            f.write(str(idx) + '\t' + ref + '\n')
+            f1.write(str(idx) + '\t' + gold + '\n')
 
     # compute bleu
     (goldMap, predictionMap) = bleu.computeMaps(predictions,
-                                                os.path.join(args.output_dir, file_prefix + "{}.gold".format(file_postfix)))
+                                                os.path.join(args.output_dir, file_prefix + "{}.gold".format(out_filename)))
     this_bleu = round(bleu.bleuFromMaps(goldMap, predictionMap)[0], 2)
 
     if is_test:
@@ -504,7 +499,7 @@ def calculate_bleu(file_name, args, tokenizer, device, model, file_postfix=None,
 
     logger.info("  " + "*" * 20)
 
-    return this_bleu, dev_dataset
+    return this_bleu, eval_dataloader
 
 
 if __name__ == "__main__":
@@ -523,7 +518,7 @@ if __name__ == "__main__":
         os.makedirs(my_args.log_dir)
     handler = logging.FileHandler(
         my_args.log_dir +
-        "/finetune_pkg_{}.log".format(
+        "/prompttune_pkg_{}.log".format(
             datetime.datetime.now().strftime("%m%d_%H%M")),
         "w", encoding="utf-8"
     )
