@@ -1,0 +1,368 @@
+Namespace(adam_epsilon=1e-08, add_task_prefix=False, data_dir='./data', do_eval=True, do_test=True, do_train=True, early_stop_threshold=8, eval_batch_size=13, gradient_accumulation_steps=2, learning_rate=5e-05, load_model_path=None, local_rank=-1, log_dir='./log', max_source_length=512, max_target_length=30, no_cuda=False, num_train_epochs=24, output_dir='./model', seed=42, train_batch_size=26, visible_gpu='0', warm_up_ratio=0.1, weight_decay=0.0)
+Process rank: -1, device: cuda, n_gpu: 1, distributed training: False, model_name: Salesforce/codet5-base
+model created!
+[[{'text': 'Package: runtime\n\nClasses and Interfaces: \nInterface ArrayBindable; // Extension to Bindable that returns rows that are arrays of objects.\nInterface Bindable<T>; // Statement that can be bound to a DataContext and then executed.\nInterface CalciteResource; // Compiler-checked resources for the Calcite project.\nInterface Enumerables.Emitter<E,TResult>; // Given a match (a list of rows, and their states) produces a list of rows to be output.\nInterface FlatLists.ComparableList<T>; // List that is also comparable.\nInterface Hook.Closeable; // Removes a Hook after use.\nInterface Pattern; // Regular expression, to be compiled into an Automaton.\nInterface ResultSetEnumerable.PreparedStatementEnricher; // Consumer for decorating a PreparedStatement, that is, setting its parameters.\nInterface SpaceFillingCurve2D; // Utilities for space-filling curves.\nInterface SpaceFillingCurve2D.IndexRange; // Range.\nInterface Typed; // Adds type information to a Enumerable.\nClass ArrayComparator; // Compares arrays.\nClass ArrayEnumeratorCursor; // Implementation of Cursor on top of an Enumerator that returns an array of Object for each row.\nClass Automaton; // A nondeterministic finite-state automaton (NFA).\nClass AutomatonBuilder; // Builds a state-transition graph for deterministic finite automaton.\nClass BinarySearch; // Binary search for the implementation of RANGE BETWEEN XXX PRECEDING/FOLLOWING clause.\nClass CompressionFunctions; // A collection of functions used in compression and decompression.\nClass ConsList<E>; // List that consists of a head element and an immutable non-empty list.\nClass CoordinateTransformer; // Transforms the coordinates of a geometry.\nClass DeterministicAutomaton; // A deterministic finite automaton (DFA).\nClass Enumerables; // Utilities for processing Enumerable collections.\nClass EnumeratorCursor<T>; // Implementation of Cursor on top of an Enumerator that returns a record for each row.\nClass Feature; // SQL language feature.\nClass FlatLists; // Space-efficient, comparable, immutable lists.\nClass FlatLists.AbstractFlatList<T>; // Base class for flat lists.\n', 'loss_ids': 0, 'shortenable_ids': 1}, {'text': '\nSummarization:', 'loss_ids': 0, 'shortenable_ids': 0}, {'text': '<mask>', 'loss_ids': 1, 'shortenable_ids': 0}], {'guid': 854, 'tgt_text': 'Utilities required at runtime.'}]
+***** Running training *****
+  Num examples = 2341
+  Batch size = 26
+  Num epoch = 24
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 0
+  eval_ppl = inf
+  global_step = 46
+  train_loss = 79.5637
+  ********************
+Previous best ppl:inf
+Achieve Best ppl:inf
+  ********************
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 17.19 	 Previous best bleu 0
+  ********************
+ Achieve Best bleu:17.19
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 1
+  eval_ppl = inf
+  global_step = 91
+  train_loss = 39.7213
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 20.32 	 Previous best bleu 17.19
+  ********************
+ Achieve Best bleu:20.32
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 2
+  eval_ppl = inf
+  global_step = 136
+  train_loss = 35.5934
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 21.43 	 Previous best bleu 20.32
+  ********************
+ Achieve Best bleu:21.43
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 3
+  eval_ppl = inf
+  global_step = 181
+  train_loss = 32.3985
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 21.98 	 Previous best bleu 21.43
+  ********************
+ Achieve Best bleu:21.98
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 4
+  eval_ppl = inf
+  global_step = 226
+  train_loss = 30.2537
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 22.53 	 Previous best bleu 21.98
+  ********************
+ Achieve Best bleu:22.53
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 5
+  eval_ppl = inf
+  global_step = 271
+  train_loss = 28.0168
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 22.6 	 Previous best bleu 22.53
+  ********************
+ Achieve Best bleu:22.6
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 6
+  eval_ppl = inf
+  global_step = 316
+  train_loss = 26.1252
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 23.32 	 Previous best bleu 22.6
+  ********************
+ Achieve Best bleu:23.32
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 7
+  eval_ppl = inf
+  global_step = 361
+  train_loss = 24.5779
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 23.72 	 Previous best bleu 23.32
+  ********************
+ Achieve Best bleu:23.72
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 8
+  eval_ppl = inf
+  global_step = 406
+  train_loss = 22.6551
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 24.5 	 Previous best bleu 23.72
+  ********************
+ Achieve Best bleu:24.5
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 9
+  eval_ppl = inf
+  global_step = 451
+  train_loss = 21.235
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 25.02 	 Previous best bleu 24.5
+  ********************
+ Achieve Best bleu:25.02
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 10
+  eval_ppl = inf
+  global_step = 496
+  train_loss = 19.8401
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 25.16 	 Previous best bleu 25.02
+  ********************
+ Achieve Best bleu:25.16
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 11
+  eval_ppl = inf
+  global_step = 541
+  train_loss = 18.4281
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 25.73 	 Previous best bleu 25.16
+  ********************
+ Achieve Best bleu:25.73
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 12
+  eval_ppl = inf
+  global_step = 586
+  train_loss = 17.3096
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 25.59 	 Previous best bleu 25.73
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 13
+  eval_ppl = inf
+  global_step = 631
+  train_loss = 16.3892
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 26.06 	 Previous best bleu 25.73
+  ********************
+ Achieve Best bleu:26.06
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 14
+  eval_ppl = inf
+  global_step = 676
+  train_loss = 15.5617
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 25.97 	 Previous best bleu 26.06
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 15
+  eval_ppl = inf
+  global_step = 721
+  train_loss = 14.7853
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 25.89 	 Previous best bleu 26.06
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 16
+  eval_ppl = inf
+  global_step = 766
+  train_loss = 13.8216
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 26.31 	 Previous best bleu 26.06
+  ********************
+ Achieve Best bleu:26.31
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 17
+  eval_ppl = inf
+  global_step = 811
+  train_loss = 13.4199
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 26.92 	 Previous best bleu 26.31
+  ********************
+ Achieve Best bleu:26.92
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 18
+  eval_ppl = inf
+  global_step = 856
+  train_loss = 12.8045
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 26.67 	 Previous best bleu 26.92
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 19
+  eval_ppl = inf
+  global_step = 901
+  train_loss = 12.2454
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 26.73 	 Previous best bleu 26.92
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 20
+  eval_ppl = inf
+  global_step = 946
+  train_loss = 11.8732
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 27.05 	 Previous best bleu 26.92
+  ********************
+ Achieve Best bleu:27.05
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 21
+  eval_ppl = inf
+  global_step = 991
+  train_loss = 11.8865
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 27.22 	 Previous best bleu 27.05
+  ********************
+ Achieve Best bleu:27.22
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 22
+  eval_ppl = inf
+  global_step = 1036
+  train_loss = 11.4135
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 27.24 	 Previous best bleu 27.22
+  ********************
+ Achieve Best bleu:27.24
+  ********************
+
+***** Running evaluation *****
+  Num examples = 780
+  Batch size = 13
+  epoch = 23
+  eval_ppl = inf
+  global_step = 1081
+  train_loss = 11.395
+  ********************
+Previous best ppl:inf
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 27.39 	 Previous best bleu 27.24
+  ********************
+ Achieve Best bleu:27.39
+  ********************
+reload model from None
+BLEU file: ./data/valid_pkg.jsonl
+  bleu-4 = 27.39 
+  ********************
+BLEU file: ./data/test_pkg.jsonl
+  bleu-4 = 27.54 
+  ********************
+Finish training and take 1h7m

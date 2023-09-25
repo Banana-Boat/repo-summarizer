@@ -74,9 +74,9 @@ def read_arguments():
     parser.add_argument("--num_train_epochs", default=24, type=int,
                         help="Total number of training epochs to perform.")
 
-    parser.add_argument("--train_batch_size", default=50, type=int,
+    parser.add_argument("--train_batch_size", default=26, type=int,
                         help="Batch size per GPU/CPU for training.")
-    parser.add_argument("--eval_batch_size", default=25, type=int,
+    parser.add_argument("--eval_batch_size", default=13, type=int,
                         help="Batch size per GPU/CPU for evaluation.")
     parser.add_argument('--gradient_accumulation_steps', type=int, default=2,
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
@@ -120,7 +120,7 @@ def read_arguments():
 
 def main(args):
     set_seed(args.seed)
-    model_name = "Salesforce/codet5-base-multi-sum"
+    model_name = "Salesforce/codet5-base"
     # data path
     train_filename = args.data_dir + "/train_pkg.jsonl"
     dev_filename = args.data_dir + "/valid_pkg.jsonl"
