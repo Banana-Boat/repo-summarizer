@@ -105,7 +105,7 @@ if __name__ == '__main__':
     print('Package has sub package: ' + str(total_sub_pkg_num))
 
     # 打乱顺序
-    random.shuffle(res)
+    # random.shuffle(res)
 
     # 将res拆分为train, valid, test，比例为6:2:2
     train_num = int(len(res) * 0.6)
