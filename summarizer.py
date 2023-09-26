@@ -32,10 +32,10 @@ class Summarizer:
             "load_state_path": "model/cls_0921_0952/checkpoint-best-bleu/pytorch_model.bin"
         },
         MODEL_TAG.PKG: {
-            "name": "Salesforce/codet5-base-multi-sum",
+            "name": "Salesforce/codet5-base",
             "max_source_length": 512,
             "max_target_length": 30,
-            "load_state_path": "model/pkg_0921_0952/checkpoint-best-bleu/pytorch_model.bin"
+            "load_state_path": "model/pkg_0925_1631/checkpoint-best-bleu/pytorch_model.bin"
         }
     }
 
