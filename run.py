@@ -57,6 +57,8 @@ if __name__ == "__main__":
     if (0 != parse_repo(repo_path, tokenizer_path, parse_output_path, parse_log_path)):
         logging.error("Failed to parse repo")
         exit(1)
+    logger.info("Repo parsed successfully, log file was written to {}, result file was written to {} ".format(
+        parse_log_path, parse_output_path))
 
     # 创建 Summarizer
     summarizer = Summarizer(logger)

@@ -5,6 +5,10 @@ from enum import Enum
 from tqdm import tqdm
 from transformers import (AutoTokenizer, T5Config,
                           T5ForConditionalGeneration)
+from openprompt import PromptDataLoader, PromptForGeneration
+from openprompt.plms import T5TokenizerWrapper
+from openprompt.prompts import SoftTemplate
+from openprompt.data_utils import InputExample
 
 
 class MODEL_TAG(Enum):
@@ -35,6 +39,7 @@ class Summarizer:
             "name": "Salesforce/codet5-base",
             "max_source_length": 512,
             "max_target_length": 30,
+            "template_text": '{"placeholder":"text_a"}\nSummarization: {"mask"}',
             "load_state_path": "model/pkg_0925_1631/checkpoint-best-bleu/pytorch_model.bin"
         }
     }
@@ -43,16 +48,20 @@ class Summarizer:
         self.logger = logger
 
         # 加载模型
-
-        # device = torch.device(
-        #     "cuda" if torch.cuda.is_available() else "cpu")
-        # os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-
-        for tag, val in self.model_dict.items():
+        for tag, val in tqdm(self.model_dict.items(), desc="Loading models..."):
             model_config = T5Config.from_pretrained(val["name"])
-            model = T5ForConditionalGeneration.from_pretrained(
+            plm = T5ForConditionalGeneration.from_pretrained(
                 val["name"], config=model_config)
             tokenizer = AutoTokenizer.from_pretrained(val["name"])
+            model = plm
+
+            if tag == MODEL_TAG.PKG:  # pkg采用prompt-tuning model
+                prompt_template = SoftTemplate(
+                    model=plm, tokenizer=tokenizer, text=val["template_text"], num_tokens=50)
+                model = PromptForGeneration(
+                    plm=plm, template=prompt_template, tokenizer=tokenizer)
+                self.model_dict[tag]["prompt_template"] = prompt_template
+                self.model_dict[tag]["tokenizer_wrapper_class"] = T5TokenizerWrapper
 
             # 加载模型参数
             if 'load_state_path' in val:
@@ -61,12 +70,9 @@ class Summarizer:
                 model.load_state_dict(torch.load(
                     val["load_state_path"], map_location="cpu"))  # 将GPU上训练的模型权重加载到CPU上
 
-            # model = model.to(device)
-
+            model.eval()
             self.model_dict[tag]["model"] = model
             self.model_dict[tag]["tokenizer"] = tokenizer
-
-            self.logger.info("Model for {} loaded successfully".format(tag))
 
     # 判断输入token数是否合法
     def isLegalSource(self, source, model_tag: MODEL_TAG):
@@ -78,18 +84,40 @@ class Summarizer:
 
     def summarize_by_llm(self, source: str, model_tag: MODEL_TAG) -> str:
         model_obj = self.model_dict[model_tag]
+        generated_text = ""
 
-        encoded_code = model_obj['tokenizer'](source, return_tensors='pt',
-                                              max_length=model_obj['max_source_length'],
-                                              padding=True, verbose=False,
-                                              add_special_tokens=True, truncation=True)
+        with torch.no_grad():
+            if model_tag == MODEL_TAG.PKG:
+                dataloader = PromptDataLoader(
+                    dataset=[
+                        InputExample(
+                            guid=0,
+                            text_a=source,
+                        )
+                    ],
+                    tokenizer=model_obj['tokenizer'],
+                    template=model_obj['prompt_template'],
+                    tokenizer_wrapper_class=model_obj['tokenizer_wrapper_class'],
+                    max_seq_length=model_obj['max_source_length'],
+                    decoder_max_length=model_obj['max_target_length'],
+                    predict_eos_token=True,
+                )
 
-        generated_texts_ids = model_obj['model'].generate(input_ids=encoded_code['input_ids'],
-                                                          attention_mask=encoded_code['attention_mask'],
-                                                          max_length=model_obj['max_target_length'])
+                _, generated_sentences = model_obj['model'].generate(
+                    next(iter(dataloader)))
+                generated_text = generated_sentences[0]
+            else:
+                encoded_code = model_obj['tokenizer'](source, return_tensors='pt',
+                                                      max_length=model_obj['max_source_length'],
+                                                      padding=True, verbose=False,
+                                                      add_special_tokens=True, truncation=True)
 
-        generated_text = model_obj['tokenizer'].decode(generated_texts_ids[0],
-                                                       skip_special_tokens=True, clean_up_tokenization_spaces=False)
+                generated_texts_ids = model_obj['model'].generate(input_ids=encoded_code['input_ids'],
+                                                                  attention_mask=encoded_code['attention_mask'],
+                                                                  max_length=model_obj['max_target_length'])
+
+                generated_text = model_obj['tokenizer'].decode(generated_texts_ids[0],
+                                                               skip_special_tokens=True, clean_up_tokenization_spaces=False)
 
         return generated_text
 
@@ -188,7 +216,11 @@ class Summarizer:
         # 根据子包与包内类的摘要生成当前包的摘要
         summarization = ""
         ignore_log = ""
-        source = 'package ' + pkg_json['name'] + ';\n\n'
+        source = 'Package: ' + pkg_json['name'] + '\n'
+
+        # 子包部分
+        if len(sub_pkg_summaries) > 0:
+            source += '\nSub Packages: \n'
 
         for idx, sub_pkg in enumerate(sub_pkg_summaries):
             if sub_pkg['summarization'] == NO_SUMMARY:
@@ -206,6 +238,10 @@ class Summarizer:
 
             valid_context_num += 1
             source += tmp_str
+
+        # 子包内类部分
+        if len(pkg_json["classes"]) > 0:
+            source += '\nClasses and Interfaces: \n'
 
         for idx, cls in enumerate(pkg_json["classes"]):
             tmp_str = ""
